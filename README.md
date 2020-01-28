@@ -1,2 +1,2 @@
 # Hallo
-A Comprehensive chat application
+A Comprehensive chat application build on flutter and firebase
