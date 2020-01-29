@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # hallo
 
 chat app 
@@ -14,3 +15,14 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Hallo
+A Comprehensive chat application build on flutter and firebase
+
+Team Members:
+Nirmal Sharon Joji
+Rakshana J
+Shashankh S
+Svarnim Agarwal 
+Shukhiksha 
+>>>>>>> c28b3f9925e645ee2dc21298b5fbfa5872f553ab
