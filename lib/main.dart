@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         ),
 
         body: SafeArea(
-          child: Text("Dashboard"),
+          child: Text("Dashboard Page"),
         ),
       ),
     );
