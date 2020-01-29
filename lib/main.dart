@@ -6,18 +6,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Hallo"),
-        centerTitle: true,
-        backgroundColor: Colors.grey[400]
-        ,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Hallo"),
+          backgroundColor: Colors.grey[800],
+          centerTitle: true,
+        ),
 
-
+        body: SafeArea(
+            child: Text("This is where you daahboard will come")
+        ),
       ),
-
-      body: Text("This is where the Dasgboard will go"),
     );
   }
 }
-
