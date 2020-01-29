@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "107379338026",
+    "firebase_url": "https://hallo-fbe3b.firebaseio.com",
+    "project_id": "hallo-fbe3b",
+    "storage_bucket": "hallo-fbe3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107379338026:android:93c4788e20a8a93eafcc53",
+        "android_client_info": {
+          "package_name": "com.chatapp.hallo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107379338026-7dsnl9dckdsor87qj2sqc877hpd3710m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbX0GKByADtE2dk6-l3Q4RAa03dIZiY9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107379338026-7dsnl9dckdsor87qj2sqc877hpd3710m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
