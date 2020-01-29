@@ -5,7 +5,7 @@ chat app
 
 ## Getting Started
 
-#Understanding the Project folder organisation
+### Understanding the Project folder organisation
  1)Model -> all firebase object and other data related object classses can be defined example (usernmae , password for registration)
  2)Services -> Various logic for services will go in here in seperate dart files so as they can reused in diffent parts of project 
  3)screens -> As the name suggest all individual screens go here (sub folders deine  are used categorisation of pages)+
@@ -14,7 +14,7 @@ chat app
  <----Since i have added everone as Contributors pls create branches and then  commit on to branch--->
                            eg raks_signModule or svar_registerModule
  
- #DO NO PUSH TO MASTER BRANCH
+ # DO NO PUSH TO MASTER BRANCH
  
 
 
