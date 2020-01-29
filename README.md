@@ -11,10 +11,10 @@ chat app
  3)screens -> As the name suggest all individual screens go here (sub folders deine  are used categorisation of pages)+
  
  
- ##Since i have added everone as Contributors pls create branches and then  commit on to branch 
- # eg raks_signModule or svar_registerModule
+ <----Since i have added everone as Contributors pls create branches and then  commit on to branch--->
+                           eg raks_signModule or svar_registerModule
  
- ###DO NO PUSH TO MASTER BRANCH
+ #DO NO PUSH TO MASTER BRANCH
  
 
 
