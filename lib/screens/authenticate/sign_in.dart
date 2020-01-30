@@ -47,11 +47,11 @@ class _SignInState extends State<SignIn> {
               child: Container(
 
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
 
                     Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
+                      //margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
                       child: Column(
                         children: <Widget>[
                           Image.asset(
@@ -59,15 +59,20 @@ class _SignInState extends State<SignIn> {
                             scale: 5,
                           ),
                           SizedBox(
-                            height: 25.0,
+                            height: 15.0,
                           ),
                           Text(
                             'HALLO',
+
                             style: TextStyle(
                               fontFamily: 'Pacifico',
+                              color: Colors.white70,
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
                           ),
                         ],
                       ),
