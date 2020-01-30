@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/services/auth.dart';
-import "package:firebase_auth/firebase_auth.dart";
-import 'package:hallo/screens/authenticate/authenticate.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -53,46 +51,79 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                          hintText: "Email-id",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                    onChanged: (val) {
-                      setState(() {
-                        email = val;
-                      });
-                    },
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            hintText: "Email-id",
+                            hintStyle: TextStyle(color: Colors.grey[400])),
+                        validator: (val) =>
+                        val.isEmpty
+                            ? 'Enter an email'
+                            : null,
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
+                      ),
+                    ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        hintText: "password",
-                        hintStyle: TextStyle(color: Colors.grey[400])),
-                    validator: (val) => val.length < 6
-                        ? 'Enter a password 6+ chars long'
-                        : null,
-                    onChanged: (val) {
-                      setState(() {
-                        password = val;
-                      });
-                    },
-                    obscureText: true,
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            hintText: "password",
+                            hintStyle: TextStyle(color: Colors.grey[400])),
+                        validator: (val) =>
+                        val.length < 6
+                            ? 'Enter a password 6+ chars long'
+                            : null,
+                        onChanged: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                        obscureText: true,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   RaisedButton(
-                    color: Colors.grey[900],
-                    padding: EdgeInsets.symmetric(vertical: 5,horizontal:30 ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 50),
+
+                    color: Colors.lightGreen,
                     child: Text(
                       "Register",
                       style: TextStyle(
-                          color: Colors.amberAccent[400], fontSize: 20),
+                        color: Colors.black54,
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,),
                     ),
                     onPressed: () async {
                       if (_formkey.currentState.validate()) {

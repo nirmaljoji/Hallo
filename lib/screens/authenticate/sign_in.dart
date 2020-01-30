@@ -77,7 +77,9 @@ class _SignInState extends State<SignIn> {
                         ],
                       ),
                     ),
+//end of logo and name
 
+// form start
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -108,6 +110,9 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     ),
+
+//end of mail id field
+
                     SizedBox(
                       height: 10,
                     ),
