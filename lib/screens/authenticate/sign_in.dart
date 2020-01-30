@@ -40,91 +40,118 @@ class _SignInState extends State<SignIn> {
                 ))
           ],
         ),
-        body: Card(
-          child: Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
+        body: Container(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                        width: 2.0,
+                      ),
                     ),
-                    TextFormField(
-                      validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        validator: (val) =>
+                        val.isEmpty
+                            ? 'Enter an email'
+                            : null,
+                        style: TextStyle(color: Colors.white),
+
+                        decoration: InputDecoration(
                           hintText: "Email-id",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                      onChanged: (val) {
-                        setState(() {
-                          email = val;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      validator: (val) =>
-                      val.length < 6
-                          ? 'Enter a password 6+ chars long'
-                          : null,
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                      style: TextStyle(color: Colors.white),
-                      onChanged: (val) {
-                        setState(() {
-                          password = val;
-                        });
-                      },
-                      obscureText: true,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 30),
-                      color: Colors.grey[900],
-                      child: Text(
-                        "Sign in",
-                        style: TextStyle(
-                          color: Colors.amberAccent[400],
-                          fontSize: 20,
+                          hintStyle: TextStyle(color: Colors.grey[400]),
                         ),
+
+
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        validator: (val) =>
+                        val.length < 6
+                            ? 'Enter a password 6+ chars long'
+                            : null,
+                        decoration: InputDecoration(
+                            hintText: "Password",
+                            hintStyle: TextStyle(color: Colors.grey[400])),
+                        style: TextStyle(color: Colors.white),
+                        onChanged: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                        obscureText: true,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 60),
+                    color: Colors.grey[900],
+                    child: Text(
+                      "Sign in",
+                      style: TextStyle(
+                        color: Colors.amberAccent[400],
+                        fontSize: 20,
+                      ),
+                    ),
 
-                      onPressed: () async {
-                        print("Email:$email");
-                        print("password:$password");
+                    onPressed: () async {
+                      print("Email:$email");
+                      print("password:$password");
 
-                        if (_formkey.currentState.validate()) {
-                          dynamic result = await _auth
-                              .signInWithEmailAndPassword(email, password);
-                          if (result == null) {
-                            setState(() {
-                              error = 'Could Not Sign in with Credentials';
-                            });
-                          }
+                      if (_formkey.currentState.validate()) {
+                        dynamic result = await _auth
+                            .signInWithEmailAndPassword(email, password);
+                        if (result == null) {
+                          setState(() {
+                            error = 'Could Not Sign in with Credentials';
+                          });
                         }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.red, fontSize: 14),
-                    )
-                  ],
-                ),
-              )),
-        ));
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 14),
+                  )
+                ],
+              ),
+            )));
   }
 }
