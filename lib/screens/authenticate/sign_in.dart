@@ -51,12 +51,28 @@ class _SignInState extends State<SignIn> {
                   children: <Widget>[
 
                     Container(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 150.0),
-                      child: Image.asset(
-                        'images/hallo.png',
-                        scale: 5,
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
+                      child: Column(
+                        children: <Widget>[
+                          Image.asset(
+                            'images/hallo.png',
+                            scale: 5,
+                          ),
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          Text(
+                            'HALLO',
+                            style: TextStyle(
+                              fontFamily: 'Pacifico',
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -97,6 +113,7 @@ class _SignInState extends State<SignIn> {
                           width: 2.0,
                         ),
                       ),
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: TextFormField(
@@ -126,6 +143,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       padding: EdgeInsets.symmetric(
                           vertical: 12, horizontal: 50),
+
                       color: Colors.lightGreen,
                       child: Text(
                         "Sign in",
