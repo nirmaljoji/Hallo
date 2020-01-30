@@ -109,7 +109,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -140,7 +140,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
