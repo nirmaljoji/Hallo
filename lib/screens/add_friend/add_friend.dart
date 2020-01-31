@@ -10,8 +10,12 @@ class _Add_friendState extends State<Add_friend> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       drawer: Nav_menu(),
+      backgroundColor: Colors.grey[800],
       appBar: AppBar(
+        backgroundColor: Colors.grey[900],
+        centerTitle: true,
         title: Text(
           "Add Friend"
         ),

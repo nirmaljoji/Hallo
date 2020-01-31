@@ -10,8 +10,22 @@ class _GroupsState extends State<Groups> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.search),
+          backgroundColor: Colors.amber,
+
+          onPressed: (){
+            setState(() {
+
+            });
+
+          },
+        ),
+      backgroundColor: Colors.grey[800],
       drawer: Nav_menu(),
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.grey[900],
         title: Text(
           "Groups"
         ),
