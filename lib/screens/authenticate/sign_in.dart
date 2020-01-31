@@ -47,7 +47,8 @@ class _SignInState extends State<SignIn> {
               child: Container(
 
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
 
                     Container(
@@ -65,7 +66,7 @@ class _SignInState extends State<SignIn> {
                             'HALLO',
 
                             style: TextStyle(
-                              fontFamily: 'Pacifico',
+                              //fontFamily: 'Pacifico',
                               color: Colors.white70,
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,

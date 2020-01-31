@@ -3,6 +3,7 @@ import 'package:hallo/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hallo/models/user.dart';
+import 'package:hallo/screens/profile/profile.dart';
 
 
 void main() => runApp(MyApp());
@@ -13,7 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<User>.value(
       value:AuthService().user,
+
       child: MaterialApp(
+
+
         home:Wrapper(),
       ),
     );

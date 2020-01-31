@@ -48,6 +48,8 @@ class _RegisterState extends State<Register> {
               key: _formkey,
               child: Column(
                 children: <Widget>[
+
+
                   SizedBox(
                     height: 20,
                   ),
