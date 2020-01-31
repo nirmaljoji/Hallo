@@ -93,7 +93,7 @@ class _Nav_menuState extends State<Nav_menu> {
                   color:
                       ch.currentSelected == index ? Colors.red : Colors.white,
                   child: ListTile(
-                    trailing: new Icon(drawerItems[index].icon),
+                    leading: new Icon(drawerItems[index].icon),
                     title: Text(_listViewData[index]),
 
                     onTap: () async {
