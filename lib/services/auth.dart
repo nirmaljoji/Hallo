@@ -6,7 +6,7 @@ class AuthService{
   final FirebaseAuth _auth=FirebaseAuth.instance;
 
   //Create user object on firebaseUser
-  User _userFromFirebaseUser(FirebaseUser user){
+  User userFromFirebaseUser(FirebaseUser user){
 
     return user!= null ? User(uid:user.uid) : null;
   }
@@ -17,7 +17,7 @@ class AuthService{
   Stream<User> get user{
     return _auth.onAuthStateChanged
     //.map((FirebaseUser user)=> _userFromFirebaseUser(user));
-        .map(_userFromFirebaseUser);
+        .map(userFromFirebaseUser);
   }
 
 
@@ -28,7 +28,9 @@ class AuthService{
     try{
       AuthResult result= await _auth.signInWithEmailAndPassword(email: email, password: password );
       FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      print(user.uid);
+
+      return userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
       return null;
@@ -43,7 +45,7 @@ class AuthService{
     try{
       AuthResult result= await _auth.createUserWithEmailAndPassword(email: email, password: password );
       FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      return userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
       return null;

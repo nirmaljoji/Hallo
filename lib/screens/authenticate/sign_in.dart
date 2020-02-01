@@ -88,27 +88,35 @@ class _SignInState extends State<SignIn> {
                           width: 2.0,
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextFormField(
-                          validator: (val) =>
-                          val.isEmpty
-                              ? 'Enter an email'
-                              : null,
-                          style: TextStyle(color: Colors.white),
+                      child: TextFormField(
+                        validator: (val) =>
+                        val.isEmpty
+                            ? 'Enter an email'
+                            : null,
+                        style: TextStyle(color: Colors.white),
 
-                          decoration: InputDecoration(
-                            hintText: "Email-id",
-                            hintStyle: TextStyle(color: Colors.grey[400]),
+                        decoration: InputDecoration(
+
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding: EdgeInsets.all(12.0),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
                           ),
 
-
-                          onChanged: (val) {
-                            setState(() {
-                              email = val;
-                            });
-                          },
+                          hintText: "Email-id",
+                          hintStyle: TextStyle(color: Colors.grey[400]),
                         ),
+
+
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
                       ),
                     ),
 
@@ -125,24 +133,32 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextFormField(
-                          validator: (val) =>
-                          val.length < 6
-                              ? 'Enter a password 6+ chars long'
-                              : null,
-                          decoration: InputDecoration(
-                              hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.grey[400])),
-                          style: TextStyle(color: Colors.white),
-                          onChanged: (val) {
-                            setState(() {
-                              password = val;
-                            });
-                          },
-                          obscureText: true,
-                        ),
+                      child: TextFormField(
+                        validator: (val) =>
+                        val.length < 6
+                            ? 'Enter a password 6+ chars long'
+                            : null,
+                        decoration: InputDecoration(
+
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: EdgeInsets.all(12.0),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.pink, width: 2.0),
+                            ),
+
+                            hintText: "Password",
+                            hintStyle: TextStyle(color: Colors.grey[400])),
+                        style: TextStyle(color: Colors.white),
+                        onChanged: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                        obscureText: true,
                       ),
                     ),
                     SizedBox(

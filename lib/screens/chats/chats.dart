@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
+import 'package:hallo/services/auth.dart';
 
 
 class Chats extends StatefulWidget {
@@ -7,8 +8,11 @@ class Chats extends StatefulWidget {
   _ChatsState createState() => _ChatsState();
 }
 
+
+
 class _ChatsState extends State<Chats> {
 
+  final AuthService _auth = AuthService();
 
 
   @override
