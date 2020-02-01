@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -13,6 +14,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
+  bool loading =false ;
 
   //Text fiels states
   String email = '';
@@ -21,7 +23,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() :Scaffold(
         backgroundColor: Colors.grey[800],
         appBar: AppBar(
           backgroundColor: Colors.grey[900],
@@ -93,7 +95,7 @@ class _SignInState extends State<SignIn> {
                         val.isEmpty
                             ? 'Enter an email'
                             : null,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
 
                         decoration: InputDecoration(
 
@@ -134,6 +136,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
                       child: TextFormField(
+                        style: TextStyle(color: Colors.black),
                         validator: (val) =>
                         val.length < 6
                             ? 'Enter a password 6+ chars long'
@@ -152,7 +155,7 @@ class _SignInState extends State<SignIn> {
 
                             hintText: "Password",
                             hintStyle: TextStyle(color: Colors.grey[400])),
-                        style: TextStyle(color: Colors.white),
+
                         onChanged: (val) {
                           setState(() {
                             password = val;
@@ -186,11 +189,16 @@ class _SignInState extends State<SignIn> {
                         print("password:$password");
 
                         if (_formkey.currentState.validate()) {
+                          setState(() {
+                            loading=true;
+                          });
                           dynamic result = await _auth
                               .signInWithEmailAndPassword(email, password);
                           if (result == null) {
+
                             setState(() {
                               error = 'Could Not Sign in with Credentials';
+                              loading=false;
                             });
                           }
                         }

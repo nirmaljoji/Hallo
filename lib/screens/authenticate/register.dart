@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/shared/loading.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -17,10 +18,10 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String error = '';
-
+  bool loading=false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() :Scaffold(
         backgroundColor: Colors.grey[800],
         appBar: AppBar(
           backgroundColor: Colors.grey[900],
@@ -61,7 +62,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     child: TextFormField(
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
@@ -97,7 +98,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     child: TextFormField(
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
 
                           fillColor: Colors.white,
@@ -144,6 +145,9 @@ class _RegisterState extends State<Register> {
                     ),
                     onPressed: () async {
                       if (_formkey.currentState.validate()) {
+                        setState(() {
+                          loading=true;
+                        });
                         print("Email:$email");
                         print("password:$password");
                         dynamic result = await _auth
@@ -151,6 +155,7 @@ class _RegisterState extends State<Register> {
                         if (result == null) {
                           setState(() {
                             error = 'pls supple a valid mail';
+                            loading=false;
                           });
                         }
                       }
