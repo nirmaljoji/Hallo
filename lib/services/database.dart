@@ -56,6 +56,25 @@ class DatabaseService {
 
   //hallo Stream
 
+
+
+Stream<UserData> get userData{
+    return profileCollection.document(uid).snapshots().map(_userDataFromSnapshot);
+}
+
+
+UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
+    return UserData(
+        uid:uid,
+        name: snapshot.data['user_name'],
+        status: snapshot.data['user_status'],
+        phone: snapshot.data['user_phone'],
+        email: snapshot.data['user_email']
+
+    );
+}
+
+
 Stream<DocumentSnapshot> getProfileData(String uid){
     return profileCollection.document(uid).snapshots();
 }
