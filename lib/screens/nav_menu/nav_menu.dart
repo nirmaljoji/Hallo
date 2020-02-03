@@ -1,6 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:hallo/models/user_profile.dart';
 import 'package:hallo/models/selected.dart';
+import 'package:hallo/models/user.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/services/database.dart';
+import 'package:hallo/models/uid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Nav_menu extends StatefulWidget {
   @override
@@ -13,6 +19,11 @@ class DrawerItem {
 }
 
 class _Nav_menuState extends State<Nav_menu> {
+  Future returnUid() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    return (user.uid);
+  }
+
   static final List<String> _listViewData = [
     "Chats",
     "Groups",
@@ -94,7 +105,6 @@ class _Nav_menuState extends State<Nav_menu> {
                         ch.currentSelected = index;
                         Navigator.pushReplacementNamed(
                             context, '/${_listViewRouteData[index]}');
-                        print("Current ${ch.currentSelected}");
                       });
                     },
                   ),
@@ -102,7 +112,7 @@ class _Nav_menuState extends State<Nav_menu> {
               }),
         ),
         Container(
-            padding: EdgeInsets.symmetric(vertical: 2,horizontal: 10),
+            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
             margin: EdgeInsets.symmetric(vertical: 100),
             decoration: BoxDecoration(color: Colors.amberAccent[400]),
             child: FlatButton(

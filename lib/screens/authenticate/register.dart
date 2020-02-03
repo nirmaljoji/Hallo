@@ -17,6 +17,8 @@ class _RegisterState extends State<Register> {
 
   String email = '';
   String password = '';
+  String name = '';
+  String phone='';
   String error = '';
   bool loading=false;
   @override
@@ -125,9 +127,87 @@ class _RegisterState extends State<Register> {
                       obscureText: true,
                     ),
                   ),
+
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
+
+
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding: EdgeInsets.all(12.0),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
+                          ),
+
+                          hintText: "Enter name",
+                          hintStyle: TextStyle(color: Colors.grey[400])),
+                      validator: (val) =>
+                      val.isEmpty
+                          ? 'Enter a name '
+                          : null,
+                      onChanged: (val) {
+                        setState(() {
+                          name = val;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: TextFormField(
+                      keyboardType: TextInputType.phone,
+                      style: TextStyle(
+                          color: Colors.black),
+                      decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          contentPadding: EdgeInsets.all(12.0),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
+                          ),
+
+                          hintText: "Phone no",
+                          hintStyle: TextStyle(color: Colors.grey[400])),
+                      validator: (val) =>
+                      val.isEmpty
+                          ? 'Enter valid phone number'
+                          : null,
+                      onChanged: (val) {
+                        setState(() {
+                          phone = val;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
                   RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -151,7 +231,7 @@ class _RegisterState extends State<Register> {
                         print("Email:$email");
                         print("password:$password");
                         dynamic result = await _auth
-                            .registerWithEmailAndPassword(email, password);
+                            .registerWithEmailAndPassword(email, password,name,phone);
                         if (result == null) {
                           setState(() {
                             error = 'pls supple a valid mail';

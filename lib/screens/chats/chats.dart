@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/models/uid.dart';
+
 
 
 class Chats extends StatefulWidget {
@@ -45,6 +47,7 @@ class _ChatsState extends State<Chats> {
         elevation: 4,
 
       ),
+      body: Text("user name = $current_user_uid"),
     );
   }
 }

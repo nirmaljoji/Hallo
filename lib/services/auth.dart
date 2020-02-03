@@ -1,5 +1,9 @@
 import 'package:hallo/models/user.dart';
 import "package:firebase_auth/firebase_auth.dart";
+import 'package:hallo/services/database.dart';
+import 'package:hallo/models/uid.dart';
+import 'package:hallo/screens/nav_menu/nav_menu.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService{
 
@@ -10,6 +14,8 @@ class AuthService{
 
     return user!= null ? User(uid:user.uid) : null;
   }
+
+
 
 
 // auth change user stream
@@ -28,7 +34,7 @@ class AuthService{
     try{
       AuthResult result= await _auth.signInWithEmailAndPassword(email: email, password: password );
       FirebaseUser user = result.user;
-      print(user.uid);
+
 
       return userFromFirebaseUser(user);
     }catch(e){
@@ -39,12 +45,18 @@ class AuthService{
 
 
 
+
+
   //register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password,String name,String phone) async {
 
     try{
       AuthResult result= await _auth.createUserWithEmailAndPassword(email: email, password: password );
       FirebaseUser user = result.user;
+       current_user_uid=user.uid;
+
+      await DatabaseService(uid: current_user_uid).updateUserData(name, "Hey i am available on Hallo", phone , email);
+
       return userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
@@ -62,5 +74,8 @@ class AuthService{
       return null;
     }
   }
+
+  // get user id
+
 
 }
