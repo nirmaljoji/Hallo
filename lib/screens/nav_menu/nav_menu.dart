@@ -13,6 +13,7 @@ class Nav_menu extends StatefulWidget {
   _Nav_menuState createState() => _Nav_menuState();
 }
 
+Selected ch = new Selected();
 class DrawerItem {
   IconData icon;
   DrawerItem({this.icon});
@@ -88,15 +89,19 @@ class _Nav_menuState extends State<Nav_menu> {
         ),
         Container(
           child: ListView.builder(
+
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               padding: EdgeInsets.all(10.0),
               itemCount: _Nav_menuState._listViewData.length,
               itemBuilder: (context, index) {
+                print(ch.currentSelected);
                 return Container(
+
                   color:
                       ch.currentSelected == index ? Colors.grey : Colors.white,
                   child: ListTile(
+                    
                     leading: new Icon(drawerItems[index].icon),
                     title: Text(_listViewData[index]),
                     onTap: () async {
