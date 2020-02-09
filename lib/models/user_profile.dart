@@ -4,12 +4,13 @@ class User_Profile {
   String user_status;
   String user_email;
   String user_phone;
-
-  User_Profile(String u, String s, String p, String e) {
+  String imagUrl;
+  User_Profile(String u, String s, String p, String e,String i) {
     this.user_name = u;
     this.user_status = s;
     this.user_email = e;
     this.user_phone = p;
+    this.imagUrl=i;
   }
 
   String getUser_name() {

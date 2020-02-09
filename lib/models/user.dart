@@ -11,8 +11,11 @@ class UserData{
   String status;
   String email;
   String phone;
+  String imageUrl;
 
-  UserData({this.uid,this.name,this.status,this.email,this.phone});
+  UserData({this.uid,this.name,this.status,this.email,this.phone,this.imageUrl});
+
+
 
 }
 
