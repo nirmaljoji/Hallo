@@ -20,6 +20,15 @@ class DatabaseService {
     });
   }
 
+
+  Future updateProfile(
+      String i) async {
+    return await profileCollection.document(uid).updateData(
+      {
+        'imageUrl':i
+      });
+  }
+
 //  Stream<DocumentSnapshot> get profile {
 //
 ////    print("database class :$uid");
@@ -69,7 +78,8 @@ UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
         name: snapshot.data['user_name'],
         status: snapshot.data['user_status'],
         phone: snapshot.data['user_phone'],
-        email: snapshot.data['user_email']
+        email: snapshot.data['user_email'],
+        imageUrl: snapshot.data['imageUrl']
 
     );
 }

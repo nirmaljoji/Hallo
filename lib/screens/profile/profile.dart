@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:ui';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
@@ -10,6 +12,8 @@ import 'package:hallo/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Profile extends StatefulWidget {
 
@@ -19,6 +23,42 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+      String fileName = basename(_image.path);
+      print('Image Path $_image');
+
+
+    });
+  }
+
+
+
+  Future uploadPic(BuildContext context) async{
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('profiles/$current_user_uid');
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    print('File Uploaded');
+    storageReference.getDownloadURL().then((fileURL) {
+      setState(() async{
+        uploadedFileURL = fileURL;
+        print("File url : $uploadedFileURL");
+
+        await DatabaseService(uid: current_user_uid).updateProfile(uploadedFileURL);
+
+      });
+    });
+
+  }
+
 
 
 
@@ -37,6 +77,7 @@ class _ProfileState extends State<Profile> {
     String status;
     String phone;
     String email;
+    String imageUrl;
 
     final user =Provider.of<User>(context);
 
@@ -169,7 +210,7 @@ class _ProfileState extends State<Profile> {
 
                     color: Colors.lightGreen,
                     child: Text(
-                      "Register",
+                      "Update",
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 20,
@@ -188,13 +229,12 @@ class _ProfileState extends State<Profile> {
     }
 
 
+
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: current_user_uid).userData ,
         builder: (context, snapshot)  {
 
           if (!(snapshot.hasData)) {
-
-
 
 
             return AlertDialog(
@@ -225,6 +265,7 @@ class _ProfileState extends State<Profile> {
           } else {
 
             UserData userData = snapshot.data;
+            print("profile pic : ${userData.imageUrl}");
             return Scaffold(
               drawer: Nav_menu(),
               backgroundColor: Colors.grey[900],
@@ -246,11 +287,42 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Center(
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/'),
-                        radius: 60.0,
-                      ),
+
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                      children:<Widget>[
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/'),
+                          radius: 60.0,
+                          child: ClipOval(
+                            child: new SizedBox(
+                              width: 180,
+                              height: 180,
+                              child: userData.imageUrl!=null?Image.network(
+                                userData.imageUrl,
+                                fit: BoxFit.cover ,
+                              ):Container(
+                                color: Colors.amber,
+                              )
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 60.0),
+                          child: IconButton(
+                            icon: Icon(
+                              FontAwesomeIcons.cameraRetro,
+                              color: Colors.amber,
+                              size: 30.0,
+                            ),
+                            onPressed: () async {
+                              await getImage();
+                              uploadPic(context);
+                            },
+                          ),
+                        ),
+
+    ],
                     ),
                     Divider(
                       height: 60,
