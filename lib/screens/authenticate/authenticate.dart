@@ -1,8 +1,11 @@
-import 'package:hallo/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/screens/authenticate/register.dart';
+import 'package:hallo/screens/authenticate/sign_in.dart';
 
 class Authenticate extends StatefulWidget {
+
+  String id = '/authenticate';
+
   @override
   _AuthenticateState createState() => _AuthenticateState();
 }

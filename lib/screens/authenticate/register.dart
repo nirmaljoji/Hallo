@@ -3,6 +3,9 @@ import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/loading.dart';
 
 class Register extends StatefulWidget {
+
+  String id = '/register';
+
   final Function toggleView;
 
   Register({this.toggleView});

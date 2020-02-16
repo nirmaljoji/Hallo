@@ -1,22 +1,20 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:path/path.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:hallo/models/uid.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hallo/services/auth.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
 
+  String id = '/profile';
 
   @override
   _ProfileState createState() => _ProfileState();

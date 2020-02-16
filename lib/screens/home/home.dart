@@ -4,11 +4,11 @@ import 'package:hallo/screens/add_friend/add_friend.dart';
 import 'package:hallo/screens/chats/chats.dart';
 import 'package:hallo/screens/groups/groups.dart';
 import 'package:hallo/screens/profile/profile.dart';
-import 'package:hallo/services/auth.dart';
-import 'package:hallo/screens/nav_menu/nav_menu.dart';
-import 'package:hallo/models/user.dart';
 
 class Home extends StatefulWidget {
+
+  String id = '/home';
+
   @override
   _HomeState createState() => _HomeState();
 

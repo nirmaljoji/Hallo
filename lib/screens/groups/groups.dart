@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 
 class Groups extends StatefulWidget {
+
+  String id = '/groups';
+
   @override
   _GroupsState createState() => _GroupsState();
 }
