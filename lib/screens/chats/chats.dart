@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/auth.dart';
@@ -81,13 +82,11 @@ class ListStream extends StatelessWidget {
             final listElements = snapshot.data.documents;
             List<UserDeets> conversationList = [];
             for (var user in listElements) {
-              final x = user.data['name'];
-              final y = user.data['email'];
+              final uid = user.data['uid'];
               print('herre');
 
               final z = UserDeets(
-                name: x,
-                mail: y,
+                friendUID: uid,
               );
 
               conversationList.add(z);
@@ -103,20 +102,35 @@ class ListStream extends StatelessWidget {
 
 class UserDeets extends StatelessWidget {
 
-  final String name;
-  final String mail;
+  final String friendUID;
+  String name = "";
 
-  UserDeets({this.name, this.mail});
+  UserDeets({this.friendUID});
+
+  void getFriendsName() async {
+    await for (var snapshot in _firestore.collection('user_profiles').document(
+        '$friendUID').snapshots()) {
+      name = snapshot.data['user_name'];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(name),
-        Text(mail),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+          children: <Widget>[
+            ChatButton(
+              friendName: name,
+              onPressed: () {
+                print('hey it worksss');
+              },
+            ),
+          ]
+      ),
     );
   }
 }
+
 
 
