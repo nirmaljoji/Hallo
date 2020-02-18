@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/auth.dart';
 
@@ -66,31 +67,35 @@ class _ChatsState extends State<Chats> {
 class ListStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _firestore.collection('messages').snapshots(),
+    return StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('user_profiles').document(
+            '$current_user_uid').collection('friends').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
               child: Text('no'),
             );
           }
-          final listElements = snapshot.data.documents;
-          List<UserDeets> conversationList = [];
-          for (var user in listElements) {
-            final x = user.data['name'];
-            final y = user.data['mail'];
-            print('herre');
+          else {
+            print('in else part');
+            final listElements = snapshot.data.documents;
+            List<UserDeets> conversationList = [];
+            for (var user in listElements) {
+              final x = user.data['name'];
+              final y = user.data['email'];
+              print('herre');
 
-            final z = UserDeets(
-              name: x,
-              mail: y,
+              final z = UserDeets(
+                name: x,
+                mail: y,
+              );
+
+              conversationList.add(z);
+            }
+            return ListView(
+              children: conversationList,
             );
-
-            conversationList.add(z);
           }
-          return ListView(
-            children: conversationList,
-          );
         }
     );
   }
