@@ -20,14 +20,14 @@ class _ChatsState extends State<Chats> {
 
   final AuthService _auth = AuthService();
 
-  void getConversationList() async {
-    print('list of all converstions');
-    await for (var snapshot in _firestore.collection('messages').snapshots()) {
-      for (var convo in snapshot.documents) {
-        print(convo.data);
-      }
-    }
-  }
+//  void getConversationList() async {
+//    print('list of all converstions');
+//    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+//      for (var convo in snapshot.documents) {
+//        print(convo.data);
+//      }
+//    }
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,6 @@ class _ChatsState extends State<Chats> {
         child: Icon(Icons.search),
         backgroundColor: Colors.amber,
         onPressed: () {
-          getConversationList();
           setState(() {
 
           });
@@ -82,13 +81,12 @@ class ListStream extends StatelessWidget {
             final listElements = snapshot.data.documents;
             List<UserDeets> conversationList = [];
             for (var user in listElements) {
-              final uid = user.data['uid'];
-              print('herre');
+              final String uid = user.data['user_id'];
+              print('$uid');
 
               final z = UserDeets(
                 friendUID: uid,
               );
-//jj
               conversationList.add(z);
             }
             return ListView(
@@ -100,17 +98,30 @@ class ListStream extends StatelessWidget {
   }
 }
 
-class UserDeets extends StatelessWidget {
+class UserDeets extends StatefulWidget {
 
   final String friendUID;
-  String name = "";
 
   UserDeets({this.friendUID});
 
+  @override
+  _UserDeetsState createState() => _UserDeetsState();
+}
+
+class _UserDeetsState extends State<UserDeets> {
+  String name = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFriendsName();
+  }
+
   void getFriendsName() async {
     await for (var snapshot in _firestore.collection('user_profiles').document(
-        '$friendUID').snapshots()) {
+        '${widget.friendUID}').snapshots()) {
       name = snapshot.data['user_name'];
+      print('$name');
     }
   }
 
