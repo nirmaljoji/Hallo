@@ -88,7 +88,7 @@ class ListStream extends StatelessWidget {
               final z = UserDeets(
                 friendUID: uid,
               );
-
+//jj
               conversationList.add(z);
             }
             return ListView(
