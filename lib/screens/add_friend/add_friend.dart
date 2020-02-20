@@ -60,7 +60,7 @@ class _Add_friendState extends State<Add_friend> {
 
 
 
-            Center(child: Text("Page 2")),
+           new Friend_list_page2(),
           ],
         ),
       ),

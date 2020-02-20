@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ChatButton extends StatelessWidget {
-  String friendName;
+  final String friendName;
+  final String imageURL;
   var onPressed;
 
-  ChatButton({this.friendName, this.onPressed});
+  ChatButton({this.friendName, this.onPressed, this.imageURL});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,10 @@ class ChatButton extends StatelessWidget {
         minWidth: 500.0,
         height: 70.0,
         child: ListTile(
-          //leading: Image.network('https://www.facebook.com/photo.php?fbid=1244009335781317&set=a.111456479036614&type=3&theater'),
+          leading: imageURL!=null?Image.network(
+            imageURL,
+            fit: BoxFit.cover ,
+          ):SizedBox(width: 1.0),
           title: Text(
             friendName,
             style: TextStyle(

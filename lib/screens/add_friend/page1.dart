@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class Add_Friends_Page extends StatefulWidget {
   @override

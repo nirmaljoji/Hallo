@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/uid.dart';
+import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/services/database.dart';
 
 
 Firestore _firestore = Firestore.instance;
@@ -98,42 +100,40 @@ class ListStream extends StatelessWidget {
   }
 }
 
-class UserDeets extends StatefulWidget {
+class UserDeets extends StatelessWidget{
 
   final String friendUID;
 
   UserDeets({this.friendUID});
 
   @override
-  _UserDeetsState createState() => _UserDeetsState();
+  Widget build(BuildContext context) {
+    return StreamBuilder<UserData>(
+      stream: DatabaseService(uid: friendUID).userData,
+      builder: (context,snapshot){
+        if(!snapshot.hasData){
+          return Text('NA');
+        }
+        else{
+          UserData userData = snapshot.data;
+          return(ChatButton(friendName:userData.name,imageURL:userData.imageUrl));
+        }
+      },
+
+
+    );
+  }
+
 }
 
-class _UserDeetsState extends State<UserDeets> {
-  String name = "";
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getFriendsName();
-  }
+/*
 
-  void getFriendsName() async {
-    await for (var snapshot in _firestore.collection('user_profiles').document(
-        '${widget.friendUID}').snapshots()) {
-      name = snapshot.data['user_name'];
-      print('function $name');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    getFriendsName();
-    return Padding(
+return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
           children: <Widget>[
             ChatButton(
-              friendName: name,
+              friendName: friendUID,
               onPressed: () {
                 print('hey it worksss');
               },
@@ -141,8 +141,8 @@ class _UserDeetsState extends State<UserDeets> {
           ]
       ),
     );
-  }
-}
+ */
+
 
 
 
