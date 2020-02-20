@@ -121,12 +121,13 @@ class _UserDeetsState extends State<UserDeets> {
     await for (var snapshot in _firestore.collection('user_profiles').document(
         '${widget.friendUID}').snapshots()) {
       name = snapshot.data['user_name'];
-      print('$name');
+      print('function $name');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    getFriendsName();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

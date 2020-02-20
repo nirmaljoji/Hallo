@@ -8,6 +8,7 @@ class ChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('chat button $friendName');
     return Material(
       elevation: 2.0,
       child: MaterialButton(
