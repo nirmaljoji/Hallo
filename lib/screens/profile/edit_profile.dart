@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Edit_Profile extends StatefulWidget {
+
+  String id = '/edit_profile';
+
   @override
   _Edit_ProfileState createState() => _Edit_ProfileState();
 }

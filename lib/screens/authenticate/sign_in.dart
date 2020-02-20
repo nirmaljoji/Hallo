@@ -3,6 +3,9 @@ import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
+
+  String id = '/signin';
+
   final Function toggleView;
 
   SignIn({this.toggleView});
