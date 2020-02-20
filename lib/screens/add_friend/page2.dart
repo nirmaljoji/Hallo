@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hallo/screens/chats/chats.dart';
+import 'package:hallo/screens/add_friend/show_friends.dart';
 
 
 
