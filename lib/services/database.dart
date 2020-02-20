@@ -75,6 +75,7 @@ Stream<UserData> get userData{
 UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
     return UserData(
         uid:uid,
+
         name: snapshot.data['user_name'],
         status: snapshot.data['user_status'],
         phone: snapshot.data['user_phone'],
