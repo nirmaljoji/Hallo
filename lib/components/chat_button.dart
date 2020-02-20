@@ -36,6 +36,7 @@ class ChatButton extends StatelessWidget {
             ),
           ) : CircleAvatar(
             backgroundImage: AssetImage('images/user.png'),
+            backgroundColor: Colors.white54,
             radius: 30.0,
           ),
           title: Column(
