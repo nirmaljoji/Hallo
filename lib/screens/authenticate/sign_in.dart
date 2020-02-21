@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/loading.dart';
@@ -105,64 +106,34 @@ class _SignInState extends State<SignIn> {
                     SizedBox(
                       height: 10,
                     ),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 50),
-
-                      color: Theme
-                          .of(context)
-                          .cardColor,
-                      child: Text(
-                        "Sign in",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .button,
-                      ),
-
-                      onPressed: () async {
+                    HalloButton(
+                      text: 'Sign In',
+                      onPressedBtn: () async {
                         print("Email:$email");
                         print("password:$password");
 
                         if (_formkey.currentState.validate()) {
                           setState(() {
-                            loading=true;
+                            loading = true;
                           });
                           dynamic result = await _auth
                               .signInWithEmailAndPassword(email, password);
                           if (result == null) {
-
                             setState(() {
                               error = 'Could Not Sign in with Credentials';
-                              loading=false;
+                              loading = false;
                             });
                           }
                         }
                       },
                     ),
+
                     SizedBox(
                       height: 10,
                     ),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 50),
-                      color: Theme
-                          .of(context)
-                          .cardColor,
-                      child: Text(
-                        "Register",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .button,
-                      ),
-                      onPressed: () {
+                    HalloButton(
+                      text: 'Register',
+                      onPressedBtn: () {
                         widget.toggleView();
                       },
                     ),
