@@ -20,6 +20,19 @@ class DatabaseService {
     });
   }
 
+  Future createFriendsCollection() async{
+    return  profileCollection.document(uid).collection('friends').document("test").setData({
+      'user_id':"dummy"
+    });
+  }
+
+
+  Future<QuerySnapshot> checkIfMailExist(String email) {
+    var doc = profileCollection.where('user_email',isEqualTo: email).getDocuments();
+    return Future.value(doc);
+
+
+  }
 
   Future updateProfile(
       String i) async {
@@ -28,6 +41,20 @@ class DatabaseService {
         'imageUrl':i
       });
   }
+
+  Future updateFriend(String i,String suid) async {
+    profileCollection.document(uid).collection('friends').document(suid).setData({
+      'user_id':suid,
+    });
+
+  }
+
+
+    
+  
+
+
+      
 
 //  Stream<DocumentSnapshot> get profile {
 //
@@ -75,6 +102,7 @@ Stream<UserData> get userData{
 UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
     return UserData(
         uid:uid,
+
         name: snapshot.data['user_name'],
         status: snapshot.data['user_status'],
         phone: snapshot.data['user_phone'],

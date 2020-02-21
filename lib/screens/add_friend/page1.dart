@@ -1,12 +1,54 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:hallo/services/database.dart';
+import 'package:hallo/models/uid.dart';
 
 class Add_Friends_Page extends StatefulWidget {
+
   @override
   _Add_Friends_PageState createState() => _Add_Friends_PageState();
 }
 
 class _Add_Friends_PageState extends State<Add_Friends_Page> {
+
+  void _showToast1(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.redAccent[200],
+        content: const Text('Email not found !'),
+        action: SnackBarAction(
+            label: 'RETRY', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
+  void _showToast2(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.redAccent[200],
+        content: const Text('You cannot add yourself as a friend !'),
+        action: SnackBarAction(
+            label: 'RETRY', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
+  void _showToast3(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        content: const Text('Friend Succefully added'),
+        action: SnackBarAction(
+            label: 'RETRY', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
 
   String email;
   @override
@@ -41,7 +83,7 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
                   hintStyle: TextStyle(color: Colors.grey[400])),
               validator: (val) =>
               val.isEmpty
-                  ? 'Enter an email  '
+                  ? 'Enter an email '
                   : null,
               onChanged: (val) {
                 setState(() {
@@ -69,10 +111,27 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
               fontWeight: FontWeight.bold,),
           ),
           onPressed: () async {
+               print(email);
+               QuerySnapshot FutureValue= await  DatabaseService(uid: current_user_uid).checkIfMailExist(email);
+               if(FutureValue.documents.isNotEmpty){
+                  String suid=FutureValue.documents[0].documentID;
+                  print(suid);
+                  if(suid==current_user_uid){
+                    _showToast2(context);
+                  }else {
+                    DatabaseService(uid: current_user_uid).updateFriend(
+                        current_user_uid, suid);
+                    _showToast3(context);
+                  }
+               }else{
+                 _showToast1(context);
+               }
 
           },
         ),
       ],
     );
+
+
   }
 }

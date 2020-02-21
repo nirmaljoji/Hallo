@@ -263,7 +263,7 @@ class _ProfileState extends State<Profile> {
           } else {
 
             UserData userData = snapshot.data;
-            print("profile pic : ${userData.imageUrl}");
+
             return Scaffold(
               drawer: Nav_menu(),
               backgroundColor: Colors.grey[900],
