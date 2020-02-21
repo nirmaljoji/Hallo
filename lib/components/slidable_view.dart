@@ -14,54 +14,57 @@ class SlidableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
-      child: Container(
-        color: Colors.white,
-        child: ListTile(
-          leading: CircleAvatar(
-            radius: 30,
-            child: ClipOval(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+      child: Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        actionExtentRatio: 0.25,
+        child: Container(
+          color: Colors.white,
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 30,
+              child: ClipOval(
 
-              child: new Container(
+                child: new Container(
 
-                decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: new DecorationImage(
-                    image: imageURL != null
-                        ? (new NetworkImage(
-                        imageURL))
-                        : new AssetImage('images/user1.png'),
-                    fit: BoxFit.cover,
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: new DecorationImage(
+                      image: imageURL != null
+                          ? (new NetworkImage(
+                          imageURL))
+                          : new AssetImage('images/user1.png'),
+                      fit: BoxFit.cover,
+                    ),
+
+
                   ),
-
-
                 ),
               ),
             ),
+
+            title: Text('$friendName'),
+            subtitle: Text('$friendEmail'),
           ),
 
-          title: Text('$friendName'),
-          subtitle: Text('$friendEmail'),
         ),
 
+        secondaryActions: <Widget>[
+          IconSlideAction(
+            caption: 'Accept',
+            color: Colors.blue,
+            icon: Icons.favorite,
+            onTap: () {},
+          ),
+          IconSlideAction(
+            caption: 'Delete',
+            color: Colors.red[400],
+            icon: Icons.delete,
+            onTap: () {},
+          ),
+        ],
       ),
-
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'Accept',
-          color: Colors.blue,
-          icon: Icons.favorite,
-          onTap: () {},
-        ),
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red[400],
-          icon: Icons.delete,
-          onTap: () {},
-        ),
-      ],
     );
   }
 }
