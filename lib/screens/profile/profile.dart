@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -158,172 +159,189 @@ class _ProfileState extends State<Profile> {
           } else {
             UserData userData = snapshot.data;
 
-            return Scaffold(
-              drawer: Nav_menu(),
-              backgroundColor: Theme
-                  .of(context)
-                  .backgroundColor,
-              floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.edit),
-                onPressed: () {
-                  _showEditProfile(userData.name, userData.status,
-                      userData.phone, userData.email);
-                },
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  dpUpdated = false;
+                });
+              },
+              child: Scaffold(
+                drawer: Nav_menu(),
                 backgroundColor: Theme
                     .of(context)
-                    .splashColor,
-              ),
-              appBar: AppBar(
-                title: Text("Profile"),
-                centerTitle: true,
-                backgroundColor: Theme
-                    .of(context)
-                    .accentColor,
-                elevation: 0.0,
-              ),
-              body: Padding(
-                padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 60.0,
-                          child: ClipOval(
-                            child: ModalProgressHUD(
-                              inAsyncCall: dpUpdated,
-                              child: new Container(
-                                width: 180,
-                                height: 180,
-                                decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                    image: userData.imageUrl != null
-                                        ? (new NetworkImage(userData.imageUrl))
-                                        : new AssetImage('images/user1.png'),
-                                    fit: BoxFit.cover,
+                    .backgroundColor,
+                floatingActionButton: FloatingActionButton(
+                  child: Icon(Icons.edit),
+                  onPressed: () {
+                    _showEditProfile(userData.name, userData.status,
+                        userData.phone, userData.email);
+                  },
+                  backgroundColor: Theme
+                      .of(context)
+                      .splashColor,
+                ),
+                appBar: AppBar(
+                  title: Text("Profile"),
+                  centerTitle: true,
+                  backgroundColor: Theme
+                      .of(context)
+                      .accentColor,
+                  elevation: 0.0,
+                ),
+                body: Padding(
+                  padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 60.0,
+                            child: ClipOval(
+                              child: ModalProgressHUD(
+                                inAsyncCall: dpUpdated,
+                                child: new Container(
+                                  width: 180,
+                                  height: 180,
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                      image: userData.imageUrl != null
+                                          ? (new NetworkImage(
+                                          userData.imageUrl))
+                                          : new AssetImage('images/user1.png'),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 60.0),
-                          child: IconButton(
-                            icon: Icon(
-                              FontAwesomeIcons.cameraRetro,
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor,
-                              size: 30.0,
-                            ),
-                            onPressed: () async {
-                              setState(() {
-                                dpUpdated = true;
-                              });
-                              await getImage();
-
-                              uploadPic(context);
-                            },
+                          SizedBox(
+                            width: 10.0,
                           ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      height: 60,
-                      color: Colors.grey[500],
-                    ),
-                    Text(
-                      "NAME",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline,
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      userData.name,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline,
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    Text(
-                      "STATUS",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline,
+                          Material(
+                            elevation: 2.0,
+                            borderRadius: BorderRadius.circular(100.0),
+                            color: Theme
+                                .of(context)
+                                .hintColor,
+                            child: MaterialButton(
+                              child: Icon(
+                                FontAwesomeIcons.camera,
+                                size: 21.0,
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor,
+                              ),
+                              onPressed: () async {
+                                setState(() {
+                                  dpUpdated = true;
+                                });
+                                await getImage();
+                                uploadPic(context);
+                              },
 
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      userData.status,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline,
+                              minWidth: 5.0,
+                            ),
 
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.email,
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          userData.email,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headline,
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        height: 60,
+                        color: Colors.grey[500],
+                      ),
+                      Text(
+                        "NAME",
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline,
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        userData.name,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline,
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text(
+                        "STATUS",
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline,
 
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.phone,
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '+91 ${userData.phone}',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headline,
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        userData.status,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline,
 
-                        )
-                      ],
-                    )
-                  ],
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.email,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            userData.email,
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .headline,
+
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.phone,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '+91 ${userData.phone}',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .headline,
+
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

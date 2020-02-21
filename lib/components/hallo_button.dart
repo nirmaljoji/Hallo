@@ -8,19 +8,25 @@ class HalloButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+    return Material(
+      elevation: 5.0,
       color: Theme
           .of(context)
           .buttonColor,
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.button,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
       ),
-      onPressed: onPressedBtn,
+      child: MaterialButton(
+        onPressed: onPressedBtn,
+        child: Text(
+          text,
+          style: Theme
+              .of(context)
+              .textTheme
+              .button,
+        ),
+      ),
     );
   }
 }
+
