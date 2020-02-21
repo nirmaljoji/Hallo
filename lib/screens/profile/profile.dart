@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
@@ -291,20 +292,37 @@ class _ProfileState extends State<Profile> {
                           backgroundImage: AssetImage('assets/'),
                           radius: 60.0,
                             child: ClipOval(
-                              child: new SizedBox(
+                              child: ModalProgressHUD(
+                                inAsyncCall: dpUpdated,
+                                child: new Container(
                                   width: 180,
                                   height: 180,
-                                  child: userData.imageUrl != null
-                                      ? ModalProgressHUD(
-                                    inAsyncCall: dpUpdated,
-                                    child: Image
-                                        .network(
-                                      userData.imageUrl,
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                      image: userData.imageUrl != null
+                                          ? (new NetworkImage(
+                                          userData.imageUrl))
+                                          : new AssetImage('images/user1.png'),
                                       fit: BoxFit.cover,
                                     ),
-                                  ) : Container(
-                                    color: Colors.amber,
-                                  )
+
+                                    /*
+                                      userData.imageUrl != null
+                                        ? ModalProgressHUD(
+                                      inAsyncCall: dpUpdated,
+                                      child: Center(
+                                        child: Image
+                                            .network(
+                                          userData.imageUrl,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ) : Image.asset('images/user1.png'),
+                                       */
+
+                                  ),
+                                ),
                               ),
                             ),
 
