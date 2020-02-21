@@ -15,7 +15,30 @@ class MyApp extends StatelessWidget {
       value:AuthService().user,
 
       child: MaterialApp(
-
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Color(0xFFFAFAFA),
+          accentColor: Color(0xFFA3A7E4),
+          cardColor: Color(0xFF512E67),
+          //fontFamily: '',
+          textTheme: TextTheme(
+            headline: TextStyle(
+              //fontSize:,
+              //fontStyle: ,
+            ),
+            title: TextStyle(
+              //fontSize:,
+              //fontStyle: ,
+            ),
+            body1: TextStyle(
+              //fontSize:,
+              //fontStyle: ,
+            ),
+            button: TextStyle(
+              color: Color(0xFFFAFAFA),
+            ),
+          ),
+        ),
         home:Wrapper(),
       ),
     );

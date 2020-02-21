@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/loading.dart';
 
@@ -18,8 +19,6 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
   bool loading =false ;
-
-  //Text fiels states
   String email = '';
   String password = '';
   String error = '';
@@ -27,23 +26,17 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() :Scaffold(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
         appBar: AppBar(
-          backgroundColor: Colors.grey[900],
+          backgroundColor: Theme
+              .of(context)
+              .accentColor,
           elevation: 0.0,
           title: Text("Sign in to Hallo",
-              style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
-          actions: <Widget>[
-            FlatButton.icon(
-                onPressed: () {
-                  widget.toggleView();
-                },
-                icon: Icon(Icons.person, color: Colors.amberAccent[100]),
-                label: Text(
-                  "Register",
-                  style: TextStyle(color: Colors.amberAccent[100]),
-                ))
-          ],
+              style: TextStyle(fontWeight: FontWeight.bold,)
+          ),
         ),
         body: Container(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
@@ -51,9 +44,8 @@ class _SignInState extends State<SignIn> {
               key: _formkey,
               child: Container(
 
-                child: Column(
+                child: ListView(
 
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
 
                     Container(
@@ -69,7 +61,6 @@ class _SignInState extends State<SignIn> {
                           ),
                           Text(
                             'HALLO',
-
                             style: TextStyle(
                               //fontFamily: 'Pacifico',
                               color: Colors.white70,
@@ -85,88 +76,32 @@ class _SignInState extends State<SignIn> {
                     ),
 //end of logo and name
 
-// form start
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black12,
-                          width: 2.0,
-                        ),
-                      ),
-                      child: TextFormField(
-                        validator: (val) =>
-                        val.isEmpty
-                            ? 'Enter an email'
-                            : null,
-                        style: TextStyle(color: Colors.black),
-
-                        decoration: InputDecoration(
-
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-
-                          hintText: "Email-id",
-                          hintStyle: TextStyle(color: Colors.grey[400]),
-                        ),
-
-
-                        onChanged: (val) {
-                          setState(() {
-                            email = val;
-                          });
-                        },
-                      ),
+// form start       TextField(String text,String mail,String hint),
+                    HalloTextField(
+                      text: "Enter email",
+                      hint: 'Email',
+                      onChangedText: (val) {
+                        setState(() {
+                          email = val; //String mail
+                        });
+                      },
+                      isPassword: false,
                     ),
-
 //end of mail id field
-
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black12,
-                          width: 2.0,
-                        ),
-                      ),
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
-                      child: TextFormField(
-                        style: TextStyle(color: Colors.black),
-                        validator: (val) =>
-                        val.length < 6
-                            ? 'Enter a password 6+ chars long'
-                            : null,
-                        decoration: InputDecoration(
-
-                            fillColor: Colors.white,
-                            filled: true,
-                            contentPadding: EdgeInsets.all(12.0),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 2.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.pink, width: 2.0),
-                            ),
-
-                            hintText: "Password",
-                            hintStyle: TextStyle(color: Colors.grey[400])),
-
-                        onChanged: (val) {
-                          setState(() {
-                            password = val;
-                          });
-                        },
-                        obscureText: true,
-                      ),
+                    HalloTextField(
+                      text: "Enter password that is atleaat 6 characters long",
+                      hint: 'Password',
+                      onChangedText: (val) {
+                        setState(() {
+                          password = val; //String mail
+                        });
+                      },
+                      isPassword: true,
                     ),
+
                     SizedBox(
                       height: 10,
                     ),
@@ -177,14 +112,15 @@ class _SignInState extends State<SignIn> {
                       padding: EdgeInsets.symmetric(
                           vertical: 12, horizontal: 50),
 
-                      color: Colors.lightGreen,
+                      color: Theme
+                          .of(context)
+                          .cardColor,
                       child: Text(
                         "Sign in",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .button,
                       ),
 
                       onPressed: () async {
@@ -209,6 +145,26 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(
                       height: 10,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 50),
+                      color: Theme
+                          .of(context)
+                          .cardColor,
+                      child: Text(
+                        "Register",
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .button,
+                      ),
+                      onPressed: () {
+                        widget.toggleView();
+                      },
                     ),
                     Text(
                       error,
