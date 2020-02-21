@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hallo/components/hallo_button.dart';
+import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
@@ -15,7 +17,6 @@ import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
-
   String id = '/profile';
 
   @override
@@ -23,42 +24,33 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   File _image;
   bool dpUpdated = false;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-      _image = image;
-      String fileName = basename(_image.path);
-      print('Image Path $_image');
+    _image = image;
+    String fileName = basename(_image.path);
+    print('Image Path $_image');
   }
 
-
-
-  Future uploadPic(BuildContext context) async{
-    StorageReference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('profiles/$current_user_uid');
+  Future uploadPic(BuildContext context) async {
+    StorageReference storageReference =
+    FirebaseStorage.instance.ref().child('profiles/$current_user_uid');
     StorageUploadTask uploadTask = storageReference.putFile(_image);
     await uploadTask.onComplete;
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
-        uploadedFileURL = fileURL;
-        print("File url : $uploadedFileURL");
+      uploadedFileURL = fileURL;
+      print("File url : $uploadedFileURL");
 
-        DatabaseService(uid: current_user_uid).updateProfile(
-            uploadedFileURL);
-        setState(() {
-          dpUpdated = false;
-        });
+      DatabaseService(uid: current_user_uid).updateProfile(uploadedFileURL);
+      setState(() {
+        dpUpdated = false;
+      });
     });
   }
-
-
-
-
 
   @override
   void initState() {
@@ -70,152 +62,61 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    String name;
-    String status;
-    String phone;
-    String email;
-    String imageUrl;
+    final user = Provider.of<User>(context);
 
-    final user =Provider.of<User>(context);
-
-    void _showEditProfile(String n,String s, String p,String e) {
-
+    void _showEditProfile(String n, String s, String p, String e) {
       showModalBottomSheet(
-
           context: context,
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
               child: Column(
                 children: <Widget>[
-                  Center(
-                      child: Text("Edit Profile")),
+                  Center(child: Text("Edit Profile")),
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(
-                      initialValue: n,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-                          hintText: "Enter name",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-
-                      onChanged: (val) {
-                        setState(() {
-                          n = val;
-                        });
-                      },
-                    ),
+                  HalloTextField(
+                    text: 'DO not leave blank',
+                    hint: 'Name',
+                    isPassword: false,
+                    onChangedText: (val) {
+                      setState(() {
+                        n = val;
+                      });
+                    },
+                  ),
+                  HalloTextField(
+                    text: 'DO not leave blank',
+                    hint: 'Status',
+                    isPassword: false,
+                    onChangedText: (val) {
+                      setState(() {
+                        s = val;
+                      });
+                    },
+                  ),
+                  HalloTextField(
+                    text: 'DO not leave blank',
+                    hint: 'Phone number',
+                    isPassword: false,
+                    onChangedText: (val) {
+                      setState(() {
+                        p = val;
+                      });
+                    },
                   ),
                   SizedBox(
                     height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(initialValue: s,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-                          hintText: "Enter Status",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-
-                      onChanged: (val) {
-                        setState(() {
-                          s = val;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(
-                      initialValue: p,
-                      keyboardType: TextInputType.phone,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-                          hintText: "Enter Phone no.",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-
-                      onChanged: (val) {
-                        setState(() {
-                          p = val;
-                        });
-                      },
-                    ),
                   ),
                   SizedBox(
                     height: 50,
                   ),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 40),
-
-                    color: Colors.lightGreen,
-                    child: Text(
-                      "Update",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,),
-                    ),
-                    onPressed: () async {
-
-                      await DatabaseService(uid: user.uid).updateUserData(n, s, p, e);
+                  HalloButton(
+                    text: 'Update',
+                    onPressedBtn: () async {
+                      await DatabaseService(uid: user.uid)
+                          .updateUserData(n, s, p, e);
                       Navigator.pop(context);
                     },
                   ),
@@ -225,15 +126,10 @@ class _ProfileState extends State<Profile> {
           });
     }
 
-
-
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: current_user_uid).userData ,
-        builder: (context, snapshot)  {
-
+        stream: DatabaseService(uid: current_user_uid).userData,
+        builder: (context, snapshot) {
           if (!(snapshot.hasData)) {
-
-
             return AlertDialog(
               title: Text('Failed to Retreive Data'),
               content: SingleChildScrollView(
@@ -260,23 +156,29 @@ class _ProfileState extends State<Profile> {
               ],
             );
           } else {
-
             UserData userData = snapshot.data;
 
             return Scaffold(
               drawer: Nav_menu(),
-              backgroundColor: Colors.grey[900],
+              backgroundColor: Theme
+                  .of(context)
+                  .backgroundColor,
               floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.edit),
                 onPressed: () {
-                  _showEditProfile(userData.name,userData.status,userData.phone,userData.email);
+                  _showEditProfile(userData.name, userData.status,
+                      userData.phone, userData.email);
                 },
-                backgroundColor: Colors.grey[800],
+                backgroundColor: Theme
+                    .of(context)
+                    .splashColor,
               ),
               appBar: AppBar(
                 title: Text("Profile"),
                 centerTitle: true,
-                backgroundColor: Colors.grey[850],
+                backgroundColor: Theme
+                    .of(context)
+                    .focusColor,
                 elevation: 0.0,
               ),
               body: Padding(
@@ -284,54 +186,38 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-
                     Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:<Widget>[
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
                         CircleAvatar(
                           radius: 60.0,
-                            child: ClipOval(
-                              child: ModalProgressHUD(
-                                inAsyncCall: dpUpdated,
-                                child: new Container(
-                                  width: 180,
-                                  height: 180,
-                                  decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                      image: userData.imageUrl != null
-                                          ? (new NetworkImage(
-                                          userData.imageUrl))
-                                          : new AssetImage('images/user1.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-
-                                    /*
-                                      userData.imageUrl != null
-                                        ? ModalProgressHUD(
-                                      inAsyncCall: dpUpdated,
-                                      child: Center(
-                                        child: Image
-                                            .network(
-                                          userData.imageUrl,
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ) : Image.asset('images/user1.png'),
-                                       */
-
+                          child: ClipOval(
+                            child: ModalProgressHUD(
+                              inAsyncCall: dpUpdated,
+                              child: new Container(
+                                width: 180,
+                                height: 180,
+                                decoration: new BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                    image: userData.imageUrl != null
+                                        ? (new NetworkImage(userData.imageUrl))
+                                        : new AssetImage('images/user1.png'),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                             ),
-
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 60.0),
                           child: IconButton(
                             icon: Icon(
                               FontAwesomeIcons.cameraRetro,
-                              color: Colors.amber,
+                              color: Theme
+                                  .of(context)
+                                  .primaryColor,
                               size: 30.0,
                             ),
                             onPressed: () async {
@@ -344,8 +230,7 @@ class _ProfileState extends State<Profile> {
                             },
                           ),
                         ),
-
-    ],
+                      ],
                     ),
                     Divider(
                       height: 60,
@@ -353,42 +238,42 @@ class _ProfileState extends State<Profile> {
                     ),
                     Text(
                       "NAME",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        letterSpacing: 2.0,
-                      ),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline,
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
                       userData.name,
-                      style: TextStyle(
-                          color: Colors.amberAccent[200],
-                          letterSpacing: 2.0,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline,
                     ),
                     SizedBox(
                       height: 30.0,
                     ),
                     Text(
                       "STATUS",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        letterSpacing: 2.0,
-                      ),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline,
+
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
                       userData.status,
-                      style: TextStyle(
-                          color: Colors.amberAccent[200],
-                          letterSpacing: 2.0,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline,
+
                     ),
                     SizedBox(
                       height: 30.0,
@@ -397,18 +282,20 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Icon(
                           Icons.email,
-                          color: Colors.grey[400],
+                          color: Theme
+                              .of(context)
+                              .primaryColor,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
                           userData.email,
-                          style: TextStyle(
-                            color: Colors.grey[400],
-                            letterSpacing: 1.0,
-                            fontSize: 18.0,
-                          ),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headline,
+
                         )
                       ],
                     ),
@@ -419,18 +306,20 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Icon(
                           Icons.phone,
-                          color: Colors.grey[400],
+                          color: Theme
+                              .of(context)
+                              .primaryColor,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
                           '+91 ${userData.phone}',
-                          style: TextStyle(
-                            color: Colors.grey[400],
-                            letterSpacing: 1.0,
-                            fontSize: 18.0,
-                          ),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headline,
+
                         )
                       ],
                     )

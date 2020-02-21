@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tabbar/tabbar.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
+
 import 'page1.dart';
 import 'page2.dart';
 
@@ -19,14 +19,13 @@ class _Add_friendState extends State<Add_friend> {
 
   @override
   Widget build(BuildContext context) {
-
-    final controller = PageController();
-    String email="";
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         drawer: Nav_menu(),
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Theme
+            .of(context)
+            .backgroundColor,
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
@@ -57,10 +56,7 @@ class _Add_friendState extends State<Add_friend> {
         body: TabBarView(
           children: [
             new Add_Friends_Page(),
-
-
-
-           new Friend_list_page2(),
+            new Friend_list_page2(),
           ],
         ),
       ),
