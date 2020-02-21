@@ -49,6 +49,13 @@ class DatabaseService {
 
   }
 
+  Future sendRequest(String suid) async {
+    profileCollection.document(suid).collection('requests').document(uid).setData({
+      'user_id':uid,
+    });
+
+  }
+
 
     
   
@@ -98,6 +105,9 @@ Stream<UserData> get userData{
     return profileCollection.document(uid).snapshots().map(_userDataFromSnapshot);
 }
 
+Stream<QuerySnapshot> requestDocuments(){
+    return profileCollection.document(uid).collection('requests').snapshots();
+}
 
 UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
     return UserData(
