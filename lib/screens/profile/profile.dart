@@ -29,18 +29,14 @@ class _ProfileState extends State<Profile> {
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      dpUpdated = true;
       _image = image;
       String fileName = basename(_image.path);
       print('Image Path $_image');
-    });
   }
 
 
 
   Future uploadPic(BuildContext context) async{
-    dpUpdated = true;
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('profiles/$current_user_uid');
@@ -48,15 +44,15 @@ class _ProfileState extends State<Profile> {
     await uploadTask.onComplete;
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
-      setState(() async {
         uploadedFileURL = fileURL;
         print("File url : $uploadedFileURL");
 
-        await DatabaseService(uid: current_user_uid).updateProfile(
+        DatabaseService(uid: current_user_uid).updateProfile(
             uploadedFileURL);
-      });
+        setState(() {
+          dpUpdated = false;
+        });
     });
-    dpUpdated = false;
   }
 
 
@@ -322,7 +318,11 @@ class _ProfileState extends State<Profile> {
                               size: 30.0,
                             ),
                             onPressed: () async {
+                              setState(() {
+                                dpUpdated = true;
+                              });
                               await getImage();
+
                               uploadPic(context);
                             },
                           ),
