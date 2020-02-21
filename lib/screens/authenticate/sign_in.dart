@@ -37,7 +37,8 @@ class _SignInState extends State<SignIn> {
               .of(context)
               .hintColor,
           elevation: 0.0,
-          title: Text("Sign in to Hallo",
+          title: Text(
+            "Sign in to Hallo",
             style: Theme
                 .of(context)
                 .textTheme

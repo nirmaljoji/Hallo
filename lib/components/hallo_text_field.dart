@@ -13,7 +13,8 @@ class HalloTextField extends StatelessWidget {
       margin: EdgeInsets.all(5.0),
       child: TextFormField(
         onChanged: onChangedText,
-        validator: (val) => val.isEmpty
+        validator: (val) =>
+        (val.isEmpty || val.length < 6)
             ? text //text
             : null,
         style: TextStyle(
@@ -40,6 +41,7 @@ class HalloTextField extends StatelessWidget {
               .of(context)
               .hintColor),
         ),
+
         obscureText: this.isPassword,
       ),
     );
