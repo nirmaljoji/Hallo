@@ -20,14 +20,33 @@ class SlidableView extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.indigoAccent,
-            child: Text(''),
-            foregroundColor: Colors.white,
+          leading:CircleAvatar(
+            radius: 30,
+            child: ClipOval(
+
+                child: new Container(
+
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: new DecorationImage(
+                      image: imageURL != null
+                          ? (new NetworkImage(
+                          imageURL))
+                          : new AssetImage('images/user1.png'),
+                      fit: BoxFit.cover,
+                    ),
+
+
+
+                  ),
+                ),
+              ),
           ),
+
           title: Text('$friendName'),
           subtitle: Text('$friendEmail'),
         ),
+
       ),
 
       secondaryActions: <Widget>[
