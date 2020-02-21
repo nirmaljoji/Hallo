@@ -28,11 +28,13 @@ class _ProfileState extends State<Profile> {
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    dpUpdated = true;
+
+    setState(() {
+      dpUpdated = true;
       _image = image;
       String fileName = basename(_image.path);
       print('Image Path $_image');
-
+    });
   }
 
 
@@ -46,9 +48,13 @@ class _ProfileState extends State<Profile> {
     await uploadTask.onComplete;
     print('File Uploaded');
     storageReference.getDownloadURL().then((fileURL) {
+      setState(() async {
         uploadedFileURL = fileURL;
         print("File url : $uploadedFileURL");
-        DatabaseService(uid: current_user_uid).updateProfile(uploadedFileURL);
+
+        await DatabaseService(uid: current_user_uid).updateProfile(
+            uploadedFileURL);
+      });
     });
     dpUpdated = false;
   }
@@ -288,22 +294,24 @@ class _ProfileState extends State<Profile> {
                         CircleAvatar(
                           backgroundImage: AssetImage('assets/'),
                           radius: 60.0,
-                          child: ModalProgressHUD(
-                            inAsyncCall: dpUpdated,
                             child: ClipOval(
                               child: new SizedBox(
                                   width: 180,
                                   height: 180,
-                                  child: userData.imageUrl != null ? Image
-                                      .network(
-                                    userData.imageUrl,
-                                    fit: BoxFit.cover,
+                                  child: userData.imageUrl != null
+                                      ? ModalProgressHUD(
+                                    inAsyncCall: dpUpdated,
+                                    child: Image
+                                        .network(
+                                      userData.imageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ) : Container(
                                     color: Colors.amber,
                                   )
                               ),
                             ),
-                          ),
+
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 60.0),
