@@ -9,6 +9,7 @@ import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/database.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
@@ -23,11 +24,13 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   File _image;
+  bool dpUpdated = false;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
+      dpUpdated = true;
       _image = image;
       String fileName = basename(_image.path);
       print('Image Path $_image');
@@ -39,6 +42,7 @@ class _ProfileState extends State<Profile> {
 
 
   Future uploadPic(BuildContext context) async{
+    dpUpdated = true;
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('profiles/$current_user_uid');
@@ -51,10 +55,9 @@ class _ProfileState extends State<Profile> {
         print("File url : $uploadedFileURL");
 
         await DatabaseService(uid: current_user_uid).updateProfile(uploadedFileURL);
-
       });
     });
-
+    dpUpdated = false;
   }
 
 
@@ -292,16 +295,20 @@ class _ProfileState extends State<Profile> {
                         CircleAvatar(
                           backgroundImage: AssetImage('assets/'),
                           radius: 60.0,
-                          child: ClipOval(
-                            child: new SizedBox(
-                              width: 180,
-                              height: 180,
-                              child: userData.imageUrl!=null?Image.network(
-                                userData.imageUrl,
-                                fit: BoxFit.cover ,
-                              ):Container(
-                                color: Colors.amber,
-                              )
+                          child: ModalProgressHUD(
+                            inAsyncCall: dpUpdated,
+                            child: ClipOval(
+                              child: new SizedBox(
+                                  width: 180,
+                                  height: 180,
+                                  child: userData.imageUrl != null ? Image
+                                      .network(
+                                    userData.imageUrl,
+                                    fit: BoxFit.cover,
+                                  ) : Container(
+                                    color: Colors.amber,
+                                  )
+                              ),
                             ),
                           ),
                         ),

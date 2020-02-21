@@ -12,7 +12,7 @@ class ChatButton extends StatelessWidget {
     print('chat button $friendName');
     return Material(
       elevation: 2.0,
-      color: Colors.grey,
+      color: Colors.white70,
       child: MaterialButton(
         onPressed: onPressed,
         minWidth: 500.0,
@@ -35,9 +35,15 @@ class ChatButton extends StatelessWidget {
               ),
             ),
           ) : CircleAvatar(
-            backgroundImage: AssetImage('images/user.png'),
-            backgroundColor: Colors.white54,
-            radius: 30.0,
+            //backgroundImage: AssetImage('images/user1.png'),
+            backgroundColor: Colors.white70,
+            radius: 32.0,
+            child: ClipOval(
+              child: new SizedBox(
+                width: 180,
+                height: 180,
+              ),
+            ),
           ),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +52,7 @@ class ChatButton extends StatelessWidget {
                 friendName,
                 style: TextStyle(
                   color: Colors.grey.shade900,
-                  fontSize: 20.0,
+                  fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -55,7 +61,9 @@ class ChatButton extends StatelessWidget {
               ),
             ],
           ),
-
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+          ),
         ),
       ),
     );
