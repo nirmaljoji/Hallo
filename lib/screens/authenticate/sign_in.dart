@@ -35,7 +35,7 @@ class _SignInState extends State<SignIn> {
         appBar: AppBar(
           backgroundColor: Theme
               .of(context)
-              .hintColor,
+              .accentColor,
           elevation: 0.0,
           title: Text(
             "Sign in to Hallo",

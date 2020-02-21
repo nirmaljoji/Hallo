@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> {
         appBar: AppBar(
           backgroundColor: Theme
               .of(context)
-              .hintColor,
+              .accentColor,
           elevation: 0.0,
           title: Text('Sign up to Hallo',
               style:

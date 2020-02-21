@@ -27,6 +27,7 @@ class _Add_friendState extends State<Add_friend> {
             .of(context)
             .backgroundColor,
         appBar: AppBar(
+
           bottom: TabBar(
             tabs: [
               Tab(
@@ -51,7 +52,9 @@ class _Add_friendState extends State<Add_friend> {
             ],
           ),
           title: Text('Friends'),
-          backgroundColor: Colors.grey[900],
+          backgroundColor: Theme
+              .of(context)
+              .accentColor,
         ),
         body: TabBarView(
           children: [

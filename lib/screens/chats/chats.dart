@@ -40,7 +40,7 @@ class _ChatsState extends State<Chats> {
         centerTitle: true,
         backgroundColor: Theme
             .of(context)
-            .primaryColor,
+            .accentColor,
         elevation: 4,
 
       ),

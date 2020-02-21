@@ -26,15 +26,17 @@ class MyApp extends StatelessWidget {
           splashColor: Color(0xFFB2FF59),
           focusColor: Color(0xFF009688),
           highlightColor: Color(0xFF795548),
-          hintColor: Color(0xFFB71C1C),
+          hintColor: Color(0xFFB71aaa),
           cursorColor: Color(0xFFEE1A55),
+          errorColor: Color(0xFFB71C1C),
+          primaryColorDark: Color(0xFFB71C1C),
+          primaryColorLight: Color(0xFFB71C1C),
           //fontFamily: '',
           textTheme: TextTheme(
               headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-            title: TextStyle(
-              //fontSize:,
-              //fontStyle: ,
-            ),
+              title: TextStyle(),
+              subhead: TextStyle(),
+              body1: TextStyle(),
               body2: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
               button: TextStyle(fontSize: 14.0, fontFamily: 'Hind')
           ),

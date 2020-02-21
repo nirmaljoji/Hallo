@@ -178,7 +178,7 @@ class _ProfileState extends State<Profile> {
                 centerTitle: true,
                 backgroundColor: Theme
                     .of(context)
-                    .focusColor,
+                    .accentColor,
                 elevation: 0.0,
               ),
               body: Padding(
