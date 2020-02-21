@@ -10,19 +10,16 @@ class HalloTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black12,
-          width: 2.0,
-        ),
-      ),
+      margin: EdgeInsets.all(5.0),
       child: TextFormField(
         onChanged: onChangedText,
         validator: (val) => val.isEmpty
             ? text //text
             : null,
         style: TextStyle(
-          color: Colors.black,
+          color: Theme
+              .of(context)
+              .accentColor,
         ),
         decoration: InputDecoration(
           fillColor: Colors.white,
@@ -32,12 +29,16 @@ class HalloTextField extends StatelessWidget {
             borderSide: BorderSide(color: Colors.white, width: 2.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.pink, width: 2.0),
+            borderSide: BorderSide(color: Theme
+                .of(context)
+                .focusColor, width: 2.0),
           ),
 
           hintText: hint,
           //hint
-          hintStyle: TextStyle(color: Colors.grey[400]),
+          hintStyle: TextStyle(color: Theme
+              .of(context)
+              .hintColor),
         ),
         obscureText: this.isPassword,
       ),

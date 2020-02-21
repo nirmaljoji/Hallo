@@ -13,7 +13,9 @@ class HalloButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(30.0),
       ),
       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
-      color: Theme.of(context).cardColor,
+      color: Theme
+          .of(context)
+          .buttonColor,
       child: Text(
         text,
         style: Theme.of(context).textTheme.button,

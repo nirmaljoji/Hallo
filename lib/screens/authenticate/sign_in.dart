@@ -5,7 +5,6 @@ import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
-
   String id = '/signin';
 
   final Function toggleView;
@@ -19,24 +18,30 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
-  bool loading =false ;
+  bool loading = false;
+
   String email = '';
   String password = '';
   String error = '';
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() :Scaffold(
+    return loading
+        ? Loading()
+        : Scaffold(
         backgroundColor: Theme
             .of(context)
-            .primaryColor,
+            .backgroundColor,
         appBar: AppBar(
           backgroundColor: Theme
               .of(context)
-              .accentColor,
+              .hintColor,
           elevation: 0.0,
           title: Text("Sign in to Hallo",
-              style: TextStyle(fontWeight: FontWeight.bold,)
+            style: Theme
+                .of(context)
+                .textTheme
+                .title,
           ),
         ),
         body: Container(
@@ -44,11 +49,8 @@ class _SignInState extends State<SignIn> {
             child: Form(
               key: _formkey,
               child: Container(
-
                 child: ListView(
-
                   children: <Widget>[
-
                     Container(
                       //margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
                       child: Column(
@@ -62,12 +64,10 @@ class _SignInState extends State<SignIn> {
                           ),
                           Text(
                             'HALLO',
-                            style: TextStyle(
-                              //fontFamily: 'Pacifico',
-                              color: Colors.white70,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .title,
                           ),
                           SizedBox(
                             height: 10.0,
@@ -75,9 +75,6 @@ class _SignInState extends State<SignIn> {
                         ],
                       ),
                     ),
-//end of logo and name
-
-// form start       TextField(String text,String mail,String hint),
                     HalloTextField(
                       text: "Enter email",
                       hint: 'Email',
@@ -88,12 +85,12 @@ class _SignInState extends State<SignIn> {
                       },
                       isPassword: false,
                     ),
-//end of mail id field
                     SizedBox(
                       height: 10,
                     ),
                     HalloTextField(
-                      text: "Enter password that is atleaat 6 characters long",
+                      text:
+                      "Enter password that is atleaat 6 characters long",
                       hint: 'Password',
                       onChangedText: (val) {
                         setState(() {
@@ -102,7 +99,6 @@ class _SignInState extends State<SignIn> {
                       },
                       isPassword: true,
                     ),
-
                     SizedBox(
                       height: 10,
                     ),
@@ -127,7 +123,6 @@ class _SignInState extends State<SignIn> {
                         }
                       },
                     ),
-
                     SizedBox(
                       height: 10,
                     ),
