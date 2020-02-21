@@ -20,11 +20,11 @@ class DatabaseService {
     });
   }
 
-  Future createFriendsCollection() async{
-    return  profileCollection.document(uid).collection('friends').document("test").setData({
-      'user_id':"dummy"
-    });
-  }
+//  Future createFriendsCollection() async{
+//    return  profileCollection.document(uid).collection('friends').document("test").setData({
+//      'user_id':"dummy"
+//    });
+//  }
 
 
   Future<QuerySnapshot> checkIfMailExist(String email) {

@@ -56,7 +56,7 @@ class AuthService{
        current_user_uid=user.uid;
 
       await DatabaseService(uid: current_user_uid).updateUserData(name, "Hey i am available on Hallo", phone , email);
-      await DatabaseService(uid: current_user_uid).createFriendsCollection();
+
       return userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
