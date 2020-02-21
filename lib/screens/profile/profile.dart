@@ -289,7 +289,6 @@ class _ProfileState extends State<Profile> {
                        mainAxisAlignment: MainAxisAlignment.center,
                       children:<Widget>[
                         CircleAvatar(
-
                           radius: 60.0,
                             child: ClipOval(
                               child: ModalProgressHUD(
