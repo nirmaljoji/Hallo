@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           focusColor: Color(0xFF009688),
           highlightColor: Color(0xFF795548),
           hintColor: Color(0xFFB71C1C),
+          cursorColor: Color(0xFFEE1A55),
           //fontFamily: '',
           textTheme: TextTheme(
               headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
