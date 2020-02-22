@@ -22,13 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
-  awesome_dialog:
-    dependency: "direct main"
-    description:
-      name: awesome_dialog
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -191,6 +184,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.5.0"
+  giffy_dialog:
+    dependency: "direct main"
+    description:
+      name: giffy_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.0"
   http:
     dependency: transitive
     description:
@@ -289,13 +289,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
-  simple_animations:
-    dependency: transitive
-    description:
-      name: simple_animations
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.6"
   sky_engine:
     dependency: transitive
     description: flutter
