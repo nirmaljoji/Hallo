@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
-          primaryColor: data.primaryColor,
+          primaryColor: Colors.red,
           accentColor: data.accentColor,
           cardColor: data.cardColor,
           backgroundColor: data.backgroundColor,
@@ -40,35 +40,32 @@ class MyApp extends StatelessWidget {
            */
           textTheme: TextTheme(
             headline: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
             ),
-            title: TextStyle(color: Theme
-                .of(context)
-                .highlightColor),
+            title: TextStyle(
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
+            ),
             subhead: TextStyle(
-              color: Theme
-                  .of(context)
-                  .accentColor,
+              color: data.accentColor,
+              fontFamily: data.headlineFont,
             ),
             body1: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
             ),
             body2: TextStyle(
-              color: Theme
-                  .of(context)
-                  .hintColor,
+              color: data.hintColor,
+              fontFamily: data.headlineFont,
             ),
-            button: TextStyle(color: Theme
-                .of(context)
-                .highlightColor),
+            button: TextStyle(
+              color: data.btnColor,
+              fontFamily: data.headlineFont,
+            ),
             subtitle: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
             ),
           ),
         ),
