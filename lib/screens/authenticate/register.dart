@@ -43,105 +43,109 @@ class _RegisterState extends State<Register> {
               style:
               TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
         ),
-        body: Container(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-            child: Form(
-              key: _formkey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 20,
-                  ),
-                  HalloTextField(
-                    text: 'Enter an email',
-                    hint: "Email-id",
-                    onChangedText: (val) {
+        body: Form(
+          key: _formkey,
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: ListView(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                HalloTextField(
+                  text: 'Enter an email',
+                  hint: "Email-id",
+                  onChangedText: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloTextField(
+                  text: 'Password must be atleats 6 characters long',
+                  hint: 'Password',
+                  onChangedText: (val) {
+                    setState(() {
+                      password = val;
+                    });
+                  },
+                  isPassword: true,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloTextField(
+                  text: 'Name muxst not be empty',
+                  hint: 'Name',
+                  onChangedText: (val) {
+                    setState(() {
+                      name = val;
+                    });
+                  },
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloTextField(
+                  text: 'Enter valid phone number',
+                  hint: 'Phone Number',
+                  onChangedText: (val) {
+                    setState(() {
+                      phone = val;
+                    });
+                  },
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                Text(
+                  error,
+                  style: TextStyle(color: Colors.red, fontSize: 14),
+                ),
+                HalloButton(
+                  text: 'Register',
+                  onPressedBtn: () async {
+                    if (_formkey.currentState.validate()) {
                       setState(() {
-                        email = val;
+                        loading = true;
                       });
-                    },
-                    isPassword: false,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  HalloTextField(
-                    text: 'Password must be atleats 6 characters long',
-                    hint: 'Password',
-                    onChangedText: (val) {
-                      setState(() {
-                        password = val;
-                      });
-                    },
-                    isPassword: true,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  HalloTextField(
-                    text: 'Name muxst not be empty',
-                    hint: 'Name',
-                    onChangedText: (val) {
-                      setState(() {
-                        name = val;
-                      });
-                    },
-                    isPassword: false,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  HalloTextField(
-                    text: 'Enter valid phone number',
-                    hint: 'Phone Number',
-                    onChangedText: (val) {
-                      setState(() {
-                        phone = val;
-                      });
-                    },
-                    isPassword: false,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  HalloButton(
-                    text: 'Register',
-                    onPressedBtn: () async {
-                      if (_formkey.currentState.validate()) {
+                      print("Email:$email");
+                      print("password:$password");
+                      dynamic result =
+                      await _auth.registerWithEmailAndPassword(
+                          email, password, name, phone);
+                      if (result == null) {
                         setState(() {
-                          loading = true;
+                          error = 'pls supple a valid mail';
+                          loading = false;
                         });
-                        print("Email:$email");
-                        print("password:$password");
-                        dynamic result =
-                        await _auth.registerWithEmailAndPassword(
-                            email, password, name, phone);
-                        if (result == null) {
-                          setState(() {
-                            error = 'pls supple a valid mail';
-                            loading = false;
-                          });
-                        }
                       }
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  HalloButton(
-                    text: 'Sign in',
-                    onPressedBtn: () {
-                      //Register widget=
-                      widget.toggleView();
-                    },
-                  ),
-                  Text(
-                    error,
-                    style: TextStyle(color: Colors.red, fontSize: 14),
-                  )
-                ],
-              ),
-            )));
-    ;
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloButton(
+                  text: 'Sign in',
+                  onPressedBtn: () {
+                    //Register widget=
+                    widget.toggleView();
+                  },
+                ),
+              ],
+            ),
+          ),
+        )
+
+    );
+
   }
 }

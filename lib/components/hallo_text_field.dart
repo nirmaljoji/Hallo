@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HalloTextField extends StatelessWidget {
+class HalloTextField extends StatefulWidget {
   final String text, hint;
   final onChangedText;
   final bool isPassword;
@@ -8,14 +8,19 @@ class HalloTextField extends StatelessWidget {
   HalloTextField({this.text, this.hint, this.onChangedText, this.isPassword});
 
   @override
+  _HalloTextFieldState createState() => _HalloTextFieldState();
+}
+
+class _HalloTextFieldState extends State<HalloTextField> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
       child: TextFormField(
-        onChanged: onChangedText,
+        onChanged: widget.onChangedText,
         validator: (val) =>
         (val.isEmpty || val.length < 6)
-            ? text //text
+            ? widget.text //text
             : null,
         style: Theme
             .of(context)
@@ -38,7 +43,7 @@ class HalloTextField extends StatelessWidget {
                 .focusColor, width: 2.0),
           ),
 
-          hintText: hint,
+          hintText: widget.hint,
           //hint
           hintStyle: Theme
               .of(context)
@@ -46,7 +51,7 @@ class HalloTextField extends StatelessWidget {
               .body2,
         ),
 
-        obscureText: this.isPassword,
+        obscureText: this.widget.isPassword,
       ),
     );
   }
