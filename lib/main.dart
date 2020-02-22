@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/wrapper.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:provider/provider.dart';
+
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  HalloThemeData data = new HalloThemeData();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -15,22 +18,20 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
-          primaryColor: Color(0xFF173F5F),
-          accentColor: Color(0xFF20639B),
-          cardColor: Color(0xFFFAFAFA),
-          backgroundColor: Color(0xFF3CAEA3),
-          canvasColor: Color(0xFFFAFAFA),
-          buttonColor: Color(0xFFED553B),
-          splashColor: Color(0xFFED553B),
-          //        focusColor: Color(0xFF000000),
-
-          focusColor: Color(0xFF3CAEA3),
-          highlightColor: Color(0xFFF6D55C),
-          hintColor: Color(0xFF3CAEA3),
-          cursorColor: Color(0xFFFAFAFA),
-          errorColor: Color(0xFFB71C1C),
-          primaryColorDark: Color(0xFFB71C1C),
-          primaryColorLight: Color(0xFFB71C1C),
+          primaryColor: Colors.red,
+          accentColor: data.accentColor,
+          cardColor: data.cardColor,
+          backgroundColor: data.backgroundColor,
+          canvasColor: data.canvasColor,
+          buttonColor: data.btnColor,
+          splashColor: data.splashColor,
+          focusColor: data.focusColor,
+          highlightColor: data.highlightColor,
+          hintColor: data.hintColor,
+          cursorColor: data.cursorColor,
+          errorColor: data.errorColor,
+          primaryColorDark: data.primaryColorDark,
+          primaryColorLight: data.primaryColorLight,
           /*
           subhead - profile headings- subhead
           subtitle - profile data, nav menu items, chat names
@@ -39,35 +40,32 @@ class MyApp extends StatelessWidget {
            */
           textTheme: TextTheme(
             headline: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
             ),
-            title: TextStyle(color: Theme
-                .of(context)
-                .highlightColor),
+            title: TextStyle(
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
+            ),
             subhead: TextStyle(
-              color: Theme
-                  .of(context)
-                  .accentColor,
+              color: data.accentColor,
+              fontFamily: data.headlineFont,
             ),
             body1: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
             ),
             body2: TextStyle(
-              color: Theme
-                  .of(context)
-                  .hintColor,
+              color: data.hintColor,
+              fontFamily: data.headlineFont,
             ),
-            button: TextStyle(color: Theme
-                .of(context)
-                .highlightColor),
+            button: TextStyle(
+              color: data.btnColor,
+              fontFamily: data.headlineFont,
+            ),
             subtitle: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
+              color: data.primaryColor,
+              fontFamily: data.headlineFont,
             ),
           ),
         ),

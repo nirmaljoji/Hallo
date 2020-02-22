@@ -68,7 +68,7 @@ class _SignInState extends State<SignIn> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .title,
+                                .headline,
                           ),
                           SizedBox(
                             height: 10.0,
