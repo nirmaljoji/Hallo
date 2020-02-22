@@ -171,7 +171,11 @@ class _ProfileState extends State<Profile> {
                     .of(context)
                     .backgroundColor,
                 floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.edit),
+                  child: Icon(Icons.edit,
+                    color: Theme
+                        .of(context)
+                        .cursorColor,
+                  ),
                   onPressed: () {
                     _showEditProfile(userData.name, userData.status,
                         userData.phone, userData.email);
@@ -226,14 +230,14 @@ class _ProfileState extends State<Profile> {
                             borderRadius: BorderRadius.circular(100.0),
                             color: Theme
                                 .of(context)
-                                .hintColor,
+                                .splashColor,
                             child: MaterialButton(
                               child: Icon(
                                 FontAwesomeIcons.camera,
                                 size: 21.0,
                                 color: Theme
                                     .of(context)
-                                    .primaryColor,
+                                    .cursorColor,
                               ),
                               onPressed: () async {
                                 setState(() {
@@ -258,7 +262,7 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .headline,
+                            .subhead,
                       ),
                       SizedBox(
                         height: 10.0,
@@ -268,7 +272,7 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .headline,
+                            .body1,
                       ),
                       SizedBox(
                         height: 30.0,
@@ -278,7 +282,7 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .headline,
+                            .subhead,
 
                       ),
                       SizedBox(
@@ -289,7 +293,7 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .headline,
+                            .body1,
 
                       ),
                       SizedBox(
@@ -301,7 +305,7 @@ class _ProfileState extends State<Profile> {
                             Icons.email,
                             color: Theme
                                 .of(context)
-                                .primaryColor,
+                                .cursorColor,
                           ),
                           SizedBox(
                             width: 10,
@@ -311,7 +315,7 @@ class _ProfileState extends State<Profile> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .headline,
+                                .body2,
 
                           )
                         ],
@@ -325,7 +329,7 @@ class _ProfileState extends State<Profile> {
                             Icons.phone,
                             color: Theme
                                 .of(context)
-                                .primaryColor,
+                                .cursorColor,
                           ),
                           SizedBox(
                             width: 10,
@@ -335,7 +339,7 @@ class _ProfileState extends State<Profile> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .headline,
+                                .body2,
 
                           )
                         ],

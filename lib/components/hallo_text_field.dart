@@ -17,17 +17,20 @@ class HalloTextField extends StatelessWidget {
         (val.isEmpty || val.length < 6)
             ? text //text
             : null,
-        style: TextStyle(
-          color: Theme
-              .of(context)
-              .accentColor,
-        ),
+        style: Theme
+            .of(context)
+            .textTheme
+            .body2,
         decoration: InputDecoration(
-          fillColor: Colors.white,
+          fillColor: Theme
+              .of(context)
+              .canvasColor,
           filled: true,
           contentPadding: EdgeInsets.all(12.0),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: 2.0),
+            borderSide: BorderSide(color: Theme
+                .of(context)
+                .canvasColor, width: 2.0),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Theme
@@ -37,9 +40,10 @@ class HalloTextField extends StatelessWidget {
 
           hintText: hint,
           //hint
-          hintStyle: TextStyle(color: Theme
+          hintStyle: Theme
               .of(context)
-              .hintColor),
+              .textTheme
+              .body2,
         ),
 
         obscureText: this.isPassword,

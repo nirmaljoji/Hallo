@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
           canvasColor: Color(0xFF11FF33),
           buttonColor: Color(0xFFAA9800),
           splashColor: Color(0xFFB2FF59),
+          //        focusColor: Color(0xFF000000),
+
           focusColor: Color(0xFF009688),
           highlightColor: Color(0xFF795548),
           hintColor: Color(0xFFB71aaa),
@@ -31,14 +33,47 @@ class MyApp extends StatelessWidget {
           errorColor: Color(0xFFB71C1C),
           primaryColorDark: Color(0xFFB71C1C),
           primaryColorLight: Color(0xFFB71C1C),
-          //fontFamily: '',
+          /*
+          subhead - profile headings- subhead
+          subtitle - profile data, nav menu items, chat names
+          body1 - textfields,chats
+          body2-hints
+           */
           textTheme: TextTheme(
-              headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-              title: TextStyle(),
-              subhead: TextStyle(),
-              body1: TextStyle(),
-              body2: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-              button: TextStyle(fontSize: 14.0, fontFamily: 'Hind')
+            headline: TextStyle(
+              color: Theme
+                  .of(context)
+                  .primaryColor,
+            ),
+            title: TextStyle(
+                color: Theme
+                    .of(context)
+                    .highlightColor
+            ),
+            subhead: TextStyle(
+              color: Theme
+                  .of(context)
+                  .accentColor,
+            ),
+            body1: TextStyle(
+              color: Theme
+                  .of(context)
+                  .primaryColor,
+            ),
+            body2: TextStyle(
+              color: Theme
+                  .of(context)
+                  .hintColor,
+            ),
+            button: TextStyle(
+                color: Theme
+                    .of(context)
+                    .highlightColor),
+            subtitle: TextStyle(
+              color: Theme
+                  .of(context)
+                  .primaryColor,
+            ),
           ),
         ),
         home:Wrapper(),

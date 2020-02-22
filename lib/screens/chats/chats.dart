@@ -18,7 +18,7 @@ class _ChatsState extends State<Chats> {
         child: Icon(Icons.search),
         backgroundColor: Theme
             .of(context)
-            .cursorColor,
+            .splashColor,
         onPressed: () {
           setState(() {
 
