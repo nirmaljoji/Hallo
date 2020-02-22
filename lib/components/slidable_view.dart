@@ -58,8 +58,7 @@ class SlidableView extends StatelessWidget {
 
                 _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
 
-                Navigator.
-              },
+
               onCancelButtonPressed: () async {
 
                 _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
