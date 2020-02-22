@@ -52,12 +52,12 @@ class _Nav_menuState extends State<Nav_menu> {
     ht -= 193 + 26;
     return Drawer(
         child: Column(
-      children: <Widget>[
+          children: <Widget>[
         Container(
           height: 200,
           color: Theme
               .of(context)
-              .backgroundColor,
+              .accentColor,
         ),
         Container(
           child: ListView.builder(
@@ -88,7 +88,6 @@ class _Nav_menuState extends State<Nav_menu> {
                 );
               }),
         ),
-
         HalloButton(
           text: 'Sign out',
           onPressedBtn: () async {

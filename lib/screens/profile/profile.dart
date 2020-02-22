@@ -78,7 +78,7 @@ class _ProfileState extends State<Profile> {
                     height: 10,
                   ),
                   HalloTextField(
-                    text: 'DO not leave blank',
+                    text: 'Do not leave blank',
                     hint: 'Name',
                     isPassword: false,
                     onChangedText: (val) {
@@ -88,7 +88,7 @@ class _ProfileState extends State<Profile> {
                     },
                   ),
                   HalloTextField(
-                    text: 'DO not leave blank',
+                    text: 'Do not leave blank',
                     hint: 'Status',
                     isPassword: false,
                     onChangedText: (val) {
@@ -98,7 +98,7 @@ class _ProfileState extends State<Profile> {
                     },
                   ),
                   HalloTextField(
-                    text: 'DO not leave blank',
+                    text: 'Do not leave blank',
                     hint: 'Phone number',
                     isPassword: false,
                     onChangedText: (val) {
@@ -190,7 +190,7 @@ class _ProfileState extends State<Profile> {
                   backgroundColor: Theme
                       .of(context)
                       .accentColor,
-                  elevation: 0.0,
+                  elevation: 5.0,
                 ),
                 body: Padding(
                   padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
@@ -255,7 +255,9 @@ class _ProfileState extends State<Profile> {
                       ),
                       Divider(
                         height: 60,
-                        color: Colors.grey[500],
+                        color: Theme
+                            .of(context)
+                            .splashColor,
                       ),
                       Text(
                         "NAME",
@@ -272,7 +274,7 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .body1,
+                            .subtitle,
                       ),
                       SizedBox(
                         height: 30.0,
@@ -293,7 +295,7 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .body1,
+                            .subtitle,
 
                       ),
                       SizedBox(
@@ -315,7 +317,7 @@ class _ProfileState extends State<Profile> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .body2,
+                                .subtitle,
 
                           )
                         ],
@@ -339,7 +341,7 @@ class _ProfileState extends State<Profile> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .body2,
+                                .subtitle,
 
                           )
                         ],

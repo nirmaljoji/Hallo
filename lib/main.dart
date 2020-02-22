@@ -4,7 +4,6 @@ import 'package:hallo/screens/wrapper.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:provider/provider.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,8 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<User>.value(
-      value:AuthService().user,
-
+      value: AuthService().user,
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
@@ -45,11 +43,9 @@ class MyApp extends StatelessWidget {
                   .of(context)
                   .primaryColor,
             ),
-            title: TextStyle(
-                color: Theme
-                    .of(context)
-                    .highlightColor
-            ),
+            title: TextStyle(color: Theme
+                .of(context)
+                .highlightColor),
             subhead: TextStyle(
               color: Theme
                   .of(context)
@@ -65,10 +61,9 @@ class MyApp extends StatelessWidget {
                   .of(context)
                   .hintColor,
             ),
-            button: TextStyle(
-                color: Theme
-                    .of(context)
-                    .highlightColor),
+            button: TextStyle(color: Theme
+                .of(context)
+                .highlightColor),
             subtitle: TextStyle(
               color: Theme
                   .of(context)
@@ -76,9 +71,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home:Wrapper(),
+        home: Wrapper(),
       ),
     );
   }
 }
-

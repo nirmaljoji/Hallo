@@ -40,9 +40,8 @@ class _ChatsState extends State<Chats> {
         centerTitle: true,
         backgroundColor: Theme
             .of(context)
-            .accentColor,
+            .backgroundColor,
         elevation: 4,
-
       ),
       //Text("user name = $current_user_uid"),
       body: ListStream(),
