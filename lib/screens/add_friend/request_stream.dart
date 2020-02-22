@@ -63,7 +63,7 @@ class UserDetailsReq extends StatelessWidget {
         } else {
           UserData userData = snapshot.data;
           return (SlidableView(
-              friendName: userData.name,friendEmail: userData.email, imageURL: userData.imageUrl));
+              friendName: userData.name,friendEmail: userData.email, imageURL: userData.imageUrl,friendUID: friendUID));
         }
       },
     );
