@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HalloThemeData {
   Color primaryColor = Color(0xFFdf7861);
-  Color btnColor = Color(0xFF000000);
+  Color btnColor = Color(0xFFED553B);
 
   Color accentColor = Color(0xFFecb390);
   Color cardColor = Color(0xFFFAFAFA);
