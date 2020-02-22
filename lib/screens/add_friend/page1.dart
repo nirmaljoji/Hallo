@@ -5,6 +5,7 @@ import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/request_stream.dart';
 import 'package:hallo/services/database.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 
 class Add_Friends_Page extends StatefulWidget {
   @override
@@ -12,6 +13,9 @@ class Add_Friends_Page extends StatefulWidget {
 }
 
 class _Add_Friends_PageState extends State<Add_Friends_Page> {
+
+  HalloThemeData data = new HalloThemeData();
+
   void _showToast1(BuildContext context) {
     final scaffold = Scaffold.of(context);
     scaffold.showSnackBar(
@@ -55,6 +59,7 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
   }
 
   String email;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,6 +83,8 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
           height: 10,
         ),
         HalloButton(
+          color1: data.btnColor,
+          color2: data.cardColor,
           text: 'Add friend',
           onPressedBtn: () async {
             print(email);

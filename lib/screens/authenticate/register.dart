@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
 
 class Register extends StatefulWidget {
@@ -25,6 +26,8 @@ class _RegisterState extends State<Register> {
   String phone = '';
   String error = '';
   bool loading = false;
+
+  HalloThemeData data = new HalloThemeData();
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +113,8 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.red, fontSize: 14),
                 ),
                 HalloButton(
+                  color1: data.btnColor,
+                  color2: data.cardColor,
                   text: 'Register',
                   onPressedBtn: () async {
                     if (_formkey.currentState.validate()) {
@@ -134,6 +139,8 @@ class _RegisterState extends State<Register> {
                   height: 10,
                 ),
                 HalloButton(
+                  color1: data.primaryColorDark,
+                  color2: data.primaryColorLight,
                   text: 'Sign in',
                   onPressedBtn: () {
                     //Register widget=

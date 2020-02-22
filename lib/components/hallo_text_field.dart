@@ -15,7 +15,6 @@ class _HalloTextFieldState extends State<HalloTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5.0),
       child: TextFormField(
         onChanged: widget.onChangedText,
         validator: (val) =>

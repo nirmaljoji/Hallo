@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/models/selected.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 
 class Nav_menu extends StatefulWidget {
   @override
@@ -48,53 +49,56 @@ class _Nav_menuState extends State<Nav_menu> {
 
   @override
   Widget build(BuildContext context) {
+    HalloThemeData data = new HalloThemeData();
     double ht = MediaQuery.of(context).size.height;
     ht -= 193 + 26;
     return Drawer(
         child: Column(
           children: <Widget>[
-        Container(
-          height: 200,
-          color: Theme
-              .of(context)
-              .accentColor,
-        ),
-        Container(
-          child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              padding: EdgeInsets.all(10.0),
-              itemCount: _Nav_menuState._listViewData.length,
-              itemBuilder: (context, index) {
-                print(ch.currentSelected);
-                return Container(
-                  color: ch.currentSelected == index
-                      ? Theme
-                      .of(context)
-                      .focusColor
-                      : Colors.white,
-                  child: ListTile(
-                    leading: new Icon(drawerItems[index].icon),
-                    title: Text(_listViewData[index]),
-                    onTap: () async {
-                      setState(() {
-                        print("index  $index");
-                        ch.currentSelected = index;
-                        Navigator.pushReplacementNamed(
-                            context, '/${_listViewRouteData[index]}');
-                      });
-                    },
-                  ),
-                );
-              }),
-        ),
-        HalloButton(
-          text: 'Sign out',
-          onPressedBtn: () async {
-            await _auth.signOut();
-          },
-        ),
-      ],
-    ));
+            Container(
+              height: 200,
+              color: Theme
+                  .of(context)
+                  .accentColor,
+            ),
+            Container(
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(10.0),
+                  itemCount: _Nav_menuState._listViewData.length,
+                  itemBuilder: (context, index) {
+                    print(ch.currentSelected);
+                    return Container(
+                      color: ch.currentSelected == index
+                          ? Theme
+                          .of(context)
+                          .focusColor
+                          : Colors.white,
+                      child: ListTile(
+                        leading: new Icon(drawerItems[index].icon),
+                        title: Text(_listViewData[index]),
+                        onTap: () async {
+                          setState(() {
+                            print("index  $index");
+                            ch.currentSelected = index;
+                            Navigator.pushReplacementNamed(
+                                context, '/${_listViewRouteData[index]}');
+                          });
+                        },
+                      ),
+                    );
+                  }),
+            ),
+            HalloButton(
+              color1: data.btnColor,
+              color2: data.cardColor,
+              text: 'Sign out',
+              onPressedBtn: () async {
+                await _auth.signOut();
+              },
+            ),
+          ],
+        ));
   }
 }
