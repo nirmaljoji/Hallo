@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/components/hallo_button.dart';
+import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
 
 class Register extends StatefulWidget {
+  String id = '/register';
+
   final Function toggleView;
 
   Register({this.toggleView});
@@ -18,239 +23,136 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String name = '';
-  String phone='';
+  String phone = '';
   String error = '';
-  bool loading=false;
+  bool loading = false;
+
+  HalloThemeData data = new HalloThemeData();
+
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() :Scaffold(
-        backgroundColor: Colors.grey[800],
+    return loading
+        ? Loading()
+        : Scaffold(
+        backgroundColor: Theme
+            .of(context)
+            .backgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.grey[900],
+          backgroundColor: Theme
+              .of(context)
+              .accentColor,
           elevation: 0.0,
           title: Text('Sign up to Hallo',
-
-          style: TextStyle(fontWeight: FontWeight.bold,letterSpacing: 2)),
-          actions: <Widget>[
-            FlatButton.icon(
-                onPressed: () {
-                 //Register widget=
-                  widget.toggleView();
-                },
-                icon: Icon(Icons.person,
-                color: Colors.amberAccent[100],),
-                label: Text(
-                  "Sign In",
-                  style: TextStyle(color: Colors.amberAccent[100]),
-                ))
-          ],
+              style:
+              TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
         ),
-        body: Container(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-            child: Form(
-              key: _formkey,
-              child: Column(
-                children: <Widget>[
+        body: Form(
+          key: _formkey,
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: ListView(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                HalloTextField(
+                  text: 'Enter an email',
+                  hint: "Email-id",
+                  onChangedText: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloTextField(
+                  text: 'Password must be atleats 6 characters long',
+                  hint: 'Password',
+                  onChangedText: (val) {
+                    setState(() {
+                      password = val;
+                    });
+                  },
+                  isPassword: true,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloTextField(
+                  text: 'Name muxst not be empty',
+                  hint: 'Name',
+                  onChangedText: (val) {
+                    setState(() {
+                      name = val;
+                    });
+                  },
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloTextField(
+                  text: 'Enter valid phone number',
+                  hint: 'Phone Number',
+                  onChangedText: (val) {
+                    setState(() {
+                      phone = val;
+                    });
+                  },
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
 
-
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-
-                          hintText: "Email-id",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                      validator: (val) =>
-                      val.isEmpty
-                          ? 'Enter an email'
-                          : null,
-                      onChanged: (val) {
+                Text(
+                  error,
+                  style: TextStyle(color: Colors.red, fontSize: 14),
+                ),
+                HalloButton(
+                  color1: data.btnColor,
+                  color2: data.cardColor,
+                  text: 'Register',
+                  onPressedBtn: () async {
+                    if (_formkey.currentState.validate()) {
+                      setState(() {
+                        loading = true;
+                      });
+                      print("Email:$email");
+                      print("password:$password");
+                      dynamic result =
+                      await _auth.registerWithEmailAndPassword(
+                          email, password, name, phone);
+                      if (result == null) {
                         setState(() {
-                          email = val;
+                          error = 'pls supple a valid mail';
+                          loading = false;
                         });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-
-                          hintText: "password",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                      validator: (val) =>
-                      val.length < 6
-                          ? 'Enter a password 6+ chars long'
-                          : null,
-                      onChanged: (val) {
-                        setState(() {
-                          password = val;
-                        });
-                      },
-                      obscureText: true,
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-
-
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-
-                          hintText: "Enter name",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                      validator: (val) =>
-                      val.isEmpty
-                          ? 'Enter a name '
-                          : null,
-                      onChanged: (val) {
-                        setState(() {
-                          name = val;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black12,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: TextFormField(
-                      keyboardType: TextInputType.phone,
-                      style: TextStyle(
-                          color: Colors.black),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.all(12.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.pink, width: 2.0),
-                          ),
-
-                          hintText: "Phone no",
-                          hintStyle: TextStyle(color: Colors.grey[400])),
-                      validator: (val) =>
-                      val.isEmpty
-                          ? 'Enter valid phone number'
-                          : null,
-                      onChanged: (val) {
-                        setState(() {
-                          phone = val;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 50),
-
-                    color: Colors.lightGreen,
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold,),
-                    ),
-                    onPressed: () async {
-                      if (_formkey.currentState.validate()) {
-                        setState(() {
-                          loading=true;
-                        });
-                        print("Email:$email");
-                        print("password:$password");
-                        dynamic result = await _auth
-                            .registerWithEmailAndPassword(email, password,name,phone);
-                        if (result == null) {
-                          setState(() {
-                            error = 'pls supple a valid mail';
-                            loading=false;
-                          });
-                        }
                       }
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    error,
-                    style: TextStyle(color: Colors.red, fontSize: 14),
-                  )
-                ],
-              ),
-            )));
-    ;
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                HalloButton(
+                  color1: data.primaryColorDark,
+                  color2: data.primaryColorLight,
+                  text: 'Sign in',
+                  onPressedBtn: () {
+                    //Register widget=
+                    widget.toggleView();
+                  },
+                ),
+              ],
+            ),
+          ),
+        )
+
+    );
+
   }
 }

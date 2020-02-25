@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/screens/add_friend/show_friends.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
-import 'package:hallo/services/auth.dart';
-import 'package:hallo/models/uid.dart';
-
 
 
 class Chats extends StatefulWidget {
@@ -11,43 +9,44 @@ class Chats extends StatefulWidget {
 }
 
 
-
 class _ChatsState extends State<Chats> {
-
-  final AuthService _auth = AuthService();
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.search),
+        backgroundColor: Theme
+            .of(context)
+            .splashColor,
+        onPressed: () {
+          setState(() {
 
-
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.search),
-          backgroundColor: Colors.amber,
-        onPressed: (){
-      setState(() {
-
-      });
-
-    },
-        ),
+          });
+        },
+      ),
 
       drawer: Nav_menu(),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Theme
+          .of(context)
+          .backgroundColor,
       appBar: AppBar(
         title: Text("Chats",
-          style: TextStyle(
-
-            fontWeight: FontWeight.bold,
-
-          ),),
+          style: Theme
+              .of(context)
+              .textTheme
+              .title,
+        ),
         centerTitle: true,
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Theme
+            .of(context)
+            .accentColor,
         elevation: 4,
-
       ),
-      body: Text("user name = $current_user_uid"),
+      //Text("user name = $current_user_uid"),
+      body: ListStream(),
     );
   }
 }
+
+

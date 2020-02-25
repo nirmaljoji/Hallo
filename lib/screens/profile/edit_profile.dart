@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Edit_Profile extends StatefulWidget {
+
+  String id = '/edit_profile';
+
   @override
   _Edit_ProfileState createState() => _Edit_ProfileState();
 }
@@ -15,15 +18,19 @@ class _Edit_ProfileState extends State<Edit_Profile> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Container(
               height: 125,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme
+                      .of(context)
+                      .accentColor
+                      .withOpacity(50.0),
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   boxShadow: [
                     BoxShadow(
-                        blurRadius: 10, color: Colors.grey[300], spreadRadius: 5)
+                        blurRadius: 10, color: Theme
+                        .of(context)
+                        .backgroundColor, spreadRadius: 5)
                   ]),
               child: Column(
                   children: []
@@ -31,8 +38,6 @@ class _Edit_ProfileState extends State<Edit_Profile> {
             )
 
           ]
-
-
       ),
     );
   }
