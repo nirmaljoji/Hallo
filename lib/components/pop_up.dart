@@ -1,19 +1,16 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hallo/models/uid.dart';
-import 'package:hallo/services/database.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
+import 'package:hallo/models/uid.dart';
 
-class SlidableView extends StatelessWidget {
+class PopUp extends StatelessWidget {
   final String friendName;
   final String imageURL;
   final String friendEmail;
   final String friendUID;
 
-  SlidableView(
+  PopUp(
       {this.friendName, this.friendEmail, this.imageURL, this.friendUID});
 
   Firestore _firestore = Firestore.instance;

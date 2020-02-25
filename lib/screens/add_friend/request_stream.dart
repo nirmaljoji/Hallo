@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hallo/components/slidable_view.dart';
+import 'package:hallo/components/pop_up.dart';
+import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/services/database.dart';
-import 'package:hallo/models/uid.dart';
 
 
 
@@ -62,7 +61,7 @@ class UserDetailsReq extends StatelessWidget {
           return Text('NA');
         } else {
           UserData userData = snapshot.data;
-          return (SlidableView(
+          return (PopUp(
               friendName: userData.name,friendEmail: userData.email, imageURL: userData.imageUrl,friendUID: friendUID));
         }
       },
