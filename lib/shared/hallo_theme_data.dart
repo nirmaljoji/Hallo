@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HalloThemeData {
-  Color primaryColor = Color(0xFFB71C1C);
+  Color primaryColor = Colors.blueGrey;
 
   //button gradients below
 
@@ -22,7 +22,7 @@ class HalloThemeData {
 
   //end text field focus
 
-  //appBar background
+  //appBar background and ICONS color
   Color accentColor = Color(0xFF1976D2);
 
 //end of appBar background
@@ -36,11 +36,15 @@ class HalloThemeData {
   Color hintColor = Colors.blueGrey.shade400;
 
   //FAB,cam button
-  Color splashColor = Color(0xFFED553B);
+  Color splashColor = Color(0xFFdd5e89);
 
   //end of FAB,cam
 
-  Color highlightColor = Colors.white70;
+  //chats and profile details color
+
+  Color highlightColor = Colors.black38;
+
+  //end chats color
   Color errorColor = Color(0xFFB71C1C);
 
 

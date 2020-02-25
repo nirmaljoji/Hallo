@@ -84,11 +84,11 @@ class _ProfileState extends State<Profile> {
                         style: Theme
                             .of(context)
                             .textTheme
-                            .subtitle,
+                            .subhead,
                       )
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   HalloTextField(
                     text: 'Do not leave blank',
@@ -330,7 +330,7 @@ class _ProfileState extends State<Profile> {
                             Icons.email,
                             color: Theme
                                 .of(context)
-                                .cursorColor,
+                                .accentColor,
                           ),
                           SizedBox(
                             width: 10,
@@ -354,7 +354,7 @@ class _ProfileState extends State<Profile> {
                             Icons.phone,
                             color: Theme
                                 .of(context)
-                                .cursorColor,
+                                .accentColor,
                           ),
                           SizedBox(
                             width: 10,

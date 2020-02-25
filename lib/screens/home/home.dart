@@ -75,8 +75,11 @@ class _HomeState extends State<Home> {
             fontFamily: data.headlineFont,
           ),
           subtitle: TextStyle(
-            color: data.primaryColor,
             fontFamily: data.headlineFont,
+              color: Theme
+                  .of(context)
+                  .highlightColor,
+              fontSize: 18.0
           ),
         ),
       ),
