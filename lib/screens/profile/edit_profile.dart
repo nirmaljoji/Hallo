@@ -18,13 +18,13 @@ class _Edit_ProfileState extends State<Edit_Profile> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Container(
               height: 125,
               decoration: BoxDecoration(
                   color: Theme
                       .of(context)
-                      .backgroundColor,
+                      .accentColor
+                      .withOpacity(50.0),
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   boxShadow: [
                     BoxShadow(
@@ -38,8 +38,6 @@ class _Edit_ProfileState extends State<Edit_Profile> {
             )
 
           ]
-
-
       ),
     );
   }
