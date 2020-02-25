@@ -2,20 +2,47 @@ import 'package:flutter/material.dart';
 
 class HalloThemeData {
   Color primaryColor = Color(0xFFB71C1C);
-  Color btnColor = Color.fromRGBO(115, 130, 255, 1); //btn gradient 1
 
-  Color accentColor = Color(0xFF1976D2);
+  //button gradients below
+
+  Color btnColor = Color.fromRGBO(115, 130, 255, 1); //btn gradient 1
   Color cardColor = Color.fromRGBO(0, 172, 183, 0.2); //btn gradient 2
-  Color backgroundColor = Color(0xFFECEFF1);
-  Color canvasColor = Color(0xFFFAFAFA);
-  Color splashColor = Color(0xFFED553B);
-  Color focusColor = Color(0xFF3CAE11);
-  Color highlightColor = Colors.white70;
-  Color hintColor = Color(0xFFecb390);
-  Color cursorColor = Color(0xFFFAFAFA);
-  Color errorColor = Color(0xFFB71C1C);
   Color primaryColorDark = Color(0xFFdd5e89);
   Color primaryColorLight = Color(0xFFf7bb97);
+
+  //end of button gradients
+
+  //button text color
+  Color cursorColor = Color(0xFFFAFAFA);
+
+  //end of button text colors
+
+  //text field focus
+  Color focusColor = Color(0xFF1976D2);
+
+  //end text field focus
+
+  //appBar background
+  Color accentColor = Color(0xFF1976D2);
+
+//end of appBar background
+
+  //textField background
+  Color canvasColor = Color(0xFFFAFAFA);
+
+  //end of textfield bg
+
+  Color backgroundColor = Color(0xFFECEFF1);
+  Color hintColor = Colors.blueGrey.shade400;
+
+  //FAB,cam button
+  Color splashColor = Color(0xFFED553B);
+
+  //end of FAB,cam
+
+  Color highlightColor = Colors.white70;
+  Color errorColor = Color(0xFFB71C1C);
+
 
   /*
 const LIGHT_GREEN = Color.fromRGBO(60, 232, 211, 1);

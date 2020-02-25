@@ -24,7 +24,8 @@ class _Edit_ProfileState extends State<Edit_Profile> {
               decoration: BoxDecoration(
                   color: Theme
                       .of(context)
-                      .backgroundColor,
+                      .accentColor
+                      .withOpacity(50.0),
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   boxShadow: [
                     BoxShadow(

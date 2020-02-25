@@ -70,12 +70,25 @@ class _ProfileState extends State<Profile> {
           context: context,
           builder: (context) {
             return Container(
+              decoration: BoxDecoration(
+                color: Theme
+                    .of(context)
+                    .backgroundColor,
+              ),
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
-                  Center(child: Text("Edit Profile")),
+                  Center(
+                      child: Text(
+                        "Edit Profile",
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .subtitle,
+                      )
+                  ),
                   SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
                   HalloTextField(
                     text: 'Do not leave blank',
@@ -87,6 +100,9 @@ class _ProfileState extends State<Profile> {
                       });
                     },
                   ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   HalloTextField(
                     text: 'Do not leave blank',
                     hint: 'Status',
@@ -96,6 +112,9 @@ class _ProfileState extends State<Profile> {
                         s = val;
                       });
                     },
+                  ),
+                  SizedBox(
+                    height: 10.0,
                   ),
                   HalloTextField(
                     text: 'Do not leave blank',
@@ -107,13 +126,17 @@ class _ProfileState extends State<Profile> {
                       });
                     },
                   ),
+
                   SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 50,
+                    height: 40,
                   ),
                   HalloButton(
+                    color2: Theme
+                        .of(context)
+                        .cardColor,
+                    color1: Theme
+                        .of(context)
+                        .buttonColor,
                     text: 'Update',
                     onPressedBtn: () async {
                       await DatabaseService(uid: user.uid)
