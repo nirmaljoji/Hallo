@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
+import 'package:hallo/screens/authenticate/forgot_pwd.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
@@ -49,8 +50,8 @@ class _SignInState extends State<SignIn> {
           ),
         ),
         body: Container(
-            margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 5.0),
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30.0
+            margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30.0
             ),
             child: Form(
               key: _formkey,
@@ -108,7 +109,29 @@ class _SignInState extends State<SignIn> {
                         },
                         isPassword: true,
                       ),
-                      SizedBox(
+                      SizedBox(height: 5.0),
+                      Container(
+                        alignment: Alignment(1.0, 0.0),
+                        padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                        child: InkWell(
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/forgot');
+                            },
+                            child: Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
+                                  decoration: TextDecoration.underline),
+
+
+                            ),
+                          ),
+                        ),
+                      ),
+                       SizedBox(
                         height: 20,
                       ),
                       HalloButton(

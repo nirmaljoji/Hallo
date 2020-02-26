@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
               fontFamily: data.headlineFont,
             ),
             title: TextStyle(
-              color: data.backgroundColor,
+              fontSize: 50,
+              color: Colors.black,
               fontFamily: data.titleFont,
             ),
             subhead: TextStyle(
