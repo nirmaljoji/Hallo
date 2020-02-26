@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
@@ -31,6 +32,11 @@ class _RegisterState extends State<Register> {
 
 
   HalloThemeData data = new HalloThemeData();
+
+  //for dob
+  int day;
+  int month;
+  int year;
 
   @override
   Widget build(BuildContext context) {
@@ -112,20 +118,42 @@ class _RegisterState extends State<Register> {
                 ),
 
                 ListTile(
+
                   title: HalloTextField(
                     text: 'Enter valid phone number',
                     hint: 'Date of birth',
-
                     onChangedText: (val) {
                       setState(() {
                         phone = val;
-
                       });
                     },
                     isPassword: false,
                   ),
-                  trailing: Icon(
-                    Icons.date_range,
+                  trailing: Container(
+                    child: FlatButton(
+                      onPressed: () async {
+                        DateTime newDateTime = await showRoundedDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(DateTime
+                              .now()
+                              .year - 50),
+                          lastDate: DateTime(DateTime
+                              .now()
+                              .year + 50),
+                          borderRadius: 16,
+                        );
+                        setState(() {
+                          day = newDateTime.day;
+                          month = newDateTime.month;
+                          year = newDateTime.year;
+                        });
+                        print(newDateTime);
+                      },
+                      child: Icon(
+                        Icons.date_range,
+                      ),
+                    ),
                   ),
                 ),
                 Text(
