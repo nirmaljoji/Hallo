@@ -41,7 +41,7 @@ class _SignInState extends State<SignIn> {
               .accentColor,
           elevation: 0.0,
           title: Text(
-            "Sign in to Hallo",
+            data.hallo,
             style: Theme
                 .of(context)
                 .textTheme
@@ -68,11 +68,11 @@ class _SignInState extends State<SignIn> {
                           height: 15.0,
                         ),
                         Text(
-                          'HALLO',
-                          style: TextStyle(
-                              fontFamily: 'Lacquer',
-                              fontSize: 30.0
-                          ),
+                          data.hallo,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .title,
                         ),
 
                       ],

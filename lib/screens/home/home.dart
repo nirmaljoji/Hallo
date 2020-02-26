@@ -55,8 +55,8 @@ class _HomeState extends State<Home> {
               fontSize: 25.0
           ),
           title: TextStyle(
-            color: data.primaryColor,
-            fontFamily: data.headlineFont,
+            color: data.backgroundColor,
+            fontFamily: data.titleFont,
           ),
           subhead: TextStyle(
             color: data.accentColor,
