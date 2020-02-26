@@ -6,7 +6,6 @@ import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
 
-
 class SignIn extends StatefulWidget {
   String id = '/signin';
 
@@ -52,8 +51,7 @@ class _SignInState extends State<SignIn> {
         ),
         body: Container(
             margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30.0
-            ),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30.0),
             child: Form(
               key: _formkey,
               child: ListView(
@@ -76,11 +74,9 @@ class _SignInState extends State<SignIn> {
                               .textTheme
                               .title,
                         ),
-
                       ],
                     ),
                   ),
-
                   Column(
                     children: <Widget>[
                       SizedBox(
@@ -118,9 +114,9 @@ class _SignInState extends State<SignIn> {
                           child: FlatButton(
                             onPressed: () {
                               setState(() {
-                                Navigator.pushReplacementNamed(context, '/forgot');
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => ForgotPwd()));
                               });
-
                             },
                             child: Text(
                               'Forgot Password',
@@ -129,13 +125,11 @@ class _SignInState extends State<SignIn> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Montserrat',
                                   decoration: TextDecoration.underline),
-
-
                             ),
                           ),
                         ),
                       ),
-                       SizedBox(
+                      SizedBox(
                         height: 20,
                       ),
                       HalloButton(
@@ -150,11 +144,13 @@ class _SignInState extends State<SignIn> {
                             setState(() {
                               loading = true;
                             });
-                            dynamic result = await _auth
-                                .signInWithEmailAndPassword(email, password);
+                            dynamic result =
+                            await _auth.signInWithEmailAndPassword(
+                                email, password);
                             if (result == null) {
                               setState(() {
-                                error = 'Could Not Sign in with Credentials';
+                                error =
+                                'Could Not Sign in with Credentials';
                                 loading = false;
                               });
                             }
@@ -174,7 +170,6 @@ class _SignInState extends State<SignIn> {
                       ),
                     ],
                   ),
-
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14),
