@@ -4,7 +4,6 @@ import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 
 
 
@@ -112,10 +111,8 @@ class _RegisterState extends State<Register> {
                   height: 10,
                 ),
 
-                FlatButton(
-
-
-                  child: HalloTextField(
+                ListTile(
+                  title: HalloTextField(
                     text: 'Enter valid phone number',
                     hint: 'Date of birth',
 
@@ -126,6 +123,9 @@ class _RegisterState extends State<Register> {
                       });
                     },
                     isPassword: false,
+                  ),
+                  trailing: Icon(
+                    Icons.date_range,
                   ),
                 ),
                 Text(
