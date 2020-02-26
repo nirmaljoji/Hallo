@@ -106,29 +106,8 @@ class _SignInState extends State<SignIn> {
                         },
                         isPassword: true,
                       ),
-                      SizedBox(height: 5.0),
-                      Container(
-                        alignment: Alignment(1.0, 0.0),
-                        padding: EdgeInsets.only(top: 15.0, left: 20.0),
-                        child: InkWell(
-                          child: FlatButton(
-                            onPressed: () {
-                              setState(() {
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => ForgotPwd()));
-                              });
-                            },
-                            child: Text(
-                              'Forgot Password',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat',
-                                  decoration: TextDecoration.underline),
-                            ),
-                          ),
-                        ),
-                      ),
+
+
                       SizedBox(
                         height: 20,
                       ),
@@ -168,12 +147,43 @@ class _SignInState extends State<SignIn> {
                           widget.toggleView();
                         },
                       ),
+
                     ],
                   ),
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14),
-                  )
+                  ),
+                  SizedBox(height: 100,),
+                  Center(
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: Container(
+                        alignment: Alignment(1.0, 0.0),
+                        padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                        child: InkWell(
+                          child: FlatButton(
+                            onPressed: () {
+                              setState(() {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => ForgotPwd()));
+                              });
+                            },
+                            child: Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                    ),
+                  ),
                 ],
               ),
             )));

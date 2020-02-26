@@ -90,13 +90,23 @@ class _Nav_menuState extends State<Nav_menu> {
                     );
                   }),
             ),
-            HalloButton(
-              color1: data.btnColor,
-              color2: data.cardColor,
-              text: 'Sign out',
-              onPressedBtn: () async {
-                await _auth.signOut();
-              },
+            
+            Expanded(
+
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 25,horizontal: 0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: HalloButton(
+                    color1: data.btnColor,
+                    color2: data.cardColor,
+                    text: 'Sign out',
+                    onPressedBtn: () async {
+                      await _auth.signOut();
+                    },
+                  ),
+                ),
+              ),
             ),
           ],
         ));
