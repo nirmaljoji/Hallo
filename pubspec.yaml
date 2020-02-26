@@ -48,6 +48,9 @@ flutter:
     - family: Lacquer
       fonts:
         - asset: fonts/Lacquer-Regular.ttf
+    - family: Nanum Brush Script
+      fonts:
+        - asset: fonts/NanumBrushScript-Regular.ttf
 
 
   # The following line ensures that the Material Icons font is
