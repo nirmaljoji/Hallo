@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
 
   HalloThemeData data = new HalloThemeData();
 
-  //for dob
+  // here for dob
   int day;
   int month;
   int year;
