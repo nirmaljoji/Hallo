@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
               fontSize: 25.0
           ),
           title: TextStyle(
-            fontSize: 50,
+            fontSize: 30,
             color: Colors.black,
             fontFamily: data.titleFont,
           ),
