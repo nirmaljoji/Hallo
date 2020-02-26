@@ -9,6 +9,8 @@ import 'package:hallo/services/auth.dart';
 
 
 class ForgotPwd extends StatefulWidget {
+
+  String id = '/ForgotPwd';
   @override
   _ForgotPwdState createState() => _ForgotPwdState();
 }
@@ -22,6 +24,8 @@ class _ForgotPwdState extends State<ForgotPwd> {
 
   @override
   Widget build(BuildContext context) {
+
+
     void _showToast(BuildContext context) {
       final scaffold = Scaffold.of(context);
       scaffold.showSnackBar(
@@ -37,24 +41,7 @@ class _ForgotPwdState extends State<ForgotPwd> {
     }
 
 
-    return  Scaffold(
-        backgroundColor: Theme
-        .of(context)
-        .backgroundColor,
-    appBar: AppBar(
-    backgroundColor: Theme
-        .of(context)
-        .accentColor,
-    elevation: 0.0,
-    title: Text(
-    "Sign in to Hallo",
-    style: Theme
-        .of(context)
-        .textTheme
-        .title,
-    ),
-    ),
-    body: HalloTextField(
+    return HalloTextField(
       text:"" ,
       hint: "Enter email",
       isPassword: false,
@@ -78,7 +65,7 @@ class _ForgotPwdState extends State<ForgotPwd> {
         });
 
       },
-    )
     );
+
   }
 }

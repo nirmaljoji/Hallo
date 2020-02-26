@@ -6,6 +6,7 @@ import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
 
+
 class SignIn extends StatefulWidget {
   String id = '/signin';
 
@@ -116,7 +117,10 @@ class _SignInState extends State<SignIn> {
                         child: InkWell(
                           child: FlatButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/forgot');
+                              setState(() {
+                                Navigator.pushReplacementNamed(context, '/forgot');
+                              });
+
                             },
                             child: Text(
                               'Forgot Password',
