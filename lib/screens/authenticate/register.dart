@@ -7,7 +7,6 @@ import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
 
 
-
 class Register extends StatefulWidget {
   String id = '/register';
 
