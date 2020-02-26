@@ -4,6 +4,8 @@ import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+
 
 
 class Register extends StatefulWidget {
@@ -110,6 +112,22 @@ class _RegisterState extends State<Register> {
                   height: 10,
                 ),
 
+                FlatButton(
+
+
+                  child: HalloTextField(
+                    text: 'Enter valid phone number',
+                    hint: 'Date of birth',
+
+                    onChangedText: (val) {
+                      setState(() {
+                        phone = val;
+
+                      });
+                    },
+                    isPassword: false,
+                  ),
+                ),
                 Text(
                   error,
                   style: TextStyle(color: Colors.red, fontSize: 14),
@@ -147,6 +165,7 @@ class _RegisterState extends State<Register> {
                     widget.toggleView();
                   },
                 ),
+
               ],
             ),
           ),
