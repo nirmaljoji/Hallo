@@ -5,6 +5,7 @@ import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
 
+
 class Register extends StatefulWidget {
   String id = '/register';
 
@@ -26,6 +27,7 @@ class _RegisterState extends State<Register> {
   String phone = '';
   String error = '';
   bool loading = false;
+
 
   HalloThemeData data = new HalloThemeData();
 
@@ -121,14 +123,12 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         loading = true;
                       });
-                      print("Email:$email");
-                      print("password:$password");
                       dynamic result =
                       await _auth.registerWithEmailAndPassword(
                           email, password, name, phone);
                       if (result == null) {
                         setState(() {
-                          error = 'pls supple a valid mail';
+                          error = 'pls supply a valid mail';
                           loading = false;
                         });
                       }
