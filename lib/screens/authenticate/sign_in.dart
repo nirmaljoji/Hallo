@@ -60,9 +60,15 @@ class _SignInState extends State<SignIn> {
                     //margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
                     child: Column(
                       children: <Widget>[
-                        Image.asset(
-                          'images/hallo.png',
-                          scale: 5,
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Hero(
+                          tag: 'icon',
+                          child: Image.asset(
+                            'images/hallo.png',
+                            scale: 5,
+                          ),
                         ),
                         SizedBox(
                           height: 15.0,

@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
@@ -63,12 +64,18 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+
     final user = Provider.of<User>(context);
 
-    void _showEditProfile(String n, String s, String p, String e) {
+    void _showEditProfile(String n, String s, String p, String e, DateTime dob,
+        String address) {
       showModalBottomSheet(
           context: context,
           builder: (context) {
+            DateTime newDt;
+            int day;
+            int month;
+            int year;
             return Container(
               decoration: BoxDecoration(
                 color: Theme
@@ -92,7 +99,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   HalloTextField(
                     text: 'Do not leave blank',
-                    hint: 'Name',
+                    hint: n,
                     isPassword: false,
                     onChangedText: (val) {
                       setState(() {
@@ -105,7 +112,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   HalloTextField(
                     text: 'Do not leave blank',
-                    hint: 'Status',
+                    hint: s,
                     isPassword: false,
                     onChangedText: (val) {
                       setState(() {
@@ -118,7 +125,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   HalloTextField(
                     text: 'Do not leave blank',
-                    hint: 'Phone number',
+                    hint: p,
                     isPassword: false,
                     onChangedText: (val) {
                       setState(() {
@@ -128,8 +135,68 @@ class _ProfileState extends State<Profile> {
                   ),
 
                   SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
+
+                  ListTile(
+
+                    title: HalloTextField(
+                      text: 'Do not leave blank',
+                      hint: '${dob.day}/${dob.month}/${dob.year}',
+                      isPassword: false,
+                      onChangedText: (val) {
+                        setState(() {
+                          dob = val;
+                        });
+                      },
+                    ),
+                    trailing: Container(
+                      child: FlatButton(
+                        onPressed: () async {
+                          DateTime newDateTime = await showRoundedDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(DateTime
+                                .now()
+                                .year - 50),
+                            lastDate: DateTime(DateTime
+                                .now()
+                                .year + 50),
+                            borderRadius: 16,
+                          );
+                          setState(() {
+                            newDt = newDateTime;
+                            day = newDateTime.day;
+                            month = newDateTime.month;
+                            year = newDateTime.year;
+                          });
+                          print(newDateTime);
+                        },
+                        child: Icon(
+                          Icons.date_range,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+                  HalloTextField(
+                    text: 'Do not leave blank',
+                    hint: 'Address',
+                    isPassword: false,
+                    onChangedText: (val) {
+                      setState(() {
+                        address = val;
+                      });
+                    },
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+
                   HalloButton(
                     color2: Theme
                         .of(context)
@@ -140,7 +207,7 @@ class _ProfileState extends State<Profile> {
                     text: 'Update',
                     onPressedBtn: () async {
                       await DatabaseService(uid: user.uid)
-                          .updateUserData(n, s, p, e);
+                          .updateUserData(n, s, p, e, dob, address);
                       Navigator.pop(context);
                     },
                   ),
@@ -201,7 +268,8 @@ class _ProfileState extends State<Profile> {
                   ),
                   onPressed: () {
                     _showEditProfile(userData.name, userData.status,
-                        userData.phone, userData.email);
+                        userData.phone, userData.email, userData.dob,
+                        userData.address);
                   },
                   backgroundColor: Theme
                       .of(context)
@@ -361,6 +429,55 @@ class _ProfileState extends State<Profile> {
                           ),
                           Text(
                             '+91 ${userData.phone}',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .subtitle,
+
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.date_range,
+                            color: Theme
+                                .of(context)
+                                .accentColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '${userData.dob.day}/${userData.dob
+                                .month}/${userData.dob.year}',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .subtitle,
+
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.home,
+                            color: Theme
+                                .of(context)
+                                .accentColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '${userData.address}',
                             style: Theme
                                 .of(context)
                                 .textTheme
