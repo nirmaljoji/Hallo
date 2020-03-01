@@ -4,10 +4,11 @@ import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/services/database.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class ListStream extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
-
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -18,11 +19,14 @@ class ListStream extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(
-              child: Text('no'),
+            loading = true;
+            return ModalProgressHUD(
+              inAsyncCall: loading,
+              child: Center(
+
+              ),
             );
           } else {
-            print('in else part');
             final listElements = snapshot.data.documents;
             List<UserDeets> conversationList = [];
             for (var user in listElements) {
@@ -34,6 +38,7 @@ class ListStream extends StatelessWidget {
               );
               conversationList.add(z);
             }
+            loading = false;
             return ListView(
               children: conversationList,
             );
