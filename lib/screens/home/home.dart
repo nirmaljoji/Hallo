@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/screens/add_friend/add_friend.dart';
+import 'package:hallo/screens/authenticate/authenticate.dart';
+import 'package:hallo/screens/authenticate/forgot_pwd.dart';
 import 'package:hallo/screens/chats/chats.dart';
 import 'package:hallo/screens/groups/groups.dart';
 import 'package:hallo/screens/profile/profile.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
+
 
 class Home extends StatefulWidget {
   String id = '/home';
@@ -24,6 +27,8 @@ class _HomeState extends State<Home> {
         '/add_friend': (context) => Add_friend(),
         '/groups': (context) => Groups(),
         '/profile': (context) => Profile(),
+        '/login':(context) => Authenticate(),
+        '/forgot':(context) => ForgotPwd(),
       },
       theme: ThemeData(
         brightness: Brightness.light,
@@ -55,8 +60,9 @@ class _HomeState extends State<Home> {
               fontSize: 25.0
           ),
           title: TextStyle(
-            color: data.primaryColor,
-            fontFamily: data.headlineFont,
+            fontSize: 30,
+            color: Colors.black,
+            fontFamily: data.titleFont,
           ),
           subhead: TextStyle(
             color: data.accentColor,
@@ -84,5 +90,6 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+    //
   }
 }

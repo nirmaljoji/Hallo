@@ -71,9 +71,11 @@ const PURPLE_COLOR = Color.fromRGBO(115, 130, 255, 1);
 const DARK_PURPLE_COLOR = Color.fromRGBO(28, 34, 87, 1);
    */
 
-  String headlineFont = 'Pcifico';
+  String hallo = 'Hallo';
 
-  String titleFont = 'Lacquer';
+  String headlineFont = 'Paifico';
+
+  String titleFont = 'Nanum Brush Script';
 
   String subheadFont = 'Lacquer';
 

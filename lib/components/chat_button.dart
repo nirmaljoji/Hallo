@@ -9,7 +9,6 @@ class ChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('chat button $friendName');
     return Material(
       elevation: 2.0,
       color: Colors.white70,
@@ -20,18 +19,29 @@ class ChatButton extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.all(4.0),
           leading: imageURL != null ? CircleAvatar(
-            backgroundImage: AssetImage('assets/'),
-            radius: 30.0,
+            radius: 30,
+            backgroundColor: Theme
+                .of(context)
+                .backgroundColor,
+            backgroundImage: AssetImage('images/loading.png'),
             child: ClipOval(
               child: new SizedBox(
-                  width: 180,
-                  height: 180,
-                  child: imageURL != null ? Image.network(
-                    imageURL,
-                    fit: BoxFit.cover,
-                  ) : Container(
-                    color: Colors.amber,
-                  )
+                width: 180,
+                height: 180,
+                child: imageURL != null ? Image.network(
+                  imageURL,
+                  fit: BoxFit.cover,
+                ) : Container(
+                  color: Theme
+                      .of(context)
+                      .backgroundColor,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/loading.png'),
+                    ),
+                  ),
+                ),
+
               ),
             ),
           ) : CircleAvatar(
@@ -69,3 +79,5 @@ class ChatButton extends StatelessWidget {
     );
   }
 }
+
+

@@ -16,6 +16,7 @@ class _HalloTextFieldState extends State<HalloTextField> {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+
         onChanged: widget.onChangedText,
         validator: (val) =>
         (val.isEmpty || val.length < 6)

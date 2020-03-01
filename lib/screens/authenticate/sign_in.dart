@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
+import 'package:hallo/screens/authenticate/forgot_pwd.dart';
 import 'package:hallo/services/auth.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 import 'package:hallo/shared/loading.dart';
@@ -41,7 +42,7 @@ class _SignInState extends State<SignIn> {
               .accentColor,
           elevation: 0.0,
           title: Text(
-            "Sign in to Hallo",
+            data.hallo,
             style: Theme
                 .of(context)
                 .textTheme
@@ -49,9 +50,8 @@ class _SignInState extends State<SignIn> {
           ),
         ),
         body: Container(
-            margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 5.0),
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30.0
-            ),
+            margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30.0),
             child: Form(
               key: _formkey,
               child: ListView(
@@ -60,25 +60,29 @@ class _SignInState extends State<SignIn> {
                     //margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
                     child: Column(
                       children: <Widget>[
-                        Image.asset(
-                          'images/hallo.png',
-                          scale: 5,
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Hero(
+                          tag: 'icon',
+                          child: Image.asset(
+                            'images/hallo.png',
+                            scale: 5,
+                          ),
                         ),
                         SizedBox(
                           height: 15.0,
                         ),
                         Text(
-                          'HALLO',
-                          style: TextStyle(
-                              fontFamily: 'Lacquer',
-                              fontSize: 30.0
-                          ),
+                          data.hallo,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .title,
                         ),
-
                       ],
                     ),
                   ),
-
                   Column(
                     children: <Widget>[
                       SizedBox(
@@ -108,6 +112,8 @@ class _SignInState extends State<SignIn> {
                         },
                         isPassword: true,
                       ),
+
+
                       SizedBox(
                         height: 20,
                       ),
@@ -123,11 +129,13 @@ class _SignInState extends State<SignIn> {
                             setState(() {
                               loading = true;
                             });
-                            dynamic result = await _auth
-                                .signInWithEmailAndPassword(email, password);
+                            dynamic result =
+                            await _auth.signInWithEmailAndPassword(
+                                email, password);
                             if (result == null) {
                               setState(() {
-                                error = 'Could Not Sign in with Credentials';
+                                error =
+                                'Could Not Sign in with Credentials';
                                 loading = false;
                               });
                             }
@@ -145,13 +153,43 @@ class _SignInState extends State<SignIn> {
                           widget.toggleView();
                         },
                       ),
+
                     ],
                   ),
-
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14),
-                  )
+                  ),
+                  SizedBox(height: 100,),
+                  Center(
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: Container(
+                        alignment: Alignment(1.0, 0.0),
+                        padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                        child: InkWell(
+                          child: FlatButton(
+                            onPressed: () {
+                              setState(() {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => ForgotPwd()));
+                              });
+                            },
+                            child: Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                    ),
+                  ),
                 ],
               ),
             )));

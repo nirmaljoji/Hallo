@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hallo/models/user.dart';
-import 'package:hallo/models/user_profile.dart';
 
 class DatabaseService {
   final String uid;
@@ -10,13 +9,15 @@ class DatabaseService {
   final CollectionReference profileCollection =
       Firestore.instance.collection('user_profiles');
 
-  Future updateUserData(
-      String name, String status, String phone, String email) async {
+  Future updateUserData(String name, String status, String phone, String email,
+      Timestamp dob, String address) async {
     return await profileCollection.document(uid).setData({
       'user_name': name,
       'user_status': status,
       'user_email': email,
       'user_phone': phone,
+      'dob': dob,
+      'address': address,
     });
   }
 
@@ -102,6 +103,7 @@ class DatabaseService {
 
 
 Stream<UserData> get userData{
+
     return profileCollection.document(uid).snapshots().map(_userDataFromSnapshot);
 }
 
@@ -117,7 +119,9 @@ UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
         status: snapshot.data['user_status'],
         phone: snapshot.data['user_phone'],
         email: snapshot.data['user_email'],
-        imageUrl: snapshot.data['imageUrl']
+        imageUrl: snapshot.data['imageUrl'],
+        dob: snapshot.data['dob'],
+        address: snapshot.data['address']
 
     );
 }
