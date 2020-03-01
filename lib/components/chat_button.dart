@@ -68,12 +68,22 @@ class ChatButton extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20.0,
+                height: 5.0,
+              ),
+              Text(
+                'Hey! Whats up?',
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .body2,
               ),
             ],
           ),
           trailing: bDay == 1 ? Icon(
             Icons.cake,
+            color: Theme
+                .of(context)
+                .splashColor,
           ) : Icon(
             Icons.arrow_forward_ios,
           ),

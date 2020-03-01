@@ -12,7 +12,6 @@ class RequestStream extends StatelessWidget {
 
   Firestore _firestore = Firestore.instance;
 
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -23,9 +22,9 @@ class RequestStream extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Text('Na');
+            return Container(
+            );
           } else {
-
             print('in else part');
             final listElements = snapshot.data.documents;
             List<UserDetailsReq> conversationList = [];

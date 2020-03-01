@@ -59,7 +59,7 @@ class UserDeets extends StatelessWidget {
       stream: DatabaseService(uid: friendUID).userData,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text('NA');
+          return Text('');
         } else {
           UserData userData = snapshot.data;
           int date = DateTime.now().day;
