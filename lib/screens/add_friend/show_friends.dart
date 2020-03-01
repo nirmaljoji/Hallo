@@ -44,8 +44,9 @@ class ListStream extends StatelessWidget {
 
 class UserDeets extends StatelessWidget {
   final String friendUID;
+  int bday;
 
-  UserDeets({this.friendUID});
+  UserDeets({this.friendUID, this.bday});
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +57,14 @@ class UserDeets extends StatelessWidget {
           return Text('NA');
         } else {
           UserData userData = snapshot.data;
+          int date = DateTime.now().day;
+          int mnth = DateTime.now().month;
+          int user_date = userData.dob.toDate().day;
+          int user_mnth = userData.dob.toDate().month;
+          if(date == user_date && mnth == user_mnth)
+            bday = 1;
           return (ChatButton(
-              friendName: userData.name, imageURL: userData.imageUrl));
+              friendName: userData.name, imageURL: userData.imageUrl, bDay: this.bday));
         }
       },
     );

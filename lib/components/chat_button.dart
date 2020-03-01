@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class ChatButton extends StatelessWidget {
   final String friendName;
   final String imageURL;
+  final int bDay;
   var onPressed;
 
-  ChatButton({this.friendName, this.onPressed, this.imageURL});
+  ChatButton({this.friendName, this.onPressed, this.imageURL, this.bDay});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,9 @@ class ChatButton extends StatelessWidget {
               ),
             ],
           ),
-          trailing: Icon(
+          trailing: bDay == 1 ? Icon(
+            Icons.cake,
+          ) : Icon(
             Icons.arrow_forward_ios,
           ),
         ),
