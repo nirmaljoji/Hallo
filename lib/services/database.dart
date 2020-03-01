@@ -10,7 +10,7 @@ class DatabaseService {
       Firestore.instance.collection('user_profiles');
 
   Future updateUserData(String name, String status, String phone, String email,
-      DateTime dob, String address) async {
+      Timestamp dob, String address) async {
     return await profileCollection.document(uid).setData({
       'user_name': name,
       'user_status': status,
@@ -103,6 +103,7 @@ class DatabaseService {
 
 
 Stream<UserData> get userData{
+
     return profileCollection.document(uid).snapshots().map(_userDataFromSnapshot);
 }
 

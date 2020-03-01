@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,22 +68,21 @@ class _ProfileState extends State<Profile> {
 
     final user = Provider.of<User>(context);
 
-    void _showEditProfile(String n, String s, String p, String e, DateTime dob,
-        String address) {
+    void _showEditProfile(String n, String s, String p, String e, Timestamp dob,String address) {
       showModalBottomSheet(
           context: context,
           builder: (context) {
-            DateTime newDt;
-            int day;
-            int month;
-            int year;
+            DateTime newDt=dob.toDate();
+            int day=newDt.day;
+            int month=newDt.month;
+            int year=newDt.year ;
             return Container(
               decoration: BoxDecoration(
                 color: Theme
                     .of(context)
                     .backgroundColor,
               ),
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
               child: ListView(
                 children: <Widget>[
                   Center(
@@ -142,7 +142,7 @@ class _ProfileState extends State<Profile> {
 
                     title: HalloTextField(
                       text: 'Do not leave blank',
-                      hint: '${dob.day}/${dob.month}/${dob.year}',
+                      hint: '$day/$month/$year',
                       isPassword: false,
                       onChangedText: (val) {
                         setState(() {
@@ -206,6 +206,7 @@ class _ProfileState extends State<Profile> {
                         .buttonColor,
                     text: 'Update',
                     onPressedBtn: () async {
+                      dob=Timestamp.fromDate(newDt);
                       await DatabaseService(uid: user.uid)
                           .updateUserData(n, s, p, e, dob, address);
                       Navigator.pop(context);
@@ -220,7 +221,9 @@ class _ProfileState extends State<Profile> {
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: current_user_uid).userData,
         builder: (context, snapshot) {
+
           if (!(snapshot.hasData)) {
+
             return AlertDialog(
               title: Text('Failed to Retreive Data'),
               content: SingleChildScrollView(
@@ -248,7 +251,7 @@ class _ProfileState extends State<Profile> {
             );
           } else {
             UserData userData = snapshot.data;
-
+            DateTime newDt = userData.dob.toDate();
             return GestureDetector(
               onTap: () {
                 setState(() {
@@ -452,8 +455,7 @@ class _ProfileState extends State<Profile> {
                             width: 10,
                           ),
                           Text(
-                            '${userData.dob.day}/${userData.dob
-                                .month}/${userData.dob.year}',
+                            '${newDt.day}/${newDt.month}/${newDt.year}',
                             style: Theme
                                 .of(context)
                                 .textTheme

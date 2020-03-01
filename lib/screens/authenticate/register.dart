@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:hallo/components/hallo_button.dart';
@@ -37,6 +38,7 @@ class _RegisterState extends State<Register> {
   int month = 01;
   int year = 2020;
   DateTime newDt = DateTime.now();
+  Timestamp myTimeStamp;
   @override
   Widget build(BuildContext context) {
     return loading
@@ -145,6 +147,18 @@ class _RegisterState extends State<Register> {
               ),
 
               ListTile(
+                title: HalloTextField(
+                  text: 'Do not leave blank',
+                  hint: 'DOB - $day/$month/$year',
+                  isPassword: false,
+                  onChangedText: (val) {
+                    setState(() {
+                      newDt = val;
+
+
+                    });
+                  },
+                ),
 
 
                 trailing: Container(
@@ -161,6 +175,14 @@ class _RegisterState extends State<Register> {
                             .year + 50),
                         borderRadius: 16,
                       );
+                      myTimeStamp=Timestamp.fromDate(newDt);
+
+                      setState(() {
+                        day=newDt.day;
+                        month=newDt.month;
+                        year=newDt.year;
+                      });
+
                     },
                     child: Icon(
                       Icons.date_range,
@@ -183,7 +205,7 @@ class _RegisterState extends State<Register> {
                     });
                     dynamic result =
                     await _auth.registerWithEmailAndPassword(
-                        email, password, name, phone, newDt, "");
+                        email, password, name, phone, myTimeStamp, "");
                     if (result == null) {
                       setState(() {
                         error = 'pls supply a valid mail';
