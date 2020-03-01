@@ -25,7 +25,6 @@ class RequestStream extends StatelessWidget {
             return Container(
             );
           } else {
-            print('in else part');
             final listElements = snapshot.data.documents;
             List<UserDetailsReq> conversationList = [];
             for (var user in listElements) {
@@ -57,9 +56,11 @@ class UserDetailsReq extends StatelessWidget {
       stream: DatabaseService(uid: friendUID).userData,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text('NA');
+          return Text('');
         } else {
           UserData userData = snapshot.data;
+          print('${userData.imageUrl} is image url');
+          print('${userData.name} is name');
           return (PopUp(
               friendName: userData.name,friendEmail: userData.email, imageURL: userData.imageUrl,friendUID: friendUID));
         }

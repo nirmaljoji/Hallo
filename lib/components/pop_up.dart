@@ -29,7 +29,12 @@ class PopUp extends StatelessWidget {
                         imageURL,
                         fit: BoxFit.cover,
                       ) : Container(
-                        color: Colors.amber,
+                        //color: Theme.of(context).backgroundColor,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('images/user.png'),
+                            )
+                        ),
                       )
                   ),
                 ),
