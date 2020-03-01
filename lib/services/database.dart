@@ -35,13 +35,13 @@ class DatabaseService {
 
   }
 
-  Future updateProfile(
-      String i) async {
+  Future updateProfile(String i) async {
     return await profileCollection.document(uid).updateData(
       {
         'imageUrl':i
       });
   }
+
 
   Future updateFriend(String i,String suid) async {
     profileCollection.document(uid).collection('friends').document(suid).setData({

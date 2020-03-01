@@ -68,7 +68,7 @@ class _ProfileState extends State<Profile> {
 
     final user = Provider.of<User>(context);
 
-    void _showEditProfile(String n, String s, String p, String e, Timestamp dob,String address) {
+    void _showEditProfile(String n, String s, String p, String e, Timestamp dob,String address,String url) {
       showModalBottomSheet(
           context: context,
           builder: (context) {
@@ -166,7 +166,8 @@ class _ProfileState extends State<Profile> {
                           );
                           setState(() {
                             newDt = newDateTime;
-                            day = newDateTime.day;
+                            day = newDateTime.
+                            day;
                             month = newDateTime.month;
                             year = newDateTime.year;
                           });
@@ -209,6 +210,8 @@ class _ProfileState extends State<Profile> {
                       dob=Timestamp.fromDate(newDt);
                       await DatabaseService(uid: user.uid)
                           .updateUserData(n, s, p, e, dob, address);
+                      await DatabaseService(uid: user.uid)
+                          .updateProfile(url);
                       Navigator.pop(context);
                     },
                   ),
@@ -272,7 +275,7 @@ class _ProfileState extends State<Profile> {
                   onPressed: () {
                     _showEditProfile(userData.name, userData.status,
                         userData.phone, userData.email, userData.dob,
-                        userData.address);
+                        userData.address,userData.imageUrl);
                   },
                   backgroundColor: Theme
                       .of(context)
