@@ -85,7 +85,7 @@ class ChatButton extends StatelessWidget {
                 .of(context)
                 .splashColor,
           ) : Icon(
-            Icons.arrow_forward_ios,
+            Icons.remove_circle_outline,
           ),
         ),
       ),

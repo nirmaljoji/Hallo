@@ -51,7 +51,7 @@ class ListStream extends StatelessWidget {
 class UserDeets extends StatelessWidget {
   final String friendUID;
   int bday;
-
+  Firestore _firestore = Firestore.instance;
   UserDeets({this.friendUID, this.bday});
 
   @override
@@ -112,6 +112,17 @@ class UserDeets extends StatelessWidget {
                             description: Text("${userData.email}"),
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {},
+
+                            onCancelButtonPressed: () {
+                              _firestore.collection('user_profiles').document(
+                                  '$current_user_uid')
+                                  .collection('friends')
+                                  .document(friendUID)
+                                  .delete();
+                              _firestore.collection('user_profiles').document(
+                                  friendUID).collection('friends').document(
+                                  current_user_uid).delete();
+                            },
                           )
                   );
                 },
