@@ -111,7 +111,9 @@ class UserDeets extends StatelessWidget {
                                     fontWeight: FontWeight.w600)),
                             description: Text("${userData.email}"),
                             entryAnimation: EntryAnimation.BOTTOM,
-                            onOkButtonPressed: () {},
+                            onOkButtonPressed: () {
+
+                            },
 
                             onCancelButtonPressed: () {
                               _firestore.collection('user_profiles').document(
