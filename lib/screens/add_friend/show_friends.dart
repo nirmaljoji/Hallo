@@ -109,7 +109,7 @@ class UserDeets extends StatelessWidget {
                                 style:
                                 TextStyle(fontSize: 22.0,
                                     fontWeight: FontWeight.w600)),
-                            description: Text("${userData.email}"),
+                            description: Text(userData.email),
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
 

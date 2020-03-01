@@ -62,18 +62,10 @@ class PopUp extends StatelessWidget {
 
             _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
 
-            /*
-                _firestore.collection('chats').document(current_user_uid).collection(friendUID).document('messages');
-                _firestore.collection('chats').document(friendUID).collection(current_user_uid).document('messages');
-                */
-
-            Navigator.pop(context);
           },
           onCancelButtonPressed: () async {
             _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
 
-
-            Navigator.pop(context);
           },
 
             ));
