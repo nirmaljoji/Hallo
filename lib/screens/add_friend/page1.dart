@@ -72,6 +72,7 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
             hint: "Enter friend's email",
             text: 'This user is not registerned on Hallo',
             isPassword: false,
+            inputType: 1,
             onChangedText: (val) {
               setState(() {
                 email = val;
