@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
   // here for dob
   int day = 01;
   int month = 01;
-  int year = 2020;
+  int year = 2002;
   DateTime newDt = DateTime.now();
   Timestamp myTimeStamp;
   @override
@@ -101,32 +101,35 @@ class _RegisterState extends State<Register> {
                     email = val;
                   });
                 },
+                inputType: 1,
                 isPassword: false,
               ),
               SizedBox(
                 height: 10,
               ),
               HalloTextField(
-                text: 'Password must be atleats 6 characters long',
+                text: 'Password must be atleats 8 characters long',
                 hint: 'Password',
                 onChangedText: (val) {
                   setState(() {
                     password = val;
                   });
                 },
+                inputType: 2,
                 isPassword: true,
               ),
               SizedBox(
                 height: 10,
               ),
               HalloTextField(
-                text: 'Name muxst not be empty',
+                text: 'Name must not be empty',
                 hint: 'Name',
                 onChangedText: (val) {
                   setState(() {
                     name = val;
                   });
                 },
+                inputType: 3,
                 isPassword: false,
               ),
               SizedBox(
@@ -140,6 +143,7 @@ class _RegisterState extends State<Register> {
                     phone = val;
                   });
                 },
+                inputType: 4,
                 isPassword: false,
               ),
               SizedBox(
@@ -147,7 +151,7 @@ class _RegisterState extends State<Register> {
               ),
 
               ListTile(
-                title: TextFormField(
+                title: TextField(
 
                   style: Theme
                       .of(context)
@@ -170,12 +174,12 @@ class _RegisterState extends State<Register> {
                           .focusColor, width: 2.0),
                     ),
 
-                    hintText: "$day/$month/$year",
-                    //hint
+                    hintText: "DOB: $day/$month/$year", //hint
                     hintStyle: Theme
                         .of(context)
                         .textTheme
                         .body2,
+                    enabled: false,
                   ),
 
 
@@ -189,13 +193,13 @@ class _RegisterState extends State<Register> {
                     onPressed: () async {
                       newDt = await showRoundedDatePicker(
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: DateTime(DateTime.now().year - 18),
                         firstDate: DateTime(DateTime
                             .now()
                             .year - 50),
                         lastDate: DateTime(DateTime
                             .now()
-                            .year + 50),
+                            .year - 10),
                         borderRadius: 16,
                       );
                       myTimeStamp=Timestamp.fromDate(newDt);
@@ -232,7 +236,7 @@ class _RegisterState extends State<Register> {
                         email, password, name, phone, myTimeStamp, "-");
                     if (result == null) {
                       setState(() {
-                        error = 'pls supply a valid mail';
+                        error = 'please provide a valid email address';
                         loading = false;
                       });
                     }
