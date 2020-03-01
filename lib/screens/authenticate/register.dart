@@ -147,18 +147,41 @@ class _RegisterState extends State<Register> {
               ),
 
               ListTile(
-                title: HalloTextField(
-                  text: 'Do not leave blank',
-                  hint: 'DOB - $day/$month/$year',
-                  isPassword: false,
-                  onChangedText: (val) {
-                    setState(() {
-                      newDt = val;
+                title: TextFormField(
+
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .body2,
+                  decoration: InputDecoration(
+                    fillColor: Theme
+                        .of(context)
+                        .canvasColor,
+                    filled: true,
+                    contentPadding: EdgeInsets.all(12.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme
+                          .of(context)
+                          .canvasColor, width: 2.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme
+                          .of(context)
+                          .focusColor, width: 2.0),
+                    ),
+
+                    hintText: "$day/$month/$year",
+                    //hint
+                    hintStyle: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
 
 
-                    });
-                  },
+
                 ),
+
 
 
                 trailing: Container(
@@ -199,13 +222,14 @@ class _RegisterState extends State<Register> {
                 color2: data.cardColor,
                 text: 'Register',
                 onPressedBtn: () async {
+                  print("$myTimeStamp");
                   if (_formkey.currentState.validate()) {
                     setState(() {
                       loading = true;
                     });
                     dynamic result =
                     await _auth.registerWithEmailAndPassword(
-                        email, password, name, phone, myTimeStamp, "");
+                        email, password, name, phone, myTimeStamp, "-");
                     if (result == null) {
                       setState(() {
                         error = 'pls supply a valid mail';
