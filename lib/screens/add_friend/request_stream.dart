@@ -61,8 +61,13 @@ class UserDetailsReq extends StatelessWidget {
           UserData userData = snapshot.data;
           print('${userData.imageUrl} is image url');
           print('${userData.name} is name');
-          return (PopUp(
-              friendName: userData.name,friendEmail: userData.email, imageURL: userData.imageUrl,friendUID: friendUID));
+          return (
+              PopUp(
+                  friendName: userData.name,
+                  friendEmail: userData.email,
+                  imageURL: userData.imageUrl,
+                  friendUID: friendUID)
+          );
         }
       },
     );

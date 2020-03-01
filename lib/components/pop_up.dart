@@ -14,61 +14,67 @@ class PopUp extends StatelessWidget {
       {this.friendName, this.friendEmail, this.imageURL, this.friendUID});
 
   Firestore _firestore = Firestore.instance;
-
+  String first, second;
   Future dialoguebox(context) {
     return showDialog(
         context: context,
         builder: (_) => NetworkGiffyDialog(
-              image: CircleAvatar(
-                radius: 40,
-                child: ClipOval(
-                  child: new SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: imageURL != null ? Image.network(
-                        imageURL,
-                        fit: BoxFit.cover,
-                      ) : Container(
-                        //color: Theme.of(context).backgroundColor,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('images/user.png'),
-                            )
-                        ),
-                      )
-                  ),
-                ),
+          buttonOkText: Text('Accept'),
+          buttonCancelText: Text('Reject'),
+          buttonCancelColor: Colors.red,
+          image: CircleAvatar(
+            radius: 40,
+            child: ClipOval(
+              child: new SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: imageURL != null ? Image.network(
+                    imageURL,
+                    fit: BoxFit.cover,
+                  ) : Container(
+                    //color: Theme.of(context).backgroundColor,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('images/user.png'),
+                        )
+                    ),
+                  )
               ),
+            ),
+          ),
 
-              title: Text('$friendName',
-                  textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
-              description: Text("$friendEmail"),
-              entryAnimation: EntryAnimation.BOTTOM,
+          title: Text('$friendName',
+              textAlign: TextAlign.center,
+              style:
+              TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
+          description: Text("$friendEmail"),
+          entryAnimation: EntryAnimation.BOTTOM,
 
-              onOkButtonPressed: () async {
+          onOkButtonPressed: () async {
+            _firestore.collection('user_profiles').document(current_user_uid).collection('friends').document(friendUID).setData({
+              'user_id':friendUID,
 
-                _firestore.collection('user_profiles').document(current_user_uid).collection('friends').document(friendUID).setData({
-                  'user_id':friendUID,
+            });
 
-                });
+            _firestore.collection('user_profiles').document(friendUID).collection('friends').document(current_user_uid).setData({
+              'user_id':current_user_uid,
+            });
 
-                _firestore.collection('user_profiles').document(friendUID).collection('friends').document(current_user_uid).setData({
-                  'user_id':current_user_uid,
-                });
+            _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
 
-                _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
+            /*
+                _firestore.collection('chats').document(current_user_uid).collection(friendUID).document('messages');
+                _firestore.collection('chats').document(friendUID).collection(current_user_uid).document('messages');
+                */
+
+            Navigator.pop(context);
+          },
+          onCancelButtonPressed: () async {
+            _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
 
 
-              },
-              onCancelButtonPressed: () async {
-
-                _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();
-
-
-
-              },
+            Navigator.pop(context);
+          },
 
             ));
   }

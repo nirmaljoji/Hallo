@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
@@ -68,10 +69,58 @@ class UserDeets extends StatelessWidget {
           int user_mnth = userData.dob.toDate().month;
           if(date == user_date && mnth == user_mnth)
             bday = 1;
-          return (ChatButton(
-              friendName: userData.name, imageURL: userData.imageUrl, bDay: this.bday));
+          return (
+              ChatButton(
+                friendName: userData.name,
+                imageURL: userData.imageUrl,
+                bDay: this.bday,
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) =>
+                          NetworkGiffyDialog(
+                            buttonOkText: Text('Chat'),
+                            buttonCancelText: Text('Delete friend'),
+                            buttonCancelColor: Colors.red.shade400,
+                            image: CircleAvatar(
+                              radius: 40,
+                              child: ClipOval(
+                                child: new SizedBox(
+                                    width: 200,
+                                    height: 200,
+                                    child: userData.imageUrl != null ? Image
+                                        .network(
+                                      userData.imageUrl,
+                                      fit: BoxFit.cover,
+                                    ) : Container(
+                                      //color: Theme.of(context).backgroundColor,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                'images/user.png'),
+                                          )
+                                      ),
+                                    )
+                                ),
+                              ),
+                            ),
+                            title: Text('${userData.name}',
+                                textAlign: TextAlign.center,
+                                style:
+                                TextStyle(fontSize: 22.0,
+                                    fontWeight: FontWeight.w600)),
+                            description: Text("${userData.email}"),
+                            entryAnimation: EntryAnimation.BOTTOM,
+                            onOkButtonPressed: () {},
+                          )
+                  );
+                },
+
+              )
+          );
         }
       },
     );
   }
+
 }
