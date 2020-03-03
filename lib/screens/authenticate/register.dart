@@ -236,7 +236,7 @@ class _RegisterState extends State<Register> {
                         email, password, name, phone, myTimeStamp, "-");
                     if (result == null) {
                       setState(() {
-                        error = 'please provide a valid email address';
+                        error = 'This email is invalid/already exists';
                         loading = false;
                       });
                     }

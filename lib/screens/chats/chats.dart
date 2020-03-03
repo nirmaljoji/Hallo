@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hallo/screens/add_friend/show_friends.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 
 
@@ -44,7 +43,6 @@ class _ChatsState extends State<Chats> {
         elevation: 4,
       ),
       //Text("user name = $current_user_uid"),
-      body: ListStream(),
     );
   }
 }
