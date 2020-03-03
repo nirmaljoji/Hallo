@@ -201,7 +201,7 @@ class _Nav_menuState extends State<Nav_menu> {
                                 title: Text(
                                   _listViewData[index],
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 17,
                                     color: Theme
                                         .of(context)
                                         .highlightColor,
