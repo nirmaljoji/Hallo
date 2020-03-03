@@ -14,7 +14,7 @@ class ChatButton extends StatelessWidget {
       elevation: 2.0,
       color: Colors.white70,
       child: MaterialButton(
-        onPressed: onPressed,
+        onPressed: onPressed, 
         minWidth: 500.0,
         height: 70.0,
         child: ListTile(

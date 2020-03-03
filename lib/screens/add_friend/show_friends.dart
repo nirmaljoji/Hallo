@@ -18,6 +18,7 @@ class ListStream extends StatelessWidget {
             .document('$current_user_uid')
             .collection('friends')
             .snapshots(),
+
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             loading = true;
@@ -65,9 +66,17 @@ class UserDeets extends StatelessWidget {
           UserData userData = snapshot.data;
           int date = DateTime.now().day;
           int mnth = DateTime.now().month;
-          int user_date = userData.dob.toDate().day;
-          int user_mnth = userData.dob.toDate().month;
-          if(date == user_date && mnth == user_mnth)
+          int user_date;
+          int user_mnth;
+          if(userData.dob!=null) {
+             user_date = userData.dob
+                .toDate()
+                .day;
+            user_mnth = userData.dob
+                .toDate()
+                .month;
+          }
+          if(date == user_date && mnth==user_mnth)
             bday = 1;
           return (
               ChatButton(
