@@ -135,13 +135,13 @@ class _Nav_menuState extends State<Nav_menu> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: 30,
+                      height: 15,
                       color: Theme
                           .of(context)
                           .accentColor,
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(5, 50, 5, 10),
+                      padding: EdgeInsets.fromLTRB(5, 50, 5, 20),
                       width: 310,
                       color: Theme
                           .of(context)
@@ -169,7 +169,7 @@ class _Nav_menuState extends State<Nav_menu> {
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 15,
                           ),
                           Text('  ${userData.name}',
                             style: TextStyle(
