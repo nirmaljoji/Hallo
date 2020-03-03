@@ -92,6 +92,8 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
               _showToast1(context);
             }
             print(email);
+
+
             QuerySnapshot FutureValue =
             await DatabaseService(uid: current_user_uid)
                 .checkIfMailExist(email);
