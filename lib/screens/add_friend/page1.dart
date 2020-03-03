@@ -88,6 +88,9 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
           color2: data.cardColor,
           text: 'Add friend',
           onPressedBtn: () async {
+            if(email==null){
+              _showToast1(context);
+            }
             print(email);
             QuerySnapshot FutureValue =
             await DatabaseService(uid: current_user_uid)
