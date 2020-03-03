@@ -252,7 +252,8 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             );
-          } else {
+          }
+          else {
             UserData userData = snapshot.data;
             DateTime newDt = userData.dob.toDate();
             return GestureDetector(

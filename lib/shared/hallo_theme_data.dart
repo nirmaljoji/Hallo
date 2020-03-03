@@ -18,6 +18,8 @@ class HalloThemeData {
   //end of button text colors
 
   //text field focus
+  //Color focusColor = Color(0xFF1976D2);
+
   Color focusColor = Color(0xFF1976D2);
 
   //end text field focus
@@ -73,7 +75,7 @@ const DARK_PURPLE_COLOR = Color.fromRGBO(28, 34, 87, 1);
 
   String hallo = 'Hallo';
 
-  String headlineFont = 'Paifico';
+  String headlineFont = 'Pacifico';
 
   String titleFont = 'Nanum Brush Script';
 
