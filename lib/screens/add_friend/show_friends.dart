@@ -117,7 +117,8 @@ class UserDeets extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style:
                                 TextStyle(fontSize: 22.0,
-                                    fontWeight: FontWeight.w600)),
+                                    fontWeight: FontWeight.w600,color: Colors.white)
+                            ),
                             description: Text(userData.email),
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {

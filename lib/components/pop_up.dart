@@ -46,8 +46,9 @@ class PopUp extends StatelessWidget {
           title: Text('$friendName',
               textAlign: TextAlign.center,
               style:
-              TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
-          description: Text("$friendEmail"),
+              TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600,color: Colors.white)),
+          description: Text("$friendEmail",style:
+          TextStyle(color: Colors.white)),
           entryAnimation: EntryAnimation.BOTTOM,
 
           onOkButtonPressed: () async {
