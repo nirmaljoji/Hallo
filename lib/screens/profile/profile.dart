@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
+import 'package:hallo/services/auth.dart';
 import 'package:hallo/services/database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -198,6 +200,29 @@ class _ProfileState extends State<Profile> {
                     height: 10,
                   ),
 
+                  HalloButton(
+                    color1: Theme
+                        .of(context)
+                        .primaryColorDark,
+                    color2: Theme
+                        .of(context)
+                        .primaryColorLight,
+                    text: 'Change Password',
+                    onPressedBtn: () async {
+                      await FirebaseAuth.instance.sendPasswordResetEmail(
+                          email: e);
+
+                      AlertDialog(
+                        title: Text('Check your email'),
+                        content: Text('Check mail to reset password'),
+                      );
+                      Future.delayed(new Duration(seconds: 3));
+                      AuthService().signOut();
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   HalloButton(
                     color2: Theme
                         .of(context)
