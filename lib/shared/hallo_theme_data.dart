@@ -20,7 +20,7 @@ class HalloThemeData {
   //text field focus
   //Color focusColor = Color(0xFF1976D2);
 
-  Color focusColor = Color(0xFF1976D2);
+  Color focusColor = Color(0xFF1976FF);
 
   //end text field focus
 

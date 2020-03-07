@@ -57,7 +57,7 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    c = isMe ? Colors.brown.shade400 : Colors.grey;
+    c = isMe ? Colors.blue : Colors.black12;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(

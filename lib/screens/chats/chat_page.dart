@@ -11,6 +11,9 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(friendUID),
+        backgroundColor: Theme
+            .of(context)
+            .accentColor,
       ),
       body: SafeArea(
         child: MessagesStream(
