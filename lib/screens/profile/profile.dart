@@ -243,7 +243,8 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             );
-          });
+          }
+      );
     }
 
     return StreamBuilder<UserData>(

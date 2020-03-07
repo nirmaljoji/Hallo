@@ -122,7 +122,8 @@ class UserDeets extends StatelessWidget {
                             description: Text(userData.email),
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
-                              Navigator.pushNamed(context, '/chats');
+                              //Navigator.pushNamed(context, '/chats');
+
                             },
                             onCancelButtonPressed: () {
                               _firestore.collection('user_profiles').document(
