@@ -54,6 +54,7 @@ class AuthService{
       AuthResult result= await _auth.createUserWithEmailAndPassword(email: email, password: password );
       FirebaseUser user = result.user;
        current_user_uid=user.uid;
+      print('$dob is dob from myTimeStamp in reg func ');
 
       await DatabaseService(uid: current_user_uid).updateUserData(
           name, "Hey i am available on Hallo", phone, email, dob, "");

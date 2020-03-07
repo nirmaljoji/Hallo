@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> {
   int month = 01;
   int year = 2002;
   DateTime newDt = DateTime.now();
-  Timestamp myTimeStamp;
+  Timestamp myTimeStamp = Timestamp.fromDate(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return loading
@@ -202,8 +202,8 @@ class _RegisterState extends State<Register> {
                             .year - 10),
                         borderRadius: 16,
                       );
-                      myTimeStamp=Timestamp.fromDate(newDt);
-
+                      print('$newDt is newdt');
+                      myTimeStamp = Timestamp.fromDate(newDt);
                       setState(() {
                         day=newDt.day;
                         month=newDt.month;
@@ -226,11 +226,14 @@ class _RegisterState extends State<Register> {
                 color2: data.cardColor,
                 text: 'Register',
                 onPressedBtn: () async {
-                  print("$myTimeStamp");
+                  print("$myTimeStamp =null??");
                   if (_formkey.currentState.validate()) {
                     setState(() {
                       loading = true;
                     });
+
+                    print(
+                        '$myTimeStamp is myTimeStamp before reg func calling');
                     dynamic result =
                     await _auth.registerWithEmailAndPassword(
                         email, password, name, phone, myTimeStamp, "-");
