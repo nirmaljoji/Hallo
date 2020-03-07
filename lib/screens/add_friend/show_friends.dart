@@ -124,9 +124,17 @@ class UserDeets extends StatelessWidget {
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
                               //Navigator.pushNamed(context, '/chats');
-                              Navigator.push(
-                                  context, MaterialPageRoute(builder: (
-                                  context) => ChatPage(friendUID: friendUID,)));
+                              try {
+                                Navigator.push(
+                                    context, MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChatPage(friendUID: friendUID,)));
+                              }
+                              catch (e) {
+                                print(e);
+                                print('nothing there no chat yet');
+                              }
+
                             },
                             onCancelButtonPressed: () {
                               _firestore.collection('user_profiles').document(

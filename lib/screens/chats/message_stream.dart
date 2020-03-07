@@ -37,9 +37,10 @@ class MessagesStream extends StatelessWidget {
               );
               messages.add(bub);
             }
+            List defaultText = [Text('Initiate chat')];
             return ListView(
               reverse: true,
-              children: messages,
+                children: messages != null ? messages : defaultText
             );
           }
           return Text('_');
