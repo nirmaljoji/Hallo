@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/screens/chats/message_stream.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage({this.friendUID});
@@ -10,6 +11,11 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(friendUID),
+      ),
+      body: SafeArea(
+        child: MessagesStream(
+          friendUID: friendUID,
+        ),
       ),
     );
   }

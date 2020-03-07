@@ -46,9 +46,7 @@ class _ChatsState extends State<Chats> {
             .splashColor,
         onPressed: () {
           _initiateChat();
-          setState(() {
 
-          });
         },
       ),
 
