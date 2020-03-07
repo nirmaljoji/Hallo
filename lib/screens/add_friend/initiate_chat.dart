@@ -27,11 +27,10 @@ class InitiateChat extends StatelessWidget {
                 friendUID: uid,
               );
               list.add(xyz);
-
-              return ListView(
-                children: list,
-              );
             }
+            return ListView(
+              children: list,
+            );
           }
           return Text('');
         });
@@ -50,82 +49,88 @@ class FriendDetails extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
-            return Material(
-              borderRadius: BorderRadius.circular(60.0),
-              elevation: 2.0,
-              color: Colors.white70,
-              child: MaterialButton(
-                color: Theme
-                    .of(context)
-                    .primaryColorLight,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ChatPage(friendUID: friendUID,)
-                  ));
-                },
-                minWidth: 200.0,
-                height: 70.0,
-                child: ListTile(
-
-                  contentPadding: EdgeInsets.all(4.0),
-                  leading: userData.imageUrl != null
-                      ? CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    backgroundImage: AssetImage('images/loading.png'),
-                    child: ClipOval(
-                      child: new SizedBox(
-                        width: 180,
-                        height: 180,
-                        child: userData.imageUrl != null
-                            ? Image.network(
-                          userData.imageUrl,
-                          fit: BoxFit.cover,
-                        )
-                            : Container(
-                          color: Theme.of(context).backgroundColor,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image:
-                              AssetImage('images/loading.png'),
+            return Container(
+              margin: EdgeInsets.all(8.0),
+              child: Material(
+                borderRadius: BorderRadius.circular(60.0),
+                elevation: 2.0,
+                color: Colors.white70,
+                child: MaterialButton(
+                  color: Theme
+                      .of(context)
+                      .primaryColorLight,
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ChatPage(friendUID: friendUID,)
+                    ));
+                  },
+                  minWidth: 200.0,
+                  height: 70.0,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(4.0),
+                    leading: userData.imageUrl != null
+                        ? CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Theme
+                          .of(context)
+                          .backgroundColor,
+                      backgroundImage: AssetImage('images/loading.png'),
+                      child: ClipOval(
+                        child: new SizedBox(
+                          width: 180,
+                          height: 180,
+                          child: userData.imageUrl != null
+                              ? Image.network(
+                            userData.imageUrl,
+                            fit: BoxFit.cover,
+                          )
+                              : Container(
+                            color: Theme
+                                .of(context)
+                                .backgroundColor,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image:
+                                AssetImage('images/loading.png'),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                      : CircleAvatar(
-                    //backgroundImage: AssetImage('images/user1.png'),
-                    backgroundColor: Theme
-                        .of(context)
-                        .backgroundColor,
-                    radius: 32.0,
-                    child: ClipOval(
-                      child: new SizedBox(
-                        width: 180,
-                        height: 180,
-                      ),
-                    ),
-                  ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        userData.name,
-                        style: TextStyle(
-                          color: Colors.grey.shade900,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                    )
+                        : CircleAvatar(
+                      //backgroundImage: AssetImage('images/user1.png'),
+                      backgroundColor: Theme
+                          .of(context)
+                          .backgroundColor,
+                      radius: 32.0,
+                      child: ClipOval(
+                        child: new SizedBox(
+                          width: 180,
+                          height: 180,
                         ),
                       ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          userData.name,
+                          style: TextStyle(
+                            color: Colors.grey.shade900,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
 //                      Text(
 //                        'Hey! Whats up?',
 //                        style: Theme.of(context).textTheme.body2,
 //                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

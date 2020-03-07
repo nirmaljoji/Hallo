@@ -4,6 +4,7 @@ import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
+import 'package:hallo/screens/chats/chat_page.dart';
 import 'package:hallo/services/database.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -123,7 +124,9 @@ class UserDeets extends StatelessWidget {
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
                               //Navigator.pushNamed(context, '/chats');
-
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (
+                                  context) => ChatPage(friendUID: friendUID,)));
                             },
                             onCancelButtonPressed: () {
                               _firestore.collection('user_profiles').document(
