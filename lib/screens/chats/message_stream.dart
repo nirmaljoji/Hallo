@@ -95,7 +95,7 @@ class MessageBubble extends StatelessWidget {
                 '$text',
                 style: TextStyle(
                   color: isMe ? Colors.black : Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 18.0, //18.0
                 ),
               ),
             ),
@@ -107,81 +107,3 @@ class MessageBubble extends StatelessWidget {
   }
 }
 
-
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.close),
-            onPressed: (){
-              //logout
-              _auth.signOut();
-              print('logged out');
-
-              //messageStream();
-
-              Navigator.pop(context);
-            },
-          ),
-        ],
-        title: Text('Zoey Chats'),
-        backgroundColor: Colors.brown.shade500,
-      ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            MessagesStream(),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.brown.shade200, width: 2.0),
-                ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      controller: msgTextControler,
-                      onChanged: (value){
-                        //user input
-                        msgText=value;
-                      },
-                      decoration:InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        hintText: 'Type your message here...',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: (){
-                      //print(loggedInUser);
-                      //send
-                      _firestore.collection('messages').add({
-                        'text':msgText,
-                        'sender': loggedInUser.email,
-                      });
-
-                      msgTextControler.clear();
-
-                      print('sent msg and sender to fb');
-                    },
-                    child: Text('send'),
-                  )
-                ],
-              ),
-            ),
-
-          ],
-        ),
-
-      ),
-    );
-  }
- */
