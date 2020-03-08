@@ -50,7 +50,7 @@ class ChatPage extends StatelessWidget {
                           decoration: InputDecoration(
                             fillColor: Theme
                                 .of(context)
-                                .canvasColor,
+                                .backgroundColor,
                             filled: true,
                             contentPadding: EdgeInsets.all(12.0),
                             enabledBorder: OutlineInputBorder(
@@ -75,8 +75,8 @@ class ChatPage extends StatelessWidget {
                         )
                     ),
                     Container(
-                      width: 70.0,
-                      height: 70.0,
+                      width: 65.0,
+                      height: 65.0,
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                         child: Icon(
