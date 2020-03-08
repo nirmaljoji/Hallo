@@ -12,6 +12,7 @@ class ChatPage extends StatelessWidget {
 
   String msgText;
 
+//change
   @override
   Widget build(BuildContext context) {
     return Scaffold(
