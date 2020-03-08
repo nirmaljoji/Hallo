@@ -58,50 +58,6 @@ class DatabaseService {
   }
 
 
-    
-  
-
-
-      
-
-//  Stream<DocumentSnapshot> get profile {
-//
-////    print("database class :$uid");
-////    DocumentReference docRef = await
-////         Firestore.instance.collection('user_profiles').document(uid);
-////    await docRef.get().then((DocumentSnapshot datasnapshot) {
-////      if (datasnapshot.exists) {
-////
-////       String u;
-////       String s;
-////       String e;
-////       String p;
-////        u=datasnapshot.data['user_name'];
-////        s=datasnapshot.data['user_status'];
-////        p=datasnapshot.data['user_phone'];
-////        e=datasnapshot.data['user_email'];
-////
-////        User_Profile up=new User_Profile(u,s,p,e);
-////        print(datasnapshot.data);
-////
-////        return profileCollection.document((uid));
-////
-////      }
-////      else{
-////        print("document not found");
-////        return null;
-////      }
-//
-//
-////
-//  return profileCollection.document()
-//
-//  }
-
-  //hallo Stream
-
-
-
 Stream<UserData> get userData{
 
     return profileCollection.document(uid).snapshots().map(_userDataFromSnapshot);
