@@ -61,12 +61,13 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('$isMe is isMe');
     c = isMe ? Colors.blue : Colors.black12;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
         crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             from,
@@ -80,15 +81,15 @@ class MessageBubble extends StatelessWidget {
             elevation: 5.0,
             borderRadius: isMe
                 ? BorderRadius.only(
-                    topLeft: Radius.circular(50.0),
-                    bottomLeft: Radius.circular(50.0),
-                    bottomRight: Radius.circular(50.0),
-                  )
+              topLeft: Radius.circular(50.0),
+              bottomLeft: Radius.circular(50.0),
+              bottomRight: Radius.circular(50.0),
+            )
                 : BorderRadius.only(
-                    topRight: Radius.circular(50.0),
-                    bottomLeft: Radius.circular(50.0),
-                    bottomRight: Radius.circular(50.0),
-                  ),
+              topRight: Radius.circular(50.0),
+              bottomLeft: Radius.circular(50.0),
+              bottomRight: Radius.circular(50.0),
+            ),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
