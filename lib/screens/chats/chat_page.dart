@@ -35,7 +35,7 @@ class ChatPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                       child: TextField(
-
+                        controller: msgClear,
                         onChanged: (val) {
                           msgText = val;
                         },
