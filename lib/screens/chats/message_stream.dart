@@ -80,6 +80,13 @@ class MessageBubble extends StatelessWidget {
             ),
           ),
           */
+          Text(
+            time.toDate().toIso8601String(),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
+            ),
+          ),
           Material(
             color: c,
             elevation: 5.0,
