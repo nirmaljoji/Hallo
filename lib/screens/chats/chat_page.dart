@@ -16,6 +16,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text(
             friendUID
@@ -24,6 +25,8 @@ class ChatPage extends StatelessWidget {
             .of(context)
             .accentColor,
       ),
+
+
       body: SafeArea(
         child: Container(
           height: MediaQuery
@@ -91,7 +94,7 @@ class ChatPage extends StatelessWidget {
                           _firestore.collection('messages').document(
                               current_user_uid).collection(friendUID).add({
                             'text': msgText,
-                            'time': DateTime.now(),
+                            'time': FieldValue.serverTimestamp(),
                             'to': friendUID,
                             'from': current_user_uid,
                           });
@@ -101,7 +104,7 @@ class ChatPage extends StatelessWidget {
                               .collection(current_user_uid)
                               .add({
                             'text': msgText,
-                            'time': DateTime.now(),
+                            'time': FieldValue.serverTimestamp(),
                             'from': current_user_uid,
                             'to': friendUID,
                           });

@@ -17,7 +17,6 @@ class _ChatsState extends State<Chats> {
   Widget build(BuildContext context) {
     //this returns Scaffold only
 
-    final user = Provider.of<User>(context);
 
     void _initiateChat() {
       showModalBottomSheet(
