@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/chats/message_stream.dart';
+import 'package:hallo/services/database.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage({this.friendUID});
@@ -10,7 +11,11 @@ class ChatPage extends StatelessWidget {
   final String friendUID;
   Firestore _firestore = Firestore.instance;
 
-  String msgText;
+  String msgText, fname;
+
+  String getFriendName(String fUID) {
+    return fname;
+  }
 
 //change
   @override
@@ -19,7 +24,7 @@ class ChatPage extends StatelessWidget {
 
       appBar: AppBar(
         title: Text(
-            friendUID
+            getFriendName(friendUID);
         ),
         backgroundColor: Theme
             .of(context)

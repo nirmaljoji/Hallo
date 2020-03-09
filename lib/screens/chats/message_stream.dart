@@ -70,6 +70,8 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment:
         isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
+          //ADD FOR GROUPS NOT NECESSARY HERE
+          /*
           Text(
             from,
             style: TextStyle(
@@ -77,6 +79,7 @@ class MessageBubble extends StatelessWidget {
               color: Colors.black54,
             ),
           ),
+          */
           Material(
             color: c,
             elevation: 5.0,
