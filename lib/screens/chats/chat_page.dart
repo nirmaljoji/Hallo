@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/chats/message_stream.dart';
-import 'package:hallo/services/database.dart';
 
 class ChatPage extends StatelessWidget {
-  ChatPage({this.friendUID});
+  ChatPage({this.friendUID, this.fname});
 
   final msgClear = TextEditingController();
   final String friendUID;
@@ -13,25 +12,18 @@ class ChatPage extends StatelessWidget {
 
   String msgText, fname;
 
-  String getFriendName(String fUID) {
-    return fname;
-  }
-
 //change
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Text(
-            getFriendName(friendUID);
+          fname,
         ),
         backgroundColor: Theme
             .of(context)
             .accentColor,
       ),
-
-
       body: SafeArea(
         child: Container(
           height: MediaQuery
@@ -63,15 +55,17 @@ class ChatPage extends StatelessWidget {
                             contentPadding: EdgeInsets.all(12.0),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(60.0),
-                              borderSide: BorderSide(color: Theme
-                                  .of(context)
-                                  .canvasColor, width: 2.0),
+                              borderSide: BorderSide(
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor, width: 2.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(60.0),
-                              borderSide: BorderSide(color: Theme
-                                  .of(context)
-                                  .focusColor, width: 2.0),
+                              borderSide: BorderSide(
+                                  color: Theme
+                                      .of(context)
+                                      .focusColor, width: 2.0),
                             ),
                             hintText: ' Type message',
                             //hint
@@ -80,8 +74,7 @@ class ChatPage extends StatelessWidget {
                                 .textTheme
                                 .body2,
                           ),
-                        )
-                    ),
+                        )),
                     Container(
                       width: 65.0,
                       height: 65.0,
@@ -96,15 +89,19 @@ class ChatPage extends StatelessWidget {
                         onPressed: () {
                           msgClear.clear();
 
-                          _firestore.collection('messages').document(
-                              current_user_uid).collection(friendUID).add({
+                          _firestore
+                              .collection('messages')
+                              .document(current_user_uid)
+                              .collection(friendUID)
+                              .add({
                             'text': msgText,
                             'time': FieldValue.serverTimestamp(),
                             'to': friendUID,
                             'from': current_user_uid,
                           });
 
-                          _firestore.collection('messages')
+                          _firestore
+                              .collection('messages')
                               .document(friendUID)
                               .collection(current_user_uid)
                               .add({
