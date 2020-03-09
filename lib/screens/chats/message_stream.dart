@@ -16,11 +16,11 @@ class MessagesStream extends StatelessWidget {
         stream: _firestore
             .collection('messages')
             .document(current_user_uid)
-            .collection('${friendUID}')
+            .collection('${friendUID}').orderBy('time', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final chat = snapshot.data.documents.reversed;
+            final chat = snapshot.data.documents;
             List<MessageBubble> messages = [];
             for (var msg in chat) {
               final msgText = msg.data['text'];
@@ -37,6 +37,7 @@ class MessagesStream extends StatelessWidget {
               );
               messages.add(bub);
             }
+
             List defaultText = [Text('Initiate chat')];
             return Container(
               height: 700,
