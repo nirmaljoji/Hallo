@@ -61,7 +61,9 @@ class FriendDetails extends StatelessWidget {
                       .primaryColorLight,
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => ChatPage(friendUID: friendUID,)
+                        builder: (context) =>
+                            ChatPage(
+                              friendUID: friendUID, fname: userData.name,)
                     ));
                   },
                   minWidth: 200.0,
