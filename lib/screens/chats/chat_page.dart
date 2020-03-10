@@ -26,10 +26,10 @@ class ChatPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
+          height: (MediaQuery
+            .of(context)
+            .size
+            .height)-40,
           child: ListView(
             children: <Widget>[
               MessagesStream(

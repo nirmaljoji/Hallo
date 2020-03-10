@@ -120,7 +120,8 @@ class UserDeets extends StatelessWidget {
                                 TextStyle(fontSize: 22.0,
                                     fontWeight: FontWeight.w600,color: Colors.white)
                             ),
-                            description: Text(userData.email),
+                            description: Text(userData.email, style:
+                            TextStyle(color:Colors.white)),
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
                               //Navigator.pushNamed(context, '/chats');

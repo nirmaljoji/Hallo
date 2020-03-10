@@ -20,10 +20,8 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
     final scaffold = Scaffold.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        backgroundColor: Theme
-            .of(context)
-            .splashColor,
-        content: const Text('Email not found !'),
+        backgroundColor: Colors.red[300],
+        content: const Text('Email not found!'),
         action: SnackBarAction(
             label: 'RETRY', onPressed: scaffold.hideCurrentSnackBar),
       ),
@@ -34,10 +32,8 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
     final scaffold = Scaffold.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        backgroundColor: Theme
-            .of(context)
-            .splashColor,
-        content: const Text('You cannot add yourself as a friend !'),
+        backgroundColor: Colors.red[300],
+        content: const Text('You cannot add yourself as a friend!'),
         action: SnackBarAction(
             label: 'RETRY', onPressed: scaffold.hideCurrentSnackBar),
       ),
@@ -48,12 +44,10 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
     final scaffold = Scaffold.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        backgroundColor: Theme
-            .of(context)
-            .splashColor,
+        backgroundColor: Colors.green,
         content: const Text('Request  Succefully sent'),
         action: SnackBarAction(
-            label: 'RETRY', onPressed: scaffold.hideCurrentSnackBar),
+            label: 'Ok', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
@@ -93,7 +87,7 @@ class _Add_Friends_PageState extends State<Add_Friends_Page> {
             }
             print(email);
 
-
+            
             QuerySnapshot FutureValue =
             await DatabaseService(uid: current_user_uid)
                 .checkIfMailExist(email);
