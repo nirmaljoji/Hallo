@@ -40,7 +40,10 @@ class MessagesStream extends StatelessWidget {
 
             List defaultText = [Text('Initiate chat')];
             return Container(
-              height: 700,
+              height: (MediaQuery
+                  .of(context)
+                  .size
+                  .height) * (4 / 5),
               child: ListView(
                   reverse: true,
                   children: messages != null ? messages : defaultText

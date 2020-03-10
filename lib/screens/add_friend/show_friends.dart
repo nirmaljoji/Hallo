@@ -128,7 +128,8 @@ class UserDeets extends StatelessWidget {
                                 Navigator.push(
                                     context, MaterialPageRoute(
                                     builder: (context) =>
-                                        ChatPage(friendUID: friendUID,)));
+                                        ChatPage(friendUID: friendUID,
+                                          fname: userData.name,)));
                               }
                               catch (e) {
                                 print(e);

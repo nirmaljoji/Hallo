@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hallo/models/user.dart';
+import 'package:hallo/components/fab_circular_menu.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
-import 'package:provider/provider.dart';
 
 
 class Chats extends StatefulWidget {
@@ -37,7 +36,9 @@ class _ChatsState extends State<Chats> {
       );
     }
 
-    return Scaffold(
+
+    /*
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Theme
@@ -47,6 +48,32 @@ class _ChatsState extends State<Chats> {
           _initiateChat();
 
         },
+      ),
+
+    */
+    return Scaffold(
+      body: FabCircularMenu(
+        child: Text('add chats list here'),
+        options: <Widget>[
+          IconButton(
+            icon: Icon(Icons.face),
+            onPressed: () {
+
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.group_add),
+            onPressed: () {
+
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.send),
+            onPressed: () {
+
+            },
+          ),
+        ],
       ),
 
       drawer: Nav_menu(),

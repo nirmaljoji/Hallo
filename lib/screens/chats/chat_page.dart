@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hallo/components/fab_circular_menu.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/chats/message_stream.dart';
 
@@ -31,6 +30,10 @@ class ChatPage extends StatelessWidget {
               .of(context)
               .size
               .height,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: ListView(
             children: <Widget>[
               MessagesStream(
@@ -89,7 +92,6 @@ class ChatPage extends StatelessWidget {
                         ),
                         onPressed: () {
                           msgClear.clear();
-
                           _firestore
                               .collection('messages')
                               .document(current_user_uid)
