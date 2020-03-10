@@ -39,7 +39,6 @@ class _ChatsState extends State<Chats> {
 
 
     /*
-
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Theme
@@ -94,7 +93,7 @@ class _ChatsState extends State<Chats> {
                   Icons.send
               ),
               onPressed: () {
-                print('Pressed!');
+                _initiateChat();
               }),
         ],
         //child: ChatStream(),
