@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/components/fab_circular_menu.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
@@ -51,29 +52,53 @@ class _ChatsState extends State<Chats> {
       ),
 
     */
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    final screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+
     return Scaffold(
       body: FabCircularMenu(
-        child: Text('add chats list here'),
+        fabMargin: EdgeInsets.fromLTRB(
+            screenWidth / 1.22, screenHeight / 1.25, 5, 5),
+        ringColor: Theme
+            .of(context)
+            .splashColor,
+        fabColor: Theme
+            .of(context)
+            .splashColor,
+        fabOpenIcon: Icon(Icons.add),
+        ringDiameter: screenWidth,
         options: <Widget>[
           IconButton(
-            icon: Icon(Icons.face),
-            onPressed: () {
+              icon: Icon(
+                Icons.face,
+              ),
 
-            },
-          ),
+              onPressed: () {
+                print('Pressed!');
+              }),
           IconButton(
-            icon: Icon(Icons.group_add),
-            onPressed: () {
-
-            },
-          ),
+              icon: Icon(
+                  Icons.group_add
+              ),
+              onPressed: () {
+                print('Pressed!');
+              }),
           IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {
-
-            },
-          ),
+              icon: Icon(
+                  Icons.send
+              ),
+              onPressed: () {
+                print('Pressed!');
+              }),
         ],
+        //child: ChatStream(),
+        child: Text(''),
       ),
 
       drawer: Nav_menu(),
