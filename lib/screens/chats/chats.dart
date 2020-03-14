@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/components/fab_circular_menu.dart';
-import 'package:hallo/screens/add_friend/initiate_chat.dart';
+import 'package:hallo/screens/chats/select_friend.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 
 
@@ -16,27 +16,6 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     //this returns Scaffold only
-
-
-    void _initiateChat() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Theme
-                    .of(context)
-                    .backgroundColor,
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
-              child: InitiateChat(),
-              //Text('New message to: '),
-
-            );
-          }
-      );
-    }
-
 
     /*
       floatingActionButton: FloatingActionButton(
@@ -93,7 +72,8 @@ class _ChatsState extends State<Chats> {
                   Icons.send
               ),
               onPressed: () {
-                _initiateChat();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SelectFriend()));
               }),
         ],
         //child: ChatStream(),
