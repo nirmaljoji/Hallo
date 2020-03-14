@@ -25,12 +25,9 @@ class _SelectFriendState extends State<SelectFriend> {
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
         ),
-        child: Column(
-          children: <Widget>[
-            Container(),
+        child:
             InitiateChat(),
-          ],
-        ),
+
         //Text('New message to: '),
       ),
     );
