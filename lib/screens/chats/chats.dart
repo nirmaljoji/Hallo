@@ -17,19 +17,6 @@ class _ChatsState extends State<Chats> {
   Widget build(BuildContext context) {
     //this returns Scaffold only
 
-    /*
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Theme
-            .of(context)
-            .splashColor,
-        onPressed: () {
-          _initiateChat();
-
-        },
-      ),
-
-    */
     final screenWidth = MediaQuery
         .of(context)
         .size

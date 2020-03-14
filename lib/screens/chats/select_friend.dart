@@ -25,7 +25,6 @@ class _SelectFriendState extends State<SelectFriend> {
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
         ),
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
         child: InitiateChat(),
         //Text('New message to: '),
       ),

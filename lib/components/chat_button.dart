@@ -10,13 +10,21 @@ class ChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    final screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+
     return Material(
       elevation: 2.0,
       color: Colors.white70,
       child: MaterialButton(
-        onPressed: onPressed, 
-        minWidth: 500.0,
-        height: 70.0,
+        onPressed: onPressed,
+        height: screenHeight / 10,
         child: ListTile(
           contentPadding: EdgeInsets.all(4.0),
           leading: imageURL != null ? CircleAvatar(
