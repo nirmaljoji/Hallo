@@ -27,44 +27,55 @@ class _ChatsState extends State<Chats> {
         .height;
 
     return Scaffold(
-      body: FabCircularMenu(
-        fabMargin: EdgeInsets.fromLTRB(
-            screenWidth / 1.22, screenHeight / 1.25, 5, 5),
-        ringColor: Theme
-            .of(context)
-            .splashColor,
-        fabColor: Theme
-            .of(context)
-            .splashColor,
-        fabOpenIcon: Icon(Icons.add),
-        ringDiameter: screenWidth,
-        options: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.face,
-              ),
+      body: Stack(
+        children: <Widget>[
+          Container(
 
-              onPressed: () {
-                print('Pressed!');
-              }),
-          IconButton(
-              icon: Icon(
-                  Icons.group_add
-              ),
-              onPressed: () {
-                print('Pressed!');
-              }),
-          IconButton(
-              icon: Icon(
-                  Icons.send
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SelectFriend()));
-              }),
+          ),
+          FabCircularMenu(
+            fabMargin: EdgeInsets.fromLTRB(
+                screenWidth / 1.22, screenHeight / 1.25, 5, 5),
+            ringColor: Theme
+                .of(context)
+                .splashColor,
+            fabColor: Theme
+                .of(context)
+                .splashColor,
+            fabOpenIcon: Icon(Icons.add),
+            ringDiameter: screenWidth,
+            options: <Widget>[
+
+              IconButton(
+                  icon: Icon(
+                    Icons.face,
+                  ),
+
+                  onPressed: () {
+                    print('Pressed!');
+                  }),
+
+              IconButton(
+                  icon: Icon(
+                      Icons.group_add
+                  ),
+                  onPressed: () {
+                    print('Pressed!');
+                  }),
+
+              IconButton(
+                  icon: Icon(
+                      Icons.send
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => SelectFriend()));
+                  }),
+            ],
+            //child: ChatStream(),
+            child: Text(''),
+          ),
         ],
-        //child: ChatStream(),
-        child: Text(''),
       ),
 
       drawer: Nav_menu(),

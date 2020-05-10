@@ -43,15 +43,16 @@ class MessagesStream extends StatelessWidget {
               height: (MediaQuery
                   .of(context)
                   .size
-                  .height) * (4 / 5),
+                  .height) / 1.3,
               child: ListView(
                   reverse: true,
                   children: messages != null ? messages : defaultText
               ),
             );
           }
-          return Text('_');
-        });
+          return Text('no messages haha');
+        }
+    );
   }
 }
 

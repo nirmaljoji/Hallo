@@ -34,7 +34,7 @@ class ChatPage extends StatelessWidget {
               .of(context)
               .size
               .width,
-          child: ListView(
+          child: Column(
             children: <Widget>[
               MessagesStream(
                 friendUID: friendUID,
@@ -80,9 +80,16 @@ class ChatPage extends StatelessWidget {
                           ),
                         )),
                     Container(
-                      width: 65.0,
-                      height: 65.0,
-                      padding: const EdgeInsets.all(8.0),
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 10,
+//                      height: MediaQuery
+//                          .of(context)
+//                          .size
+//                          .height/10,
+
+                      //padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                         child: Icon(
                           Icons.send,
@@ -92,6 +99,7 @@ class ChatPage extends StatelessWidget {
                         ),
                         onPressed: () {
                           msgClear.clear();
+
                           _firestore
                               .collection('messages')
                               .document(current_user_uid)
@@ -128,7 +136,6 @@ class ChatPage extends StatelessWidget {
             ],
           ),
         ),
-
       ),
     );
   }
