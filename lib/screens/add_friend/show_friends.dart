@@ -124,6 +124,18 @@ class UserDeets extends StatelessWidget {
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
                               //Navigator.pushNamed(context, '/chats');
+                              _firestore.collection('user_profiles').document(
+                                  '$current_user_uid')
+                                  .collection('friends')
+                                  .document('$friendUID')
+                                  .updateData({
+                                'chat': true
+                              });
+                              _firestore.collection('user_profiles').document(
+                                  '$friendUID').collection('friends').document(
+                                  '$current_user_uid').updateData({
+                                'chat': true
+                              });
                               try {
                                 Navigator.push(
                                     context, MaterialPageRoute(

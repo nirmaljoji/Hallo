@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/components/fab_circular_menu.dart';
+import 'package:hallo/models/uid.dart';
+import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/chats/select_friend.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
+import 'package:hallo/services/database.dart';
 
 
 class Chats extends StatefulWidget {
@@ -12,6 +17,7 @@ class Chats extends StatefulWidget {
 
 
 class _ChatsState extends State<Chats> {
+  Firestore _firestore = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +32,45 @@ class _ChatsState extends State<Chats> {
         .size
         .height;
 
+    Widget func() {
+      return StreamBuilder<QuerySnapshot>(
+        stream: _firestore
+            .collection('user_profiles')
+            .document('$current_user_uid')
+            .collection('friends')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Container(
+              child: Text('nothing here ra dumma'),
+            );
+          }
+          else {
+            final alreadyChatPeople = snapshot.data.documents;
+            List<ChattedPeople> chattedPeopleList = [];
+            for (var person in alreadyChatPeople) {
+              final String uid = person.data['user_id'];
+              final bool flag = person.data['chat'];
+              final box = ChattedPeople(
+                friendUID: uid,
+              );
+              if (flag) {
+                chattedPeopleList.add(box);
+              }
+            }
+            return ListView(
+              children: chattedPeopleList,
+            );
+          }
+        },
+      );
+    }
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-
+            child: func(),
           ),
           FabCircularMenu(
             fabMargin: EdgeInsets.fromLTRB(
@@ -96,6 +136,34 @@ class _ChatsState extends State<Chats> {
         elevation: 4,
       ),
       //Text("user name = $current_user_uid"),
+    );
+  }
+}
+
+class ChattedPeople extends StatelessWidget {
+
+  final String friendUID;
+
+  ChattedPeople({this.friendUID});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<UserData>(
+      stream: DatabaseService(uid: friendUID).userData,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Text('');
+        } else {
+          UserData userData = snapshot.data;
+//          print('${userData.imageUrl} is image url');
+//          print('${userData.name} is name');
+          return ChatButton(
+              friendName: userData.name,
+              onPressed: () {},
+              imageURL: userData.imageUrl
+          );
+        }
+      },
     );
   }
 }
