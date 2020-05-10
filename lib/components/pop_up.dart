@@ -52,13 +52,18 @@ class PopUp extends StatelessWidget {
           entryAnimation: EntryAnimation.BOTTOM,
 
           onOkButtonPressed: () async {
-            _firestore.collection('user_profiles').document(current_user_uid).collection('friends').document(friendUID).setData({
-              'user_id':friendUID,
-
-            });
+            _firestore.collection('user_profiles').document(current_user_uid)
+                .collection('friends').document(friendUID)
+                .setData(
+                {
+                  'user_id': friendUID,
+                  'chat': false,
+                }
+            );
 
             _firestore.collection('user_profiles').document(friendUID).collection('friends').document(current_user_uid).setData({
               'user_id':current_user_uid,
+              'chat': false,
             });
 
             _firestore.collection('user_profiles').document(current_user_uid).collection('requests').document(friendUID).delete();

@@ -1,6 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hallo/screens/add_friend/show_friends.dart';
-
 
 
 class Friend_list_page2 extends StatefulWidget {
@@ -9,8 +8,10 @@ class Friend_list_page2 extends StatefulWidget {
 }
 
 class _Friend_list_page2State extends State<Friend_list_page2> {
+  Firestore _firestore = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
-    return ListStream();
+    return Container();
   }
 }
