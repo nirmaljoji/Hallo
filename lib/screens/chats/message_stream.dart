@@ -64,6 +64,16 @@ class MessageBubble extends StatelessWidget {
 
   MessageBubble({this.text, this.isMe, this.time, this.to, this.from});
 
+  String gettime() {
+    try {
+      return time.toDate().toIso8601String();
+    }
+    catch (e) {
+      print(e);
+    }
+    return '0';
+  }
+
   @override
   Widget build(BuildContext context) {
     print('$isMe is isMe');
@@ -85,7 +95,7 @@ class MessageBubble extends StatelessWidget {
           ),
           */
           Text(
-            time.toDate().toIso8601String(),
+            gettime(),
             style: TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
