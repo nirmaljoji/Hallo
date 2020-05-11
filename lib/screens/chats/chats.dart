@@ -5,6 +5,7 @@ import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/components/fab_circular_menu.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
+import 'package:hallo/screens/chats/chat_page.dart';
 import 'package:hallo/screens/chats/select_friend.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/database.dart';
@@ -159,7 +160,13 @@ class ChattedPeople extends StatelessWidget {
 //          print('${userData.name} is name');
           return ChatButton(
               friendName: userData.name,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) =>
+                        ChatPage(friendUID: friendUID,
+                          fname: userData.name,)));
+              },
               imageURL: userData.imageUrl
           );
         }

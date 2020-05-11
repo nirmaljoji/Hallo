@@ -79,7 +79,7 @@ class ChatButton extends StatelessWidget {
                 height: 5.0,
               ),
               Text(
-                'Hey! Whats up?',
+                recentText(),
                 style: Theme
                     .of(context)
                     .textTheme
@@ -99,6 +99,10 @@ class ChatButton extends StatelessWidget {
       ),
     );
   }
+}
+
+String recentText() {
+  return 'Hey! Whats up!';
 }
 
 
