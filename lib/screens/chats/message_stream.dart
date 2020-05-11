@@ -61,7 +61,6 @@ class MessageBubble extends StatelessWidget {
   final bool isMe;
   final Timestamp time;
   Color c;
-
   MessageBubble({this.text, this.isMe, this.time, this.to, this.from});
 
   String gettime() {
