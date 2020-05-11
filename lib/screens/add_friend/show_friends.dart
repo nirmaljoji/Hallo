@@ -89,7 +89,7 @@ class UserDeets extends StatelessWidget {
                       context: context,
                       builder: (_) =>
                           NetworkGiffyDialog(
-                            buttonOkText: Text('Chat'),
+                            buttonOkText: Text('Say Hello!'),
                             buttonCancelText: Text('Delete friend'),
                             buttonCancelColor: Colors.red.shade400,
                             image: CircleAvatar(
@@ -142,6 +142,27 @@ class UserDeets extends StatelessWidget {
                                     builder: (context) =>
                                         ChatPage(friendUID: friendUID,
                                           fname: userData.name,)));
+                                _firestore
+                                    .collection('messages')
+                                    .document(current_user_uid)
+                                    .collection(friendUID)
+                                    .add({
+                                  'text': 'Hello!',
+                                  'time': FieldValue.serverTimestamp(),
+                                  'to': friendUID,
+                                  'from': current_user_uid,
+                                });
+
+                                _firestore
+                                    .collection('messages')
+                                    .document(friendUID)
+                                    .collection(current_user_uid)
+                                    .add({
+                                  'text': 'Hello!',
+                                  'time': FieldValue.serverTimestamp(),
+                                  'from': current_user_uid,
+                                  'to': friendUID,
+                                });
                               }
                               catch (e) {
                                 print(e);

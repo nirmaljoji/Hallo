@@ -20,6 +20,7 @@ class ChatPage extends StatelessWidget {
         title: Text(
           fname,
         ),
+
         backgroundColor: Theme
             .of(context)
             .accentColor,
