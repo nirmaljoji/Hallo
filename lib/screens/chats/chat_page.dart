@@ -30,18 +30,18 @@ class ChatPage extends StatelessWidget {
           height: MediaQuery
               .of(context)
               .size
-              .height,
+              .height * 0.9,
           width: MediaQuery
               .of(context)
               .size
               .width,
-          child: Column(
+          child: ListView(
             children: <Widget>[
               MessagesStream(
                 friendUID: friendUID,
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
+                //margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
