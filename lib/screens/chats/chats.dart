@@ -129,16 +129,23 @@ class _ChatsState extends State<Chats> {
           .backgroundColor,
       appBar: AppBar(
         title: Text("Chats",
-          style: Theme
-              .of(context)
-              .textTheme
-              .title,
         ),
         centerTitle: true,
         backgroundColor: Theme
             .of(context)
             .accentColor,
         elevation: 4,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: ChatSearch(),
+              );
+            },
+          )
+        ]
       ),
       //Text("user name = $current_user_uid"),
     );
@@ -148,8 +155,9 @@ class _ChatsState extends State<Chats> {
 class ChattedPeople extends StatelessWidget {
 
   final String friendUID;
+  final String query;
 
-  ChattedPeople({this.friendUID});
+  ChattedPeople({this.friendUID, this.query});
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +166,7 @@ class ChattedPeople extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Text('');
-        } else {
+        } else if(query == null || query == ''){
           UserData userData = snapshot.data;
 //          print('${userData.imageUrl} is image url');
 //          print('${userData.name} is name');
@@ -173,10 +181,159 @@ class ChattedPeople extends StatelessWidget {
               },
               imageURL: userData.imageUrl
           );
+        } else{
+          UserData userData = snapshot.data;
+          if(userData.name.contains(query)){
+            return ChatButton(
+                friendName: userData.name,
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(
+                      builder: (context) =>
+                          ChatPage(friendUID: friendUID,
+                            fname: userData.name,)));
+                },
+                imageURL: userData.imageUrl
+            );
+          } else {
+            return Text('');
+          }
         }
       },
     );
   }
 }
+
+class ChatSearch extends SearchDelegate<ChattedPeople>{
+
+  Firestore _firestore = Firestore.instance;
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore
+          .collection('user_profiles')
+          .document('$current_user_uid')
+          .collection('friends')
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            child: Text('nothing here ra dumma'),
+          );
+        }
+        else {
+          final alreadyChatPeople = snapshot.data.documents;
+          List<ChattedPeople> chattedPeopleList = [];
+          for (var person in alreadyChatPeople) {
+            final String uid = person.data['user_id'];
+            final bool flag = person.data['chat'];
+            final box = ChattedPeople(
+              friendUID: uid,
+              query: query,
+            );
+            if (flag) {
+              chattedPeopleList.add(box);
+            }
+          }
+          return ListView(
+            children: chattedPeopleList,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore
+          .collection('user_profiles')
+          .document('$current_user_uid')
+          .collection('friends')
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            child: Text('nothing here ra dumma'),
+          );
+        }
+        else {
+          final alreadyChatPeople = snapshot.data.documents;
+          List<ChattedPeople> chattedPeopleList = [];
+          for (var person in alreadyChatPeople) {
+            final String uid = person.data['user_id'];
+            final bool flag = person.data['chat'];
+            final box = ChattedPeople(
+              friendUID: uid,
+              query: query,
+            );
+            if (flag) {
+              chattedPeopleList.add(box);
+            }
+          }
+          return ListView(
+            children: chattedPeopleList,
+          );
+        }
+      },
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
