@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hallo/models/group.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 
@@ -8,7 +9,7 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   final CollectionReference profileCollection =
-      Firestore.instance.collection('user_profiles');
+  Firestore.instance.collection('user_profiles');
 
   Future updateUserData(String name, String status, String phone, String email,
       Timestamp dob, String address) async {
@@ -23,11 +24,16 @@ class DatabaseService {
   }
 
   Future createGroup(friendsCollected, groupName) async {
+
+    List friendsShort = friendsCollected.toSet().toList();
     print(groupName);
+    friendsShort.add(current_user_uid);
     DocumentReference docref = Firestore.instance.collection('groups')
         .document();
 
-    for (var i in friendsCollected) {
+
+
+    for (var i in friendsShort) {
       Firestore.instance
           .collection('groups')
           .document(docref.documentID)
@@ -51,6 +57,20 @@ class DatabaseService {
       'date_created': DateTime.now()
     });
 
+
+    for (var i in friendsShort) {
+
+
+      Firestore.instance.collection('messages').document(i).collection(
+          'groups_chat').document(docref.documentID)
+          .collection('Chats')
+          .document()
+          .setData({
+        'from': current_user_uid,
+        'text': 'Group Created',
+        'time': FieldValue.serverTimestamp(),
+      });
+    }
   }
 
   Future<QuerySnapshot> checkIfMailExist(String email) {
@@ -88,7 +108,18 @@ class DatabaseService {
         .document(uid)
         .snapshots()
         .map(_userDataFromSnapshot);
+
+
   }
+
+
+  Stream<GroupData> get groupData {
+    return Firestore.instance.collection('groups').document(uid).collection('group_info').document(uid).snapshots()
+        .map(_groupDataFromSnapshot);
+
+
+  }
+
 
   Stream<QuerySnapshot> requestDocuments() {
     return profileCollection.document(uid).collection('requests').snapshots();
@@ -104,6 +135,15 @@ class DatabaseService {
         imageUrl: snapshot.data['imageUrl'],
         dob: snapshot.data['dob'],
         address: snapshot.data['address']);
+  }
+
+
+  GroupData _groupDataFromSnapshot(DocumentSnapshot snapshot) {
+    return GroupData(
+        uid: uid,
+        name: snapshot.data['group_name'],
+    );
+
   }
 
   Stream<DocumentSnapshot> getProfileData(String uid) {
