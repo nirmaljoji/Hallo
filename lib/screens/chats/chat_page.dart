@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hallo/components/fab_circular_menu.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/chats/message_stream.dart';
 
@@ -21,23 +20,28 @@ class ChatPage extends StatelessWidget {
         title: Text(
           fname,
         ),
+
         backgroundColor: Theme
             .of(context)
             .accentColor,
       ),
       body: SafeArea(
         child: Container(
-          height: (MediaQuery
-            .of(context)
-            .size
-            .height)-40,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height * 0.9,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: ListView(
             children: <Widget>[
               MessagesStream(
                 friendUID: friendUID,
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
+                //margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -77,9 +81,16 @@ class ChatPage extends StatelessWidget {
                           ),
                         )),
                     Container(
-                      width: 65.0,
-                      height: 65.0,
-                      padding: const EdgeInsets.all(8.0),
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 10,
+//                      height: MediaQuery
+//                          .of(context)
+//                          .size
+//                          .height/10,
+
+                      //padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                         child: Icon(
                           Icons.send,
@@ -126,7 +137,6 @@ class ChatPage extends StatelessWidget {
             ],
           ),
         ),
-
       ),
     );
   }

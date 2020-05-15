@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:hallo/screens/add_friend/add_friend.dart';
 import 'package:hallo/screens/authenticate/authenticate.dart';
@@ -10,6 +11,7 @@ import 'package:hallo/shared/hallo_theme_data.dart';
 
 class Home extends StatefulWidget {
   String id = '/home';
+
 
   @override
   _HomeState createState() => _HomeState();

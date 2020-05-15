@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HalloThemeData {
+
+
   Color primaryColor = Colors.blueGrey;
 
   //button gradients below

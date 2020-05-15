@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/chats/chat_page.dart';
@@ -17,7 +18,10 @@ class InitiateChat extends StatelessWidget {
             .collection('friends')
             .snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (!snapshot.hasData) {
+            return Text('');
+          }
+          else {
             final friends = snapshot.data.documents;
             List<FriendDetails> list = [];
             for (var x in friends) {
@@ -32,7 +36,6 @@ class InitiateChat extends StatelessWidget {
               children: list,
             );
           }
-          return Text('');
         });
   }
 }
@@ -44,13 +47,36 @@ class FriendDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder(
         stream: DatabaseService(uid: friendUID).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
-            return Container(
-              margin: EdgeInsets.all(8.0),
+            return ChatButton(
+              friendName: userData.name,
+              imageURL: userData.imageUrl,
+              bDay: 0,
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        ChatPage(
+                          friendUID: friendUID,
+                          fname: userData.name,
+                        )
+                ));
+              },
+
+            );
+          }
+          return Text('');
+        });
+  }
+}
+
+/*
+Container(
+              width: screenWidth,
               child: Material(
                 borderRadius: BorderRadius.circular(60.0),
                 elevation: 2.0,
@@ -58,7 +84,7 @@ class FriendDetails extends StatelessWidget {
                 child: MaterialButton(
                   color: Theme
                       .of(context)
-                      .primaryColorLight,
+                      .canvasColor,
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) =>
@@ -66,8 +92,7 @@ class FriendDetails extends StatelessWidget {
                               friendUID: friendUID, fname: userData.name,)
                     ));
                   },
-                  minWidth: 200.0,
-                  height: 70.0,
+                  height: screenHeight/10,
                   child: ListTile(
                     contentPadding: EdgeInsets.all(4.0),
                     leading: userData.imageUrl != null
@@ -136,9 +161,5 @@ class FriendDetails extends StatelessWidget {
                   ),
                 ),
               ),
-            );
-          }
-          return Text('');
-        });
-  }
-}
+            )
+ */
