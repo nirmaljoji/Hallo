@@ -10,6 +10,8 @@ class CreateGroup extends StatefulWidget {
 }
 
 class _CreateGroupState extends State<CreateGroup> {
+  String groupName = 'groupName';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +47,13 @@ class _CreateGroupState extends State<CreateGroup> {
           children: <Widget>[
             Expanded(
                 flex: 1,
-                child: TextField()),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      groupName = value;
+                    });
+                  },
+                )),
             Expanded(
                 flex: 15,
                 child: ListStream(check: true)),
@@ -54,7 +62,7 @@ class _CreateGroupState extends State<CreateGroup> {
               child: RaisedButton(
                 onPressed: () {
                   DatabaseService(uid: current_user_uid).createGroup(
-                      GroupInfo.selectedFriends);
+                      GroupInfo.selectedFriends, groupName);
                 },
                 child: Text('Create'),
               ),

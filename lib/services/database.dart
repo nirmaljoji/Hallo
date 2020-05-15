@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 
 class DatabaseService {
@@ -21,9 +22,8 @@ class DatabaseService {
     });
   }
 
-  Future createGroup(friendsCollected) async {
-    int j = 0;
-    String suid;
+  Future createGroup(friendsCollected, groupName) async {
+    print(groupName);
     DocumentReference docref = Firestore.instance.collection('groups')
         .document();
 
@@ -35,6 +35,22 @@ class DatabaseService {
           .document(i)
           .setData({'check': true});
     }
+
+    Firestore.instance
+        .collection('groups')
+        .document(docref.documentID)
+        .collection('group_members')
+        .document(current_user_uid
+    ).setData({'check': true});
+
+    docref.collection('group_info').document(docref.documentID).setData({
+      'group_name': groupName
+    });
+    docref.collection('group_info').document(docref.documentID).collection(
+        'admins').document(current_user_uid).setData({
+      'date_created': DateTime.now()
+    });
+
   }
 
   Future<QuerySnapshot> checkIfMailExist(String email) {
