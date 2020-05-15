@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/show_friends.dart';
+import 'package:hallo/services/database.dart';
+import 'package:hallo/services/group_info.dart';
 
 class CreateGroup extends StatefulWidget {
   @override
@@ -44,11 +47,20 @@ class _CreateGroupState extends State<CreateGroup> {
                 flex: 1,
                 child: TextField()),
             Expanded(
-                flex: 13,
-                child: ListStream(check: true))
+                flex: 15,
+                child: ListStream(check: true)),
+            Expanded(
+              flex: 1,
+              child: RaisedButton(
+                onPressed: () {
+                  DatabaseService(uid: current_user_uid).createGroup(
+                      GroupInfo.selectedFriends);
+                },
+                child: Text('Create'),
+              ),
+            )
           ],
         ),
-
         //Text('New message to: '),
       ),
     );

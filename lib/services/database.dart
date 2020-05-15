@@ -21,72 +21,76 @@ class DatabaseService {
     });
   }
 
-//  Future createFriendsCollection() async{
-//    return  profileCollection.document(uid).collection('friends').document("test").setData({
-//      'user_id':"dummy"
-//    });
-//  }
+  Future createGroup(friendsCollected) async {
+    int j = 0;
+    String suid;
+    DocumentReference docref = Firestore.instance.collection('groups')
+        .document();
 
+    for (var i in friendsCollected) {
+      Firestore.instance
+          .collection('groups')
+          .document(docref.documentID)
+          .collection('group_members')
+          .document(i)
+          .setData({'check': true});
+    }
+  }
 
   Future<QuerySnapshot> checkIfMailExist(String email) {
-    var doc = profileCollection.where('user_email',isEqualTo: email).getDocuments();
+    var doc =
+    profileCollection.where('user_email', isEqualTo: email).getDocuments();
     return Future.value(doc);
-
-
   }
 
   Future updateProfile(String i) async {
-    return await profileCollection.document(uid).updateData(
-      {
-        'imageUrl':i
-      });
+    return await profileCollection.document(uid).updateData({'imageUrl': i});
   }
 
-
-  Future updateFriend(String i,String suid) async {
-    profileCollection.document(uid).collection('friends').document(suid).setData({
-      'user_id':suid,
+  Future updateFriend(String i, String suid) async {
+    profileCollection
+        .document(uid)
+        .collection('friends')
+        .document(suid)
+        .setData({
+      'user_id': suid,
     });
-
   }
 
   Future sendRequest(String suid) async {
-    profileCollection.document(suid).collection('requests').document(uid).setData({
-      'user_id':uid,
+    profileCollection
+        .document(suid)
+        .collection('requests')
+        .document(uid)
+        .setData({
+      'user_id': uid,
     });
-
   }
 
+  Stream<UserData> get userData {
+    return profileCollection
+        .document(uid)
+        .snapshots()
+        .map(_userDataFromSnapshot);
+  }
 
-Stream<UserData> get userData{
-
-    return profileCollection.document(uid).snapshots().map(_userDataFromSnapshot);
-}
-
-Stream<QuerySnapshot> requestDocuments(){
+  Stream<QuerySnapshot> requestDocuments() {
     return profileCollection.document(uid).collection('requests').snapshots();
-}
+  }
 
-UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-        uid:uid,
-
+        uid: uid,
         name: snapshot.data['user_name'],
         status: snapshot.data['user_status'],
         phone: snapshot.data['user_phone'],
         email: snapshot.data['user_email'],
         imageUrl: snapshot.data['imageUrl'],
         dob: snapshot.data['dob'],
-        address: snapshot.data['address']
+        address: snapshot.data['address']);
+  }
 
-    );
-}
-
-
-Stream<DocumentSnapshot> getProfileData(String uid){
+  Stream<DocumentSnapshot> getProfileData(String uid) {
     return profileCollection.document(uid).snapshots();
+  }
 }
-
-}
-
-
