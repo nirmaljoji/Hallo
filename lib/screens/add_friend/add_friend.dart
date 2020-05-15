@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hallo/screens/chats/chats.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 
 import 'page1.dart';
@@ -27,7 +28,19 @@ class _Add_friendState extends State<Add_friend> {
             .of(context)
             .backgroundColor,
         appBar: AppBar(
-
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: ChatSearch(
+                    true
+                  )
+                );
+              },
+            )
+          ],
           bottom: TabBar(
             tabs: [
               Tab(
