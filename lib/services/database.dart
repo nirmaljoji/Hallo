@@ -5,11 +5,11 @@ import 'package:hallo/models/user.dart';
 
 class DatabaseService {
   final String uid;
-
+  static Firestore _firestore = Firestore.instance;
   DatabaseService({this.uid});
 
   final CollectionReference profileCollection =
-  Firestore.instance.collection('user_profiles');
+  _firestore.collection('user_profiles');
 
   Future updateUserData(String name, String status, String phone, String email,
       Timestamp dob, String address) async {
@@ -24,17 +24,14 @@ class DatabaseService {
   }
 
   Future createGroup(friendsCollected, groupName) async {
-
-    List friendsShort = friendsCollected.toSet().toList();
+    List friendsSort = friendsCollected.toSet().toList();
     print(groupName);
-    friendsShort.add(current_user_uid);
-    DocumentReference docref = Firestore.instance.collection('groups')
-        .document();
+    friendsSort.add(current_user_uid);
+    DocumentReference docref =
+    Firestore.instance.collection('groups').document();
 
-
-
-    for (var i in friendsShort) {
-      Firestore.instance
+    for (var i in friendsSort) {
+      _firestore
           .collection('groups')
           .document(docref.documentID)
           .collection('group_members')
@@ -42,27 +39,40 @@ class DatabaseService {
           .setData({'check': true});
     }
 
-    Firestore.instance
+    _firestore
         .collection('groups')
         .document(docref.documentID)
         .collection('group_members')
-        .document(current_user_uid
-    ).setData({'check': true});
+        .document(current_user_uid)
+        .setData({'check': true});
 
-    docref.collection('group_info').document(docref.documentID).setData({
-      'group_name': groupName
-    });
-    docref.collection('group_info').document(docref.documentID).collection(
-        'admins').document(current_user_uid).setData({
-      'date_created': DateTime.now()
-    });
+    docref
+        .collection('group_info')
+        .document(docref.documentID)
+        .setData({'group_name': groupName});
+    docref
+        .collection('group_info')
+        .document(docref.documentID)
+        .collection('admins')
+        .document(current_user_uid)
+        .setData({'date_created': DateTime.now()});
+
+    for (var i in friendsSort) {
+      _firestore
+          .collection('messages')
+          .document(i)
+          .collection('groups_chat')
+          .document(docref.documentID)
+          .setData({
+        'guid': docref.documentID
+      });
 
 
-    for (var i in friendsShort) {
-
-
-      Firestore.instance.collection('messages').document(i).collection(
-          'groups_chat').document(docref.documentID)
+      _firestore
+          .collection('messages')
+          .document(i)
+          .collection('groups_chat')
+          .document(docref.documentID)
           .collection('Chats')
           .document()
           .setData({
@@ -108,18 +118,17 @@ class DatabaseService {
         .document(uid)
         .snapshots()
         .map(_userDataFromSnapshot);
-
-
   }
-
 
   Stream<GroupData> get groupData {
-    return Firestore.instance.collection('groups').document(uid).collection('group_info').document(uid).snapshots()
+    return Firestore.instance
+        .collection('groups')
+        .document(uid)
+        .collection('group_info')
+        .document(uid)
+        .snapshots()
         .map(_groupDataFromSnapshot);
-
-
   }
-
 
   Stream<QuerySnapshot> requestDocuments() {
     return profileCollection.document(uid).collection('requests').snapshots();
@@ -137,13 +146,10 @@ class DatabaseService {
         address: snapshot.data['address']);
   }
 
-
   GroupData _groupDataFromSnapshot(DocumentSnapshot snapshot) {
     return GroupData(
         uid: uid,
-        name: snapshot.data['group_name'],
-    );
-
+        name: snapshot.data['group_name']);
   }
 
   Stream<DocumentSnapshot> getProfileData(String uid) {
