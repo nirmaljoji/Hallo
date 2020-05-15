@@ -67,7 +67,6 @@ class _ChatsState extends State<Chats> {
         },
       );
     }
-
     return Scaffold(
       body: Stack(
         children: <Widget>[
