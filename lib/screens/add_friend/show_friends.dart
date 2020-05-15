@@ -89,7 +89,7 @@ class UserDeets extends StatelessWidget {
                       context: context,
                       builder: (_) =>
                           NetworkGiffyDialog(
-                            buttonOkText: Text('Chat'),
+                            buttonOkText: Text('Say Hello!'),
                             buttonCancelText: Text('Delete friend'),
                             buttonCancelColor: Colors.red.shade400,
                             image: CircleAvatar(
@@ -124,11 +124,45 @@ class UserDeets extends StatelessWidget {
                             entryAnimation: EntryAnimation.BOTTOM,
                             onOkButtonPressed: () {
                               //Navigator.pushNamed(context, '/chats');
+                              _firestore.collection('user_profiles').document(
+                                  '$current_user_uid')
+                                  .collection('friends')
+                                  .document('$friendUID')
+                                  .updateData({
+                                'chat': true
+                              });
+                              _firestore.collection('user_profiles').document(
+                                  '$friendUID').collection('friends').document(
+                                  '$current_user_uid').updateData({
+                                'chat': true
+                              });
                               try {
                                 Navigator.push(
                                     context, MaterialPageRoute(
                                     builder: (context) =>
-                                        ChatPage(friendUID: friendUID,)));
+                                        ChatPage(friendUID: friendUID,
+                                          fname: userData.name,)));
+                                _firestore
+                                    .collection('messages')
+                                    .document(current_user_uid)
+                                    .collection(friendUID)
+                                    .add({
+                                  'text': 'Hello!',
+                                  'time': FieldValue.serverTimestamp(),
+                                  'to': friendUID,
+                                  'from': current_user_uid,
+                                });
+
+                                _firestore
+                                    .collection('messages')
+                                    .document(friendUID)
+                                    .collection(current_user_uid)
+                                    .add({
+                                  'text': 'Hello!',
+                                  'time': FieldValue.serverTimestamp(),
+                                  'from': current_user_uid,
+                                  'to': friendUID,
+                                });
                               }
                               catch (e) {
                                 print(e);

@@ -40,15 +40,19 @@ class MessagesStream extends StatelessWidget {
 
             List defaultText = [Text('Initiate chat')];
             return Container(
-              height: 700,
+              height: (MediaQuery
+                  .of(context)
+                  .size
+                  .height) / 1.3,
               child: ListView(
                   reverse: true,
                   children: messages != null ? messages : defaultText
               ),
             );
           }
-          return Text('_');
-        });
+          return Text('no messages haha');
+        }
+    );
   }
 }
 
@@ -57,8 +61,17 @@ class MessageBubble extends StatelessWidget {
   final bool isMe;
   final Timestamp time;
   Color c;
-
   MessageBubble({this.text, this.isMe, this.time, this.to, this.from});
+
+  String gettime() {
+    try {
+      return time.toDate().toIso8601String();
+    }
+    catch (e) {
+      print(e);
+    }
+    return '0';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +94,7 @@ class MessageBubble extends StatelessWidget {
           ),
           */
           Text(
-            time.toDate().toIso8601String(),
+            gettime(),
             style: TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
