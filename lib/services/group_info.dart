@@ -5,5 +5,5 @@ class GroupInfo {
     print(selectedFriends);
   }
 
-  static List<String> selectedFriends = [];
+  static List<String>selectedFriends = [];
 }

@@ -156,24 +156,39 @@ class DatabaseService {
   }
 
 
-  Stream<QuerySnapshot> getAdminList(String guid) {
-    return _firestore
-        .collection('groups')
-        .document(guid)
-        .collection('group_members')
-        .ge;
+//  Stream<QuerySnapshot> getAdminList(String guid) {
+//    return _firestore
+//        .collection('groups')
+//        .document(guid)
+//        .collection('group_members')
+//
+//  }
+
+  Future<bool> checkIfAdminExist(String guid) {
+    DocumentReference doc =_firestore.collection('groups').document(guid)..collection('group_info').document(guid).collection('admins').where('user_id', isEqualTo:uid ).getDocuments();
+    if (doc != null) {
+        return Future.value(true);
+     }
+    else{
+
+      return Future.value(false);
+    }
   }
 
+  Future<bool> checkForAdmin(String guid) async{
 
-  bool checkForAdmin(String guid) {
-    Stream<QuerySnapshot> _stream = _firestore.collection('groups').document(
-        guid).collection('group_info').document(guid)
-        .collection('admins')
-        .snapshots();
+    bool FutureValue =
+        await DatabaseService(uid: current_user_uid)
+        .checkIfAdminExist(guid);
+    return Future.value(FutureValue);
+  }
+
+  Future finalCheck(String guid) async {
+
+   checkForAdmin(guid).then((value){
+     return value;
 
 
-    for (var i in _stream) {
-      if (current_user_uid == i.)
-    }
+   });
   }
 }

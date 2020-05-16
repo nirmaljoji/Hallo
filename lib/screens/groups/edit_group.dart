@@ -5,7 +5,6 @@ import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/services/database.dart';
 
-
 class AdminsDetails extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
   String userUID;
@@ -16,18 +15,16 @@ class AdminsDetails extends StatelessWidget {
     return StreamBuilder<DocumentSnapshot>(
         stream: _firestore
             .collection('user_profiles')
-            .document('$userUID').snapshots(),
-
+            .document('$userUID')
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Text('');
-          }
-          else {
+          } else {
             return FriendDetails(
-                friendUID: userUID,
-              );
-            }
-
+              friendUID: userUID,
+            );
+          }
         });
   }
 }
@@ -45,7 +42,7 @@ class EditGroup extends StatefulWidget {
 
 class _EditGroupState extends State<EditGroup> {
   _EditGroupState({this.groupName, this.groupUID});
-
+  bool checkCurrent;
   String groupName;
   String groupUID;
   Firestore _firestore = Firestore.instance;
@@ -66,33 +63,36 @@ class _EditGroupState extends State<EditGroup> {
             if (!snapshot.hasData) {
               return Text('');
             } else {
-                List<AdminsDetails> adminsList =[];
-              for (var i in snapshot.data.documents){
-
-                   final z = AdminsDetails(userUID: i.documentID);
-                   adminsList.add(z);
+              List<AdminsDetails> adminsList = [];
+              for (var i in snapshot.data.documents) {
+                if(current_user_uid==i.documentID){
+                  checkCurrent=true;
+                }
+                final z = AdminsDetails(userUID: i.documentID);
+                adminsList.add(z);
               }
               return ListView(
                 children: adminsList,
-              );;
+              );
+              ;
             }
           });
     }
 
     Widget _buttonsGroup(String guid) {
-      if (DatabaseService(uid: current_user_uid).checkForAdmin(guid) == true) {
+      if (checkCurrent == true) {
         return Row(
           children: <Widget>[
             RaisedButton(
               onPressed: () {},
-              child: Text('btn'),
+              child: Text('Edit Admins'),
             ),
             SizedBox(
               width: 100,
             ),
             RaisedButton(
               onPressed: () {},
-              child: Text('btn'),
+              child: Text('Edit Members'),
             ),
           ],
         );
@@ -101,7 +101,6 @@ class _EditGroupState extends State<EditGroup> {
 
       }
     }
-
 
     return Scaffold(
       appBar: AppBar(
@@ -147,20 +146,15 @@ class _EditGroupState extends State<EditGroup> {
               'Admins',
               style: TextStyle(fontSize: 25),
             ),
-            Expanded(
-              flex: 15,
-              child: AdminList()
-            ),
+            Expanded(flex: 15, child: AdminList()),
             Expanded(
               flex: 3,
-              child: _buttonsGroup(groupUID),
+              child:  _buttonsGroup(groupUID),
             ),
             Expanded(
               flex: 1,
               child: RaisedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 child: Text('Create'),
               ),
             )
