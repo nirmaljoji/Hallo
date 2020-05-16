@@ -65,9 +65,7 @@ class _EditGroupState extends State<EditGroup> {
             } else {
               List<AdminsDetails> adminsList = [];
               for (var i in snapshot.data.documents) {
-                if(current_user_uid==i.documentID){
-                  checkCurrent=true;
-                }
+
                 final z = AdminsDetails(userUID: i.documentID);
                 adminsList.add(z);
               }
@@ -80,28 +78,48 @@ class _EditGroupState extends State<EditGroup> {
     }
 
     Widget _buttonsGroup(String guid) {
-      if (checkCurrent == true) {
-        return Row(
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {},
-              child: Text('Edit Admins'),
-            ),
-            SizedBox(
-              width: 100,
-            ),
-            RaisedButton(
-              onPressed: () {},
-              child: Text('Edit Members'),
-            ),
-          ],
-        );
-      }
-      else {
-       return Text('');
 
-      }
+      return StreamBuilder<QuerySnapshot>(
+        stream :str,
+        builder: (context,snapshot)
+      {
+        bool check = false;
+        if (!snapshot.hasData) {
+          return Text('');
+        } else {
+          for (var i in snapshot.data.documents) {
+            if (i.documentID == current_user_uid) {
+              check = true;
+              break;
+            }
+          }
+          if (check) {
+            return Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {},
+                  child: Text('Edit Admins'),
+                ),
+                SizedBox(
+                  width: 100,
+                ),
+                RaisedButton(
+                  onPressed: () {},
+                  child: Text('Edit Members'),
+                ),
+              ],
+            );
+          }
+          else {
+            return Text('');
+          }
+        }
+
+        });
     }
+
+
+
 
     return Scaffold(
       appBar: AppBar(
