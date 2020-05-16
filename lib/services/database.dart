@@ -75,13 +75,14 @@ class DatabaseService {
           .collection('Chats')
           .document()
           .setData({
+        //'to': docref.documentID.toString(),
         'from': current_user_uid,
         'text': 'Group Created',
         'time': FieldValue.serverTimestamp(),
       });
     }
     //returning docref so we can get th edoc id to redirect user to newly formed group's chatpage
-    return docref.toString();
+    return Future.value(docref.documentID);
   }
 
   Future<QuerySnapshot> checkIfMailExist(String email) {

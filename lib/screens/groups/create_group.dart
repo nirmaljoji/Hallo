@@ -13,9 +13,10 @@ class CreateGroup extends StatefulWidget {
 class _CreateGroupState extends State<CreateGroup> {
   String groupName = 'groupName';
 
-  void _updateGUID(List list) {
-    final guid = DatabaseService(uid: current_user_uid).createGroup(
+  void _updateGUID(List list) async {
+    final guid = await DatabaseService(uid: current_user_uid).createGroup(
         list, groupName);
+    print("HELLOOOOOOOO : $guid");
     Navigator.push(
         context, MaterialPageRoute(builder: (context) =>
         GroupPage(

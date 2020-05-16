@@ -10,7 +10,6 @@ class GroupMessages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('current is $current_user_uid and group is $groupUID');
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore
             .collection('messages')
@@ -25,18 +24,16 @@ class GroupMessages extends StatelessWidget {
             final chat = snapshot.data.documents;
             List<MessageBubble> messages = [];
             for (var msg in chat) {
-
               final msgText = msg.data['text'];
-             // final msgTo = msg.data['to'];
+              //final msgTo = msg.data['to'];
               final msgFrom = msg.data['from'];
               final msgtime = msg.data['time'];
-              print('MESSAGE : $msgText');
 
               final bub = MessageBubble(
                 text: msgText,
                 time: msgtime,
                 isMe: msgFrom == current_user_uid,
-//                to: msgTo,
+                //to: msgTo,
                 from: msgFrom,
               );
               messages.add(bub);
@@ -79,7 +76,6 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('$isMe is isMe');
     c = isMe ? Colors.blue : Colors.black12;
     return Padding(
       padding: const EdgeInsets.all(12.0),
