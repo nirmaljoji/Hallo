@@ -80,6 +80,7 @@ class DatabaseService {
         'time': FieldValue.serverTimestamp(),
       });
     }
+    return docref.toString();
   }
 
   Future<QuerySnapshot> checkIfMailExist(String email) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/show_friends.dart';
+import 'package:hallo/screens/groups/group_page.dart';
 import 'package:hallo/services/database.dart';
 import 'package:hallo/services/group_info.dart';
 
@@ -11,6 +12,7 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   String groupName = 'groupName';
+  String guid;
 
   void _showDialog(BuildContext context, List list) {
     showDialog(
@@ -32,6 +34,13 @@ class _CreateGroupState extends State<CreateGroup> {
                   print('list sending to db is $list');
                   DatabaseService(uid: current_user_uid).createGroup(
                       list, groupName);
+                  //FIX THIS CODE GUID IS NULL AS OF NOW
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) =>
+                      GroupPage(
+                        groupUID: guid,
+                        fname: groupName,
+                      )));
                 },
                 child: Text('create'),
               ),
