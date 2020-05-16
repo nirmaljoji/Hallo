@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class ChatButton extends StatelessWidget {
   final String friendName;
   final String imageURL;
-  final int bDay;
+
+  // icon =0 (normal) =1(birthday) =2(selecteD)
+  final int icon;
   var onPressed;
 
-  ChatButton({this.friendName, this.onPressed, this.imageURL, this.bDay});
+  ChatButton({this.friendName, this.onPressed, this.imageURL, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -80,19 +82,18 @@ class ChatButton extends StatelessWidget {
               ),
               Text(
                 recentText(),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .body2,
               ),
             ],
           ),
-          trailing: bDay == 1 ? Icon(
+          trailing: icon == 1 ? Icon(
             Icons.cake,
             color: Theme
                 .of(context)
                 .splashColor,
-          ) : Icon(
+          ) : icon == 2 ? Icon(
+            Icons.check,
+          )
+              : Icon(
             Icons.remove_circle_outline,
           ),
         ),

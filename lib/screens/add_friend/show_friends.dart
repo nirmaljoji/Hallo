@@ -54,25 +54,35 @@ class ListStream extends StatelessWidget {
   }
 }
 
-class UserDeets extends StatelessWidget {
+class UserDeets extends StatefulWidget {
   final String friendUID;
   int bday;
   bool check;
-  Firestore _firestore = Firestore.instance;
 
   UserDeets({this.friendUID, this.bday, this.check});
 
   @override
+  _UserDeetsState createState() => _UserDeetsState();
+}
+
+class _UserDeetsState extends State<UserDeets> {
+  Firestore _firestore = Firestore.instance;
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<UserData>(
-      stream: DatabaseService(uid: friendUID).userData,
+      stream: DatabaseService(uid: widget.friendUID).userData,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Text('');
         } else {
           UserData userData = snapshot.data;
-          int date = DateTime.now().day;
-          int mnth = DateTime.now().month;
+          int date = DateTime
+              .now()
+              .day;
+          int mnth = DateTime
+              .now()
+              .month;
           int user_date;
           int user_mnth;
           if (userData.dob != null) {
@@ -83,14 +93,19 @@ class UserDeets extends StatelessWidget {
                 .toDate()
                 .month;
           }
-          if (date == user_date && mnth == user_mnth) bday = 1;
+          if (date == user_date && mnth == user_mnth) widget.bday = 1;
           return ChatButton(
               friendName: userData.name,
               imageURL: userData.imageUrl,
-              bDay: this.bday,
+              icon: this.widget.bday,
               onPressed: () {
-                if (check) {
-                  GroupInfo(friendUID);
+                if (widget.check) {
+                  GroupInfo(widget.friendUID);
+                  if (GroupInfo.selectedFriends.contains(widget.friendUID)) {
+                    setState(() {
+                      widget.bday = 2;
+                    });
+                  }
                 }
                 else {
                   showDialog(
@@ -135,11 +150,11 @@ class UserDeets extends StatelessWidget {
                                   .collection('user_profiles')
                                   .document('$current_user_uid')
                                   .collection('friends')
-                                  .document('$friendUID')
+                                  .document('${widget.friendUID}')
                                   .updateData({'chat': true});
                               _firestore
                                   .collection('user_profiles')
-                                  .document('$friendUID')
+                                  .document('${widget.friendUID}')
                                   .collection('friends')
                                   .document('$current_user_uid')
                                   .updateData({'chat': true});
@@ -149,29 +164,29 @@ class UserDeets extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             ChatPage(
-                                              friendUID: friendUID,
+                                              friendUID: widget.friendUID,
                                               fname: userData.name,
                                             )));
                                 _firestore
                                     .collection('messages')
                                     .document(current_user_uid)
-                                    .collection(friendUID)
+                                    .collection(widget.friendUID)
                                     .add({
                                   'text': 'Hello!',
                                   'time': FieldValue.serverTimestamp(),
-                                  'to': friendUID,
+                                  'to': widget.friendUID,
                                   'from': current_user_uid,
                                 });
 
                                 _firestore
                                     .collection('messages')
-                                    .document(friendUID)
+                                    .document(widget.friendUID)
                                     .collection(current_user_uid)
                                     .add({
                                   'text': 'Hello!',
                                   'time': FieldValue.serverTimestamp(),
                                   'from': current_user_uid,
-                                  'to': friendUID,
+                                  'to': widget.friendUID,
                                 });
                               } catch (e) {
                                 print(e);
@@ -183,11 +198,11 @@ class UserDeets extends StatelessWidget {
                                   .collection('user_profiles')
                                   .document('$current_user_uid')
                                   .collection('friends')
-                                  .document(friendUID)
+                                  .document(widget.friendUID)
                                   .delete();
                               _firestore
                                   .collection('user_profiles')
-                                  .document(friendUID)
+                                  .document(widget.friendUID)
                                   .collection('friends')
                                   .document(current_user_uid)
                                   .delete();

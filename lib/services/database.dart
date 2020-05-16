@@ -156,13 +156,4 @@ class DatabaseService {
   }
 
 
-  bool checkForAdmin(String guid) {
-    Stream<QuerySnapshot> _stream = _firestore.collection('groups').document(
-        guid).collection('group_info').document(guid)
-        .collection('admins')
-        .snapshots();
-
-
-
-  }
 }
