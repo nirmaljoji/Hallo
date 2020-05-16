@@ -23,7 +23,7 @@ class ChatButton extends StatelessWidget {
 
     return Material(
       elevation: 2.0,
-      color: Colors.white70,
+      color: icon == 2 ? Colors.lightBlue.withOpacity(.6) : Colors.white70,
       child: MaterialButton(
         onPressed: onPressed,
         height: screenHeight / 10,
