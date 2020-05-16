@@ -36,15 +36,12 @@ class ListStream extends StatelessWidget {
           } else {
             final listElements = snapshot.data.documents;
             List<UserDeets> conversationList = [];
-            GroupInfo.selectedFriends.clear();
             for (var user in listElements) {
               final String uid = user.data['user_id'];
-              print('$uid');
 
               final z = UserDeets(
                 friendUID: uid,
                 check: check,
-
               );
               conversationList.add(z);
             }

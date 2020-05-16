@@ -12,16 +12,49 @@ class CreateGroup extends StatefulWidget {
 class _CreateGroupState extends State<CreateGroup> {
   String groupName = 'groupName';
 
+  void _showDialog(BuildContext context, List list) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Set group name'),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  groupName = value;
+                  print('list in func is $list');
+                });
+              },
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  print('list sending to db is $list');
+                  DatabaseService(uid: current_user_uid).createGroup(
+                      list, groupName);
+                },
+                child: Text('create'),
+              ),
+            ],
+          );
+        }
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    GroupInfo.selectedFriends.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> groupMembers = [];
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Create Group",
-          style: Theme
-              .of(context)
-              .textTheme
-              .title,
         ),
         centerTitle: true,
         backgroundColor: Theme
@@ -46,23 +79,15 @@ class _CreateGroupState extends State<CreateGroup> {
         child: Column(
           children: <Widget>[
             Expanded(
-                flex: 1,
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      groupName = value;
-                    });
-                  },
-                )),
-            Expanded(
                 flex: 15,
                 child: ListStream(check: true)),
             Expanded(
               flex: 1,
               child: RaisedButton(
                 onPressed: () {
-                  DatabaseService(uid: current_user_uid).createGroup(
-                      GroupInfo.selectedFriends, groupName);
+                  groupMembers = GroupInfo.selectedFriends;
+                  print('group member in screen is $groupMembers');
+                  _showDialog(context, groupMembers);
                 },
                 child: Text('Create'),
               ),
@@ -74,3 +99,4 @@ class _CreateGroupState extends State<CreateGroup> {
     );
   }
 }
+
