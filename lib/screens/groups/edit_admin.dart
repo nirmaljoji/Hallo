@@ -34,7 +34,7 @@ class _EditAdminState extends State<EditAdmin> {
           children: <Widget>[
             Expanded(flex: 1, child: Text('Admins : ')),
             Expanded(flex: 10, child: AdminsList(guid: widget.guid)),
-            Expanded(flex: 10, child: AddToAdminList())
+            Expanded(flex: 10, child: AddToAdminList()),
           ],
         ),
       ),

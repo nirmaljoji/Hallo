@@ -150,7 +150,7 @@ class _EditGroupState extends State<EditGroup> {
               'Admins',
               style: TextStyle(fontSize: 25),
             ),
-            Expanded(flex: 15, child: AdminsList(guid: groupUID,)),
+            Expanded(flex: 15, child: AdminsList(guid: groupUID)),
             Expanded(
               flex: 3,
               child:  _buttonsGroup(groupUID),

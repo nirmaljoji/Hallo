@@ -43,6 +43,7 @@ class ListStream extends StatelessWidget {
                 friendUID: uid,
                 check: check,
               );
+              conversationList.add(z);
             }
             loading = false;
             return ListView(
