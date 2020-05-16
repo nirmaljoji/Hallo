@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
-import 'package:hallo/screens/add_friend/show_friends.dart';
 import 'package:hallo/services/database.dart';
-import 'package:hallo/services/group_info.dart';
 
 
 class AdminsDetails extends StatelessWidget {
@@ -53,19 +51,17 @@ class _EditGroupState extends State<EditGroup> {
   Firestore _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
-
-
-
+    Stream str = _firestore
+        .collection('groups')
+        .document(groupUID)
+        .collection('group_info')
+        .document(groupUID)
+        .collection('admins')
+        .snapshots();
 
     Widget AdminList() {
       return StreamBuilder<QuerySnapshot>(
-          stream: _firestore
-              .collection('groups')
-              .document(groupUID)
-              .collection('group_info')
-              .document(groupUID)
-              .collection('admins')
-              .snapshots(),
+          stream: str,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Text('');
@@ -83,7 +79,28 @@ class _EditGroupState extends State<EditGroup> {
           });
     }
 
+    Widget _buttonsGroup(String guid) {
+      if (DatabaseService(uid: current_user_uid).checkForAdmin(guid) == true) {
+        return Row(
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {},
+              child: Text('btn'),
+            ),
+            SizedBox(
+              width: 100,
+            ),
+            RaisedButton(
+              onPressed: () {},
+              child: Text('btn'),
+            ),
+          ],
+        );
+      }
+      else {
 
+      }
+    }
 
 
     return Scaffold(
@@ -135,11 +152,14 @@ class _EditGroupState extends State<EditGroup> {
               child: AdminList()
             ),
             Expanded(
+              flex: 3,
+              child: _buttonsGroup(groupUID),
+            ),
+            Expanded(
               flex: 1,
               child: RaisedButton(
                 onPressed: () {
-                  DatabaseService(uid: current_user_uid)
-                      .createGroup(GroupInfo.selectedFriends, groupName);
+
                 },
                 child: Text('Create'),
               ),

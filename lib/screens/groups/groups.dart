@@ -34,7 +34,7 @@ class _GroupsState extends State<Groups> {
               child: Text('nothing here ra dumma'),
             );
           } else {
-            //snapchot.data.documents gets added as a list only if it has atleast ONE field!!!!!
+            //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
             //for a doc to be valid it MUST have atleast one key value pairrrrr
             final listOfGroups = snapshot.data.documents;
             print(listOfGroups);

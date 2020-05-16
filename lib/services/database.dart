@@ -67,7 +67,6 @@ class DatabaseService {
         'guid': docref.documentID
       });
 
-
       _firestore
           .collection('messages')
           .document(i)
@@ -154,5 +153,27 @@ class DatabaseService {
 
   Stream<DocumentSnapshot> getProfileData(String uid) {
     return profileCollection.document(uid).snapshots();
+  }
+
+
+  Stream<QuerySnapshot> getAdminList(String guid) {
+    return _firestore
+        .collection('groups')
+        .document(guid)
+        .collection('group_members')
+        .ge;
+  }
+
+
+  bool checkForAdmin(String guid) {
+    Stream<QuerySnapshot> _stream = _firestore.collection('groups').document(
+        guid).collection('group_info').document(guid)
+        .collection('admins')
+        .snapshots();
+
+
+    for (var i in _stream) {
+      if (current_user_uid == i.)
+    }
   }
 }
