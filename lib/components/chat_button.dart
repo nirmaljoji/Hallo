@@ -7,6 +7,8 @@ class ChatButton extends StatelessWidget {
   // icon =0 (normal) =1(birthday) =2(selecteD)
   final int icon;
   var onPressed;
+  Color selected = Colors.lightBlue.withOpacity(.6);
+  Color notSelected = Colors.white70;
 
   ChatButton({this.friendName, this.onPressed, this.imageURL, this.icon});
 
@@ -23,7 +25,7 @@ class ChatButton extends StatelessWidget {
 
     return Material(
       elevation: 2.0,
-      color: icon == 2 ? Colors.lightBlue.withOpacity(.6) : Colors.white70,
+      color: icon == 2 ? selected : notSelected,
       child: MaterialButton(
         onPressed: onPressed,
         height: screenHeight / 10,

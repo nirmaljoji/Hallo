@@ -94,122 +94,129 @@ class _UserDeetsState extends State<UserDeets> {
                 .month;
           }
           if (date == user_date && mnth == user_mnth) widget.bday = 1;
-          return ChatButton(
-              friendName: userData.name,
-              imageURL: userData.imageUrl,
-              icon: this.widget.bday,
-              onPressed: () {
-                if (widget.check) {
-                  GroupInfo(widget.friendUID);
-                  if (GroupInfo.selectedFriends.contains(widget.friendUID)) {
-                    setState(() {
-                      widget.bday = 2;
-                    });
-                  }
-                }
-                else {
-                  showDialog(
-                      context: context,
-                      builder: (_) =>
-                          NetworkGiffyDialog(
-                            buttonOkText: Text('Say Hello!'),
-                            buttonCancelText: Text('Delete friend'),
-                            buttonCancelColor: Colors.red.shade400,
-                            image: CircleAvatar(
-                              radius: 40,
-                              child: ClipOval(
-                                child: new SizedBox(
-                                    width: 200,
-                                    height: 200,
-                                    child: userData.imageUrl != null
-                                        ? Image.network(
-                                      userData.imageUrl,
-                                      fit: BoxFit.cover,
-                                    )
-                                        : Container(
-                                      //color: Theme.of(context).backgroundColor,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image:
-                                            AssetImage('images/user.png'),
-                                          )),
-                                    )),
-                              ),
-                            ),
-                            title: Text('${userData.name}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 22.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white)),
-                            description: Text(userData.email),
-                            entryAnimation: EntryAnimation.BOTTOM,
-                            onOkButtonPressed: () {
-                              //Navigator.pushNamed(context, '/chats');
-                              _firestore
-                                  .collection('user_profiles')
-                                  .document('$current_user_uid')
-                                  .collection('friends')
-                                  .document('${widget.friendUID}')
-                                  .updateData({'chat': true});
-                              _firestore
-                                  .collection('user_profiles')
-                                  .document('${widget.friendUID}')
-                                  .collection('friends')
-                                  .document('$current_user_uid')
-                                  .updateData({'chat': true});
-                              try {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChatPage(
-                                              friendUID: widget.friendUID,
-                                              fname: userData.name,
-                                            )));
-                                _firestore
-                                    .collection('messages')
-                                    .document(current_user_uid)
-                                    .collection(widget.friendUID)
-                                    .add({
-                                  'text': 'Hello!',
-                                  'time': FieldValue.serverTimestamp(),
-                                  'to': widget.friendUID,
-                                  'from': current_user_uid,
-                                });
-
-                                _firestore
-                                    .collection('messages')
-                                    .document(widget.friendUID)
-                                    .collection(current_user_uid)
-                                    .add({
-                                  'text': 'Hello!',
-                                  'time': FieldValue.serverTimestamp(),
-                                  'from': current_user_uid,
-                                  'to': widget.friendUID,
-                                });
-                              } catch (e) {
-                                print(e);
-                                print('nothing there no chat yet');
-                              }
-                            },
-                            onCancelButtonPressed: () {
-                              _firestore
-                                  .collection('user_profiles')
-                                  .document('$current_user_uid')
-                                  .collection('friends')
-                                  .document(widget.friendUID)
-                                  .delete();
-                              _firestore
-                                  .collection('user_profiles')
-                                  .document(widget.friendUID)
-                                  .collection('friends')
-                                  .document(current_user_uid)
-                                  .delete();
-                            },
-                          ));
-                }
+          return GestureDetector(
+            onLongPress: () {
+              setState(() {
+                widget.bday = 0;
               });
+            },
+            child: ChatButton(
+                friendName: userData.name,
+                imageURL: userData.imageUrl,
+                icon: this.widget.bday,
+                onPressed: () {
+                  if (widget.check) {
+                    GroupInfo(widget.friendUID);
+                    if (GroupInfo.selectedFriends.contains(widget.friendUID)) {
+                      setState(() {
+                        widget.bday = 2;
+                      });
+                    }
+                  }
+                  else {
+                    showDialog(
+                        context: context,
+                        builder: (_) =>
+                            NetworkGiffyDialog(
+                              buttonOkText: Text('Say Hello!'),
+                              buttonCancelText: Text('Delete friend'),
+                              buttonCancelColor: Colors.red.shade400,
+                              image: CircleAvatar(
+                                radius: 40,
+                                child: ClipOval(
+                                  child: new SizedBox(
+                                      width: 200,
+                                      height: 200,
+                                      child: userData.imageUrl != null
+                                          ? Image.network(
+                                        userData.imageUrl,
+                                        fit: BoxFit.cover,
+                                      )
+                                          : Container(
+                                        //color: Theme.of(context).backgroundColor,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image:
+                                              AssetImage('images/user.png'),
+                                            )),
+                                      )),
+                                ),
+                              ),
+                              title: Text('${userData.name}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white)),
+                              description: Text(userData.email),
+                              entryAnimation: EntryAnimation.BOTTOM,
+                              onOkButtonPressed: () {
+                                //Navigator.pushNamed(context, '/chats');
+                                _firestore
+                                    .collection('user_profiles')
+                                    .document('$current_user_uid')
+                                    .collection('friends')
+                                    .document('${widget.friendUID}')
+                                    .updateData({'chat': true});
+                                _firestore
+                                    .collection('user_profiles')
+                                    .document('${widget.friendUID}')
+                                    .collection('friends')
+                                    .document('$current_user_uid')
+                                    .updateData({'chat': true});
+                                try {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChatPage(
+                                                friendUID: widget.friendUID,
+                                                fname: userData.name,
+                                              )));
+                                  _firestore
+                                      .collection('messages')
+                                      .document(current_user_uid)
+                                      .collection(widget.friendUID)
+                                      .add({
+                                    'text': 'Hello!',
+                                    'time': FieldValue.serverTimestamp(),
+                                    'to': widget.friendUID,
+                                    'from': current_user_uid,
+                                  });
+
+                                  _firestore
+                                      .collection('messages')
+                                      .document(widget.friendUID)
+                                      .collection(current_user_uid)
+                                      .add({
+                                    'text': 'Hello!',
+                                    'time': FieldValue.serverTimestamp(),
+                                    'from': current_user_uid,
+                                    'to': widget.friendUID,
+                                  });
+                                } catch (e) {
+                                  print(e);
+                                  print('nothing there no chat yet');
+                                }
+                              },
+                              onCancelButtonPressed: () {
+                                _firestore
+                                    .collection('user_profiles')
+                                    .document('$current_user_uid')
+                                    .collection('friends')
+                                    .document(widget.friendUID)
+                                    .delete();
+                                _firestore
+                                    .collection('user_profiles')
+                                    .document(widget.friendUID)
+                                    .collection('friends')
+                                    .document(current_user_uid)
+                                    .delete();
+                              },
+                            ));
+                  }
+                }),
+          );
         }
       },
     );
