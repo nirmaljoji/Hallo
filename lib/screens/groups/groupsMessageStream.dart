@@ -8,8 +8,6 @@ class GroupMessages extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
   GroupMessages({this.groupUID});
 
-
-
   @override
   Widget build(BuildContext context) {
     print('current is $current_user_uid and group is $groupUID');

@@ -80,6 +80,7 @@ class DatabaseService {
         'time': FieldValue.serverTimestamp(),
       });
     }
+    //returning docref so we can get th edoc id to redirect user to newly formed group's chatpage
     return docref.toString();
   }
 

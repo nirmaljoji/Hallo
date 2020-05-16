@@ -12,7 +12,17 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   String groupName = 'groupName';
-  String guid;
+
+  void _updateGUID(List list) {
+    final guid = DatabaseService(uid: current_user_uid).createGroup(
+        list, groupName);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) =>
+        GroupPage(
+          groupUID: guid.toString(),
+          fname: groupName,
+        )));
+  }
 
   void _showDialog(BuildContext context, List list) {
     showDialog(
@@ -32,15 +42,8 @@ class _CreateGroupState extends State<CreateGroup> {
               FlatButton(
                 onPressed: () {
                   print('list sending to db is $list');
-                  DatabaseService(uid: current_user_uid).createGroup(
-                      list, groupName);
-                  //FIX THIS CODE GUID IS NULL AS OF NOW
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) =>
-                      GroupPage(
-                        groupUID: guid,
-                        fname: groupName,
-                      )));
+                  //this function creates a group id and sends user to group chat
+                  _updateGUID(list);
                 },
                 child: Text('create'),
               ),
