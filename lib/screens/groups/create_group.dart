@@ -12,7 +12,8 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   String groupName = 'groupName';
-  void _updateGUID(List list) async {
+
+  void updateGUID(List list) async {
     final guid = await DatabaseService(uid: current_user_uid).createGroup(
         list, groupName);
     Navigator.push(
@@ -42,7 +43,7 @@ class _CreateGroupState extends State<CreateGroup> {
                 onPressed: () {
                   print('list sending to db is $list');
                   //this function creates a group id and sends user to group chat
-                  _updateGUID(list);
+                  updateGUID(list);
                 },
                 child: Text('create'),
               ),
@@ -96,7 +97,7 @@ class _CreateGroupState extends State<CreateGroup> {
               child: RaisedButton(
                 onPressed: () {
                   groupMembers = GroupInfo.selectedFriends;
-                  print('group member in screen is $groupMembers');
+                  //print('group member in screen is $groupMembers');
                   _showDialog(context, groupMembers);
                 },
                 child: Text('Create'),

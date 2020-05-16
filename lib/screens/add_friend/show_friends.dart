@@ -59,6 +59,7 @@ class UserDeets extends StatefulWidget {
   int bday;
   bool check;
 
+
   UserDeets({this.friendUID, this.bday, this.check});
 
   @override
@@ -98,7 +99,6 @@ class _UserDeetsState extends State<UserDeets> {
             onLongPress: () {
               setState(() {
                 widget.bday = 0;
-
                 while (GroupInfo.selectedFriends.contains(widget.friendUID)) {
                   GroupInfo.selectedFriends.remove(widget.friendUID);
                 }
