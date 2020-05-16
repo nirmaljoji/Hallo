@@ -35,7 +35,7 @@ class _Add_friendState extends State<Add_friend> {
                 showSearch(
                   context: context,
                   delegate: ChatSearch(
-                    true
+                    false
                   )
                 );
               },
