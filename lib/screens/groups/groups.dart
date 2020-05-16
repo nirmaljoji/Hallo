@@ -58,6 +58,8 @@ class _GroupsState extends State<Groups> {
     }
 
     return Scaffold(
+
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
         backgroundColor: Theme
@@ -72,6 +74,7 @@ class _GroupsState extends State<Groups> {
           .backgroundColor,
       drawer: Nav_menu(),
       appBar: AppBar(
+
         centerTitle: true,
         backgroundColor: Theme
             .of(context)

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/chats/message_stream.dart';
+import 'package:hallo/screens/groups/edit_group.dart';
 import 'package:hallo/screens/groups/groupsMessageStream.dart';
 
 
@@ -38,6 +39,20 @@ class GroupPage extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+
+                    Navigator.push(
+                        context, MaterialPageRoute(
+                        builder: (context) =>
+                            EditGroup(groupUID: groupUID,
+                              groupName: fname,)));
+
+                  },
+                )
+              ],
               title: Text(
                 fname,
               ),
