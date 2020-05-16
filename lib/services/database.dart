@@ -25,7 +25,7 @@ class DatabaseService {
 
   Future createGroup(friendsCollected, groupName) async {
     List friendsSort = friendsCollected.toSet().toList();
-    print(groupName);
+//    print(groupName);
     friendsSort.add(current_user_uid);
     DocumentReference docref =
     Firestore.instance.collection('groups').document();

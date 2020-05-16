@@ -43,7 +43,6 @@ class ListStream extends StatelessWidget {
                 friendUID: uid,
                 check: check,
               );
-              conversationList.add(z);
             }
             loading = false;
             return ListView(
@@ -58,8 +57,6 @@ class UserDeets extends StatefulWidget {
   final String friendUID;
   int bday;
   bool check;
-
-
   UserDeets({this.friendUID, this.bday, this.check});
 
   @override

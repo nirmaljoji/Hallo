@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
-import 'package:hallo/screens/groups/edit_admins.dart';
+import 'package:hallo/screens/groups/edit_admin.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
+import 'package:hallo/shared/admins_list.dart';
 
 class AdminsDetails extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
@@ -47,89 +48,64 @@ class _EditGroupState extends State<EditGroup> {
   String groupName;
   String groupUID;
   Firestore _firestore = Firestore.instance;
+
+
+  Widget _buttonsGroup(String guid) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _firestore
+            .collection('groups')
+            .document(groupUID)
+            .collection('group_info')
+            .document(groupUID)
+            .collection('admins')
+            .snapshots(),
+        builder: (context,snapshot) {
+          bool check = false;
+          if (!snapshot.hasData) {
+            return Text('');
+          } else {
+            for (var i in snapshot.data.documents) {
+              if (i.documentID == current_user_uid) {
+                check = true;
+                break;
+              }
+            }
+            if (check) {
+              return Row(
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>
+                        //EditAdmins(guid: groupUID, gname: groupName) //sharons page
+                        EditAdmin(guid: groupUID,) //raks screen
+                        ),);
+                    },
+                    child: Text('Edit Admins'),
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => EditMembers()
+                        ),);
+                    },
+                    child: Text('Edit Members'),
+                  ),
+                ],
+              );
+            }
+            else {
+              return Text('');
+            }
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    Stream str = _firestore
-        .collection('groups')
-        .document(groupUID)
-        .collection('group_info')
-        .document(groupUID)
-        .collection('admins')
-        .snapshots();
-
-    Widget AdminList() {
-      return StreamBuilder<QuerySnapshot>(
-          stream: str,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Text('');
-            } else {
-              List<AdminsDetails> adminsList = [];
-              for (var i in snapshot.data.documents) {
-
-                final z = AdminsDetails(userUID: i.documentID);
-                adminsList.add(z);
-              }
-              return ListView(
-                children: adminsList,
-              );
-              ;
-            }
-          });
-    }
-
-    Widget _buttonsGroup(String guid) {
-
-      return StreamBuilder<QuerySnapshot>(
-        stream :str,
-        builder: (context,snapshot)
-      {
-        bool check = false;
-        if (!snapshot.hasData) {
-          return Text('');
-        } else {
-          for (var i in snapshot.data.documents) {
-            if (i.documentID == current_user_uid) {
-              check = true;
-              break;
-            }
-          }
-          if (check) {
-            return Row(
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) =>
-                          EditAdmins(guid: groupUID, gname: groupName)
-                      ),);
-                  },
-                  child: Text('Edit Admins'),
-                ),
-                SizedBox(
-                  width: 100,
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EditMembers()
-                      ),);
-                  },
-                  child: Text('Edit Members'),
-                ),
-              ],
-            );
-          }
-          else {
-            return Text('');
-          }
-        }
-      });
-    }
-
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -174,7 +150,7 @@ class _EditGroupState extends State<EditGroup> {
               'Admins',
               style: TextStyle(fontSize: 25),
             ),
-            Expanded(flex: 15, child: AdminList()),
+            Expanded(flex: 15, child: AdminsList(guid: groupUID,)),
             Expanded(
               flex: 3,
               child:  _buttonsGroup(groupUID),

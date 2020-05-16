@@ -37,11 +37,10 @@ class _GroupsState extends State<Groups> {
             //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
             //for a doc to be valid it MUST have atleast one key value pairrrrr
             final listOfGroups = snapshot.data.documents;
-            print(listOfGroups);
             List<ChattedGroup> chattedPeopleList = [];
             for (var group in listOfGroups) {
               final String guid = group.documentID;
-              print('a group you are part of is $guid');
+//              print('a group you are part of is $guid');
 
               final box = ChattedGroup(
                 groupUID: guid,

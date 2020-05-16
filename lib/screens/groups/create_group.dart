@@ -34,14 +34,14 @@ class _CreateGroupState extends State<CreateGroup> {
               onChanged: (value) {
                 setState(() {
                   groupName = value;
-                  print('list in func is $list');
+//                  print('list in func is $list');
                 });
               },
             ),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
-                  print('list sending to db is $list');
+//                  print('list sending to db is $list');
                   //this function creates a group id and sends user to group chat
                   updateGUID(list);
                 },
