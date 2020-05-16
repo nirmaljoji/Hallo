@@ -98,6 +98,7 @@ class _EditGroupState extends State<EditGroup> {
         );
       }
       else {
+       return Text('');
 
       }
     }
