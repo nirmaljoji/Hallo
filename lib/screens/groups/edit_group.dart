@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
-import 'package:hallo/services/database.dart';
+import 'package:hallo/screens/groups/edit_admins.dart';
+import 'package:hallo/screens/groups/edit_members.dart';
 
 class AdminsDetails extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
@@ -97,14 +98,22 @@ class _EditGroupState extends State<EditGroup> {
             return Row(
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EditAdmins()
+                      ),);
+                  },
                   child: Text('Edit Admins'),
                 ),
                 SizedBox(
                   width: 100,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EditMembers()
+                      ),);
+                  },
                   child: Text('Edit Members'),
                 ),
               ],
@@ -114,8 +123,7 @@ class _EditGroupState extends State<EditGroup> {
             return Text('');
           }
         }
-
-        });
+      });
     }
 
 

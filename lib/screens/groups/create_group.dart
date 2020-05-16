@@ -12,11 +12,9 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   String groupName = 'groupName';
-
   void _updateGUID(List list) async {
     final guid = await DatabaseService(uid: current_user_uid).createGroup(
         list, groupName);
-    print("HELLOOOOOOOO : $guid");
     Navigator.push(
         context, MaterialPageRoute(builder: (context) =>
         GroupPage(
@@ -56,7 +54,6 @@ class _CreateGroupState extends State<CreateGroup> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     GroupInfo.selectedFriends.clear();
   }
@@ -107,7 +104,6 @@ class _CreateGroupState extends State<CreateGroup> {
             )
           ],
         ),
-        //Text('New message to: '),
       ),
     );
   }
