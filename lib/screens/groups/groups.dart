@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/models/group.dart';
 import 'package:hallo/models/uid.dart';
+import 'package:hallo/screens/groups/group_page.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/database.dart';
 
@@ -97,9 +99,17 @@ class ChattedGroup extends StatelessWidget {
           return Center(child: Text('no'));
         } else {
           GroupData groupData = snapshot.data;
-          return RaisedButton(
-            child: Text(groupData.name),
-            onPressed: () {},
+          return ChatButton(
+              friendName: groupData.name,
+              onPressed: () {
+
+                Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) =>
+                        GroupPage(groupUID: groupData.uid,
+                          fname: groupData.name,)));
+
+              },
 
           );
         }
