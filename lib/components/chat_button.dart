@@ -6,13 +6,15 @@ class ChatButton extends StatefulWidget {
   final String friendName;
   final String imageURL;
   String fuid;
+  bool group;
+  String guid;
 
   // icon =0 (normal) =1(birthday) =2(selecteD)
   final int icon;
   var onPressed;
 
   ChatButton(
-      {this.friendName, this.onPressed, this.imageURL, this.icon, this.fuid});
+      {this.friendName, this.onPressed, this.imageURL, this.icon, this.fuid, this.group, this.guid});
 
   @override
   _ChatButtonState createState() => _ChatButtonState();
@@ -57,7 +59,37 @@ class _ChatButtonState extends State<ChatButton> {
               if (msgText != null) {
                 return Text(msgText);
               } else {
-                return Text('plssss');
+                return Text(' ');
+              }
+            }
+          });
+    }
+
+    Widget recentGroupText(String fuid) {
+      String msgText;
+      return StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('messages')
+              .document(current_user_uid)
+              .collection('groups_chat')
+              .document(widget.guid)
+              .collection('Chats')
+              .orderBy('time', descending: false)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Text('Start Conversation');
+            } else {
+              final chat = snapshot.data.documents;
+              print(chat);
+              for (var msg in chat) {
+                print(msg.data);
+                msgText = msg.data['text'];
+              }
+              if (msgText != null) {
+                return Text(msgText);
+              } else {
+                return Text(' ');
               }
             }
           });
@@ -125,7 +157,9 @@ class _ChatButtonState extends State<ChatButton> {
               SizedBox(
                 height: 5.0,
               ),
-              recentText(widget.fuid)
+              widget.group ? recentText(widget.fuid)
+                  :
+              recentGroupText(widget.fuid),
             ],
           ),
           trailing: widget.icon == 1

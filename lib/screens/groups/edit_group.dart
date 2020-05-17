@@ -391,6 +391,8 @@ class _UserDeets3State extends State<UserDeets3> {
           } else {
             UserData userData = snapshot.data;
             return ChatButton(
+                group: true,
+                guid: null,
                 friendName: userData.name,
                 imageURL: userData.imageUrl,
                 onPressed: null);

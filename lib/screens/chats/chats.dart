@@ -171,6 +171,8 @@ class ChattedPeople extends StatelessWidget {
 //          print('${userData.imageUrl} is image url');
 //          print('${userData.name} is name');
           return ChatButton(
+              group: true,
+              guid: null,
               friendName: userData.name,
               fuid: userData.uid,
               onPressed: () {
@@ -186,6 +188,8 @@ class ChattedPeople extends StatelessWidget {
           UserData userData = snapshot.data;
           if(userData.name.toLowerCase().contains(query.toLowerCase())){
             return ChatButton(
+                group: false,
+                guid: null,
                 friendName: userData.name,
                 onPressed: () {
                   Navigator.push(

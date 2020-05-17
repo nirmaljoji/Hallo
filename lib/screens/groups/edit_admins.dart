@@ -145,6 +145,8 @@ class _UserDeets2State extends State<UserDeets2> {
               });
             },
             child: ChatButton(
+                group: true,
+                guid: null,
                 icon: this.widget.bday,
                 friendName: userData.name,
                 imageURL: userData.imageUrl,

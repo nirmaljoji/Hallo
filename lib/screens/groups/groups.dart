@@ -105,30 +105,29 @@ class ChattedGroup extends StatelessWidget {
         } else if(query == '' || query == null){
           GroupData groupData = snapshot.data;
           return ChatButton(
-              friendName: groupData.name,
-              onPressed: () {
-
-                Navigator.push(
-                    context, MaterialPageRoute(
-                    builder: (context) =>
-                        GroupPage(groupUID: groupData.uid,
-                          fname: groupData.name,)));
-
-              },
+            group: false,
+            guid: groupUID,
+            friendName: groupData.name,
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(
+                  builder: (context) =>
+                      GroupPage(groupUID: groupData.uid,
+                        fname: groupData.name,)));
+            },
           );
         } else {
           GroupData groupData = snapshot.data;
           if(groupData.name.toLowerCase().contains(query.toLowerCase())){
             return ChatButton(
+              group: true,
               friendName: groupData.name,
               onPressed: () {
-
                 Navigator.push(
                     context, MaterialPageRoute(
                     builder: (context) =>
                         GroupPage(groupUID: groupData.uid,
                           fname: groupData.name,)));
-
               },
             );
           }

@@ -54,6 +54,8 @@ class FriendDetails extends StatelessWidget {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
             return ChatButton(
+              group: true,
+              guid: null,
               friendName: userData.name,
               imageURL: userData.imageUrl,
               icon: 0,
