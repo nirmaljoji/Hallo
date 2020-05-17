@@ -11,12 +11,12 @@ class MessagesStream extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('current is $current_user_uid and friend is $friendUID');
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore
             .collection('messages')
             .document(current_user_uid)
-            .collection('${friendUID}').orderBy('time', descending: true)
+            .collection(friendUID)
+            .orderBy('time', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -46,13 +46,11 @@ class MessagesStream extends StatelessWidget {
                   .height) / 1.3,
               child: ListView(
                   reverse: true,
-                  children: messages != null ? messages : defaultText
-              ),
+                  children: messages != null ? messages : defaultText),
             );
           }
           return Text('no messages haha');
-        }
-    );
+        });
   }
 }
 
@@ -61,13 +59,13 @@ class MessageBubble extends StatelessWidget {
   final bool isMe;
   final Timestamp time;
   Color c;
+
   MessageBubble({this.text, this.isMe, this.time, this.to, this.from});
 
   String gettime() {
     try {
       return time.toDate().toIso8601String();
-    }
-    catch (e) {
+    } catch (e) {
       print(e);
     }
     return '0';
@@ -75,7 +73,6 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('$isMe is isMe');
     c = isMe ? Colors.blue : Colors.black12;
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -130,4 +127,3 @@ class MessageBubble extends StatelessWidget {
     );
   }
 }
-

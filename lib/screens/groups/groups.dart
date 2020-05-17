@@ -34,14 +34,13 @@ class _GroupsState extends State<Groups> {
               child: Text('nothing here ra dumma'),
             );
           } else {
-            //snapchot.data.documents gets added as a list only if it has atleast ONE field!!!!!
+            //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
             //for a doc to be valid it MUST have atleast one key value pairrrrr
             final listOfGroups = snapshot.data.documents;
-            print(listOfGroups);
             List<ChattedGroup> chattedPeopleList = [];
             for (var group in listOfGroups) {
               final String guid = group.documentID;
-              print('a group you are part of is $guid');
+//              print('a group you are part of is $guid');
 
               final box = ChattedGroup(
                 groupUID: guid,
@@ -58,6 +57,8 @@ class _GroupsState extends State<Groups> {
     }
 
     return Scaffold(
+
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
         backgroundColor: Theme
@@ -72,6 +73,7 @@ class _GroupsState extends State<Groups> {
           .backgroundColor,
       drawer: Nav_menu(),
       appBar: AppBar(
+
         centerTitle: true,
         backgroundColor: Theme
             .of(context)

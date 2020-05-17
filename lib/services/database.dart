@@ -23,10 +23,14 @@ class DatabaseService {
     });
   }
 
+
+
   Future createGroup(friendsCollected, groupName) async {
+
     List friendsSort = friendsCollected.toSet().toList();
-    print(groupName);
+//    print(groupName);
     friendsSort.add(current_user_uid);
+
     DocumentReference docref =
     Firestore.instance.collection('groups').document();
 
@@ -46,11 +50,11 @@ class DatabaseService {
         .document(current_user_uid)
         .setData({'check': true});
 
-    docref
+         docref
         .collection('group_info')
         .document(docref.documentID)
         .setData({'group_name': groupName});
-    docref
+         docref
         .collection('group_info')
         .document(docref.documentID)
         .collection('admins')
@@ -67,7 +71,6 @@ class DatabaseService {
         'guid': docref.documentID
       });
 
-
       _firestore
           .collection('messages')
           .document(i)
@@ -76,11 +79,14 @@ class DatabaseService {
           .collection('Chats')
           .document()
           .setData({
+        //'to': docref.documentID.toString(),
         'from': current_user_uid,
         'text': 'Group Created',
         'time': FieldValue.serverTimestamp(),
       });
     }
+    //returning docref so we can get th edoc id to redirect user to newly formed group's chatpage
+    return Future.value(docref.documentID);
   }
 
   Future<QuerySnapshot> checkIfMailExist(String email) {
@@ -155,4 +161,60 @@ class DatabaseService {
   Stream<DocumentSnapshot> getProfileData(String uid) {
     return profileCollection.document(uid).snapshots();
   }
+
+  updateAdmin(List<String> selectedFriends, String guid) async {
+    
+    for (var i in selectedFriends) {
+          
+      Firestore.instance
+          .collection('groups')
+          .document(guid)
+          .collection('group_info')
+          .document(guid)
+          .collection('admins').document(i).setData({'date_created': DateTime.now()});
+
+  }
+    
+  }
+
+  updateMembers(List<String> selectedFriends, String guid) {
+    //print("GOIUSSSS : $guid");
+    for (var i in selectedFriends) {
+
+      Firestore.instance
+          .collection('groups')
+          .document(guid)
+          .collection('group_members')
+          .document(i).setData({'check': true});
+
+    }
+    for ( var i in selectedFriends){
+
+
+      _firestore
+            .collection('messages')
+            .document(i)
+            .collection('groups_chat')
+            .document(guid)
+            .setData({
+          'guid': guid
+        });
+    _firestore
+        .collection('messages')
+        .document(i)
+        .collection('groups_chat')
+        .document(guid)
+        .collection('Chats')
+        .document()
+        .setData({
+      //'to': docref.documentID.toString(),
+      'from': current_user_uid,
+      'text': 'Group Created',
+      'time': FieldValue.serverTimestamp(),
+    });
+    }
+
+  }
+
+
 }

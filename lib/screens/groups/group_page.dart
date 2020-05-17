@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
-import 'package:hallo/screens/chats/message_stream.dart';
+import 'package:hallo/screens/groups/edit_group.dart';
 import 'package:hallo/screens/groups/groupsMessageStream.dart';
 
 
-class cc extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-
-class GroupPage extends StatelessWidget {
+class GroupPage extends StatefulWidget {
   GroupPage({this.groupUID, this.fname});
   final String fname;
   final String groupUID;
+
+  @override
+  _GroupPageState createState() => _GroupPageState();
+}
+
+class _GroupPageState extends State<GroupPage> {
   final msgClear = TextEditingController();
+
   Firestore _firestore = Firestore.instance;
+
   String msgText;
 
   @override
@@ -26,20 +26,31 @@ class GroupPage extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collection('groups')
-          .document(groupUID)
+          .document(widget.groupUID)
           .collection('group_members')
           .snapshots(),
       builder: (context, snapshot) {
-
-        if(!snapshot.hasData) {
+        if (!snapshot.hasData) {
           return Text('');
-        }else{
+        } else {
           final listOfMems = snapshot.data.documents;
 
           return Scaffold(
             appBar: AppBar(
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(
+                        builder: (context) =>
+                            EditGroup(groupUID: widget.groupUID,
+                              groupName: widget.fname,)));
+                  },
+                )
+              ],
               title: Text(
-                fname,
+                widget.fname,
               ),
 
               backgroundColor: Theme
@@ -59,7 +70,7 @@ class GroupPage extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     GroupMessages(
-                      groupUID: groupUID,
+                      groupUID: widget.groupUID,
                     ),
                     Container(
                       //margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
@@ -120,28 +131,21 @@ class GroupPage extends StatelessWidget {
                                     .canvasColor,
                               ),
                               onPressed: () {
-
-
                                 msgClear.clear();
-                                print('Going to print member list:::::');
-                                print('kjhkjkj $listOfMems');
-                                for ( var group in listOfMems) {
+                                for (var group in listOfMems) {
                                   print(group.documentID);
                                   _firestore
                                       .collection('messages')
                                       .document(group.documentID)
                                       .collection('groups_chat')
-                                      .document(groupUID)
+                                      .document(widget.groupUID)
                                       .collection('Chats')
                                       .add({
                                     'text': msgText,
                                     'time': FieldValue.serverTimestamp(),
-                                    //'to': friendUID,
                                     'from': current_user_uid,
                                   });
                                 }
-
-
                               },
                               color: Theme
                                   .of(context)
@@ -159,16 +163,9 @@ class GroupPage extends StatelessWidget {
               ),
             ),
           );
-
         }
-
-
       },
 
     );
-
-
-
-
   }
 }
