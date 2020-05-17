@@ -140,7 +140,7 @@ class _ChatsState extends State<Chats> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: ChatSearch(),
+                delegate: ChatSearch(true),
               );
             },
           )
@@ -206,6 +206,9 @@ class ChattedPeople extends StatelessWidget {
 class ChatSearch extends SearchDelegate<ChattedPeople>{
 
   Firestore _firestore = Firestore.instance;
+  final bool chatChk;
+
+  ChatSearch(this.chatChk);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -256,6 +259,9 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
             if (flag) {
               chattedPeopleList.add(box);
             }
+            else if(!chatChk){
+              chattedPeopleList.add(box);
+            }
           }
           return ListView(
             children: chattedPeopleList,
@@ -292,6 +298,9 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
             if (flag) {
               chattedPeopleList.add(box);
             }
+            else if(!chatChk){
+              chattedPeopleList.add(box);
+            }
           }
           return ListView(
             children: chattedPeopleList,
@@ -301,38 +310,3 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
 
+import 'chats.dart';
+
 class SelectFriend extends StatefulWidget {
   @override
   _SelectFriendState createState() => _SelectFriendState();
@@ -12,12 +14,24 @@ class _SelectFriendState extends State<SelectFriend> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Chats",
-          style: Theme.of(context).textTheme.title,
+          "Friends",
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).accentColor,
         elevation: 4,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: ChatSearch(
+                      false
+                  ),
+                );
+              },
+            )
+          ]
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -33,3 +47,4 @@ class _SelectFriendState extends State<SelectFriend> {
     );
   }
 }
+
