@@ -48,25 +48,7 @@ class _GroupPageState extends State<GroupPage> {
                               groupName: widget.fname,)));
                   },
                 ),
-                  IconButton(
-                    icon: Icon(Icons.exit_to_app),
-                    onPressed: ()  async {
 
-                      Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).collection(
-                          'Chats').getDocuments().then((snapshot) {
-                        for (DocumentSnapshot ds in snapshot.documents) {
-
-                          Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).collection(
-                              'Chats').document(ds.documentID).delete();
-                        }
-                      });
-
-                       await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_members').document(current_user_uid).delete();
-                       await Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).delete();
-                       await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_info').document(widget.groupUID).collection('admins').document(current_user_uid).delete();
-                      Navigator.pushNamed(context, '/groups');
-                    },
-                  )
 
               ],
               title: Text(
