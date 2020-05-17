@@ -64,7 +64,7 @@ class MessageBubble extends StatelessWidget {
 
   String gettime() {
     try {
-      return time.toDate().toIso8601String();
+      return time.toDate().toIso8601String().substring(11, 16);
     } catch (e) {
       print(e);
     }
@@ -80,23 +80,7 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment:
         isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
-          //ADD FOR GROUPS NOT NECESSARY HERE
-          /*
-          Text(
-            from,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.black54,
-            ),
-          ),
-          */
-          Text(
-            gettime(),
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.black54,
-            ),
-          ),
+
           Material(
             color: c,
             elevation: 5.0,
@@ -120,6 +104,16 @@ class MessageBubble extends StatelessWidget {
                   fontSize: 18.0, //18.0
                 ),
               ),
+            ),
+          ),
+          SizedBox(
+            height: 5.0,
+          ),
+          Text(
+            gettime(),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
             ),
           ),
         ],

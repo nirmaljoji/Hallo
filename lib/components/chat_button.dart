@@ -41,7 +41,7 @@ class _ChatButtonState extends State<ChatButton> {
               .collection('messages')
               .document(current_user_uid)
               .collection(widget.fuid)
-              .orderBy('time', descending: true)
+              .orderBy('time', descending: false)
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
