@@ -25,7 +25,6 @@ class AdminsList extends StatelessWidget {
               final z = AdminsDetails(userUID: i.documentID);
               adminsList.add(z);
             }
-
             return ListView(
               children: adminsList,
             );

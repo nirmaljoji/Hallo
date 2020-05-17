@@ -67,6 +67,7 @@ class _ChatsState extends State<Chats> {
         },
       );
     }
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -171,6 +172,7 @@ class ChattedPeople extends StatelessWidget {
 //          print('${userData.name} is name');
           return ChatButton(
               friendName: userData.name,
+              fuid: userData.uid,
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(
