@@ -189,6 +189,16 @@ class DatabaseService {
 
     }
     for ( var i in selectedFriends){
+
+
+      _firestore
+            .collection('messages')
+            .document(i)
+            .collection('groups_chat')
+            .document(guid)
+            .setData({
+          'guid': guid
+        });
     _firestore
         .collection('messages')
         .document(i)
