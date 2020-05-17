@@ -53,20 +53,24 @@ class _EditAdminsState extends State<EditAdmins> {
                 final listOfFriends = snapshot.data.documents;
                 List<UserDeets2> friendList = [];
                 for (var user in listOfFriends) {
-                  final String uid = user.documentID;
-                  var z;
-                  if (groupMembers.contains(uid)) {
-                    z = UserDeets2(
-                      friendUID: uid,
-                      bday: 2,
-                    );
-                  } else {
-                    z = UserDeets2(
-                      friendUID: uid,
-                    );
-                  }
+                  if(user.documentID==current_user_uid){
+                    continue;
+                  }else{
+                    final String uid = user.documentID;
+                    var z;
+                    if (groupMembers.contains(uid)) {
+                      z = UserDeets2(
+                        friendUID: uid,
+                        bday: 2,
+                      );
+                    } else {
+                      z = UserDeets2(
+                        friendUID: uid,
+                      );
+                    }
 
-                  friendList.add(z);
+                    friendList.add(z);
+                  }
                 }
 
                 HalloThemeData data = new HalloThemeData();
