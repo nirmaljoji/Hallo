@@ -6,6 +6,7 @@ import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/services/database.dart';
 import 'package:hallo/services/group_info.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 
 class EditAdmins extends StatefulWidget {
   final String guid;
@@ -42,14 +43,15 @@ class _EditAdminsState extends State<EditAdmins> {
                 );
               } else {
                 GroupInfo.selectedFriends.clear();
-                final listofAdmins = snapshot.data.documents;
+                print("WOOOOO : " + GroupInfo.selectedFriends.length.toString());
+                final listofAdmins = snapshot2.data.documents;
                 List<String> groupMembers = [];
                 for (var i in listofAdmins) {
                   groupMembers.add(i.documentID);
                   GroupInfo(i.documentID);
                 }
-                final listOfFriends = snapshot2.data.documents;
-                List<UserDeets2> adminList = [];
+                final listOfFriends = snapshot.data.documents;
+                List<UserDeets2> friendList = [];
                 for (var user in listOfFriends) {
                   final String uid = user.documentID;
                   var z;
@@ -64,8 +66,10 @@ class _EditAdminsState extends State<EditAdmins> {
                     );
                   }
 
-                  adminList.add(z);
+                  friendList.add(z);
                 }
+
+                HalloThemeData data = new HalloThemeData();
                 return Scaffold(
                   appBar: AppBar(
                     title: Text('Edit Admins'),
@@ -73,15 +77,19 @@ class _EditAdminsState extends State<EditAdmins> {
                   body:
                   Column(
                     children: <Widget>[
-                      ListView(
-                        children: adminList,
+                      Expanded(
+                        child: ListView(
+                          children: friendList,
+                        ),
                       ),
                       HalloButton(
+                        color1: data.btnColor,
+                        color2: data.cardColor,
                         text: 'submit',
                         onPressedBtn: () async {
                           final guid = await DatabaseService(
-                              uid: current_user_uid).createGroup(
-                              GroupInfo.selectedFriends, widget.gname);
+                              uid: current_user_uid).updateAdmin(
+                              GroupInfo.selectedFriends, widget.guid);
                         },
                       )
                     ],

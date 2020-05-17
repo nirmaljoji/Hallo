@@ -4,6 +4,7 @@ import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/screens/groups/edit_admin.dart';
+import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
 import 'package:hallo/shared/admins_list.dart';
 
@@ -77,8 +78,8 @@ class _EditGroupState extends State<EditGroup> {
                     onPressed: () {
                       Navigator.push(context,
                         MaterialPageRoute(builder: (context) =>
-                        //EditAdmins(guid: groupUID, gname: groupName) //sharons page
-                        EditAdmin(guid: groupUID,) //raks screen
+                        EditAdmins(guid: groupUID, gname: groupName) //sharons page
+                        //EditAdmin(guid: groupUID,) //raks screen
                         ),);
                     },
                     child: Text('Edit Admins'),

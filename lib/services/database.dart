@@ -158,5 +158,20 @@ class DatabaseService {
     return profileCollection.document(uid).snapshots();
   }
 
+  updateAdmin(List<String> selectedFriends, String guid) async {
+    
+    for (var i in selectedFriends) {
+          
+      Firestore.instance
+          .collection('groups')
+          .document(guid)
+          .collection('group_info')
+          .document(guid)
+          .collection('admins').document(i).setData({'date_created': DateTime.now()});
+
+  }
+    
+  }
+
 
 }
