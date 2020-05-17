@@ -263,7 +263,8 @@ class _MembersListState extends State<MembersList> {
 
               ),
               appBar: AppBar(
-                title: Text('Edit Group Members'),
+                title: Text('Edit Group Members'), 
+
               ),
               body:
               Column(

@@ -47,7 +47,17 @@ class _GroupPageState extends State<GroupPage> {
                             EditGroup(groupUID: widget.groupUID,
                               groupName: widget.fname,)));
                   },
-                )
+                ),
+                  IconButton(
+                    icon: Icon(Icons.exit_to_app),
+                    onPressed: ()  async {
+                       await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_members').document(current_user_uid).delete();
+                       await Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).delete();
+                       await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_info').document(widget.groupUID).collection('admins').document(current_user_uid).delete();
+                      Navigator.pushNamed(context, '/groups');
+                    },
+                  )
+
               ],
               title: Text(
                 widget.fname,

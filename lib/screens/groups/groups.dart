@@ -81,7 +81,7 @@ class _GroupsState extends State<Groups> {
         backgroundColor: Theme
             .of(context)
             .accentColor,
-        title: Text("Groups ok"),
+        title: Text("Groups"),
       ),
       body: Container(
         child: func(),
