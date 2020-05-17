@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
-import 'package:hallo/screens/groups/edit_admin.dart';
 import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
 import 'package:hallo/shared/admins_list.dart';
@@ -159,8 +158,14 @@ class _EditGroupState extends State<EditGroup> {
             Expanded(
               flex: 1,
               child: RaisedButton(
-                onPressed: () {},
-                child: Text('Create'),
+                onPressed: () async {
+                  Firestore.instance.collection('groups').document(groupUID)
+                      .collection('group_info').document(groupUID)
+                      .updateData({
+                    'group_name': groupName
+                  });
+                },
+                child: Text('Submit'),
               ),
             )
           ],
