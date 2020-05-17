@@ -44,6 +44,7 @@ class _CreateGroupState extends State<CreateGroup> {
 //                  print('list sending to db is $list');
                   //this function creates a group id and sends user to group chat
                   updateGUID(list);
+                  Navigator.of(context).pop();
                 },
                 child: Text('create'),
               ),
