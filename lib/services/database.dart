@@ -213,11 +213,17 @@ class DatabaseService {
 
       Firestore.instance.collection('groups').document(guid).collection('group_info').document(guid).collection('admins').document(i).delete();
 
+      Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).collection(
+          'Chats').getDocuments().then((snapshot) {
+        for (DocumentSnapshot ds in snapshot.documents) {
 
-      await Firestore.instance.collection('messages').document(i).collection(
-          'groups_chat').document(guid).delete();
-      print('doneee');
-      }
+          Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(guid).collection(
+              'Chats').document(ds.documentID).delete();
+        }
+      });
+
+
+    }
 
 
 

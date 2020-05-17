@@ -84,8 +84,8 @@ class _EditGroupState extends State<EditGroup> {
                         MaterialPageRoute(
                             builder: (context) => MembersList(
                                 guid: groupUID, gname: groupName) //sharons page
-                          //EditAdmin(guid: groupUID,) //raks screen
-                        ),
+                            //EditAdmin(guid: groupUID,) //raks screen
+                            ),
                       );
                     },
                     child: Text('Members'),
@@ -146,6 +146,54 @@ class _EditGroupState extends State<EditGroup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () async {
+              Firestore.instance
+                  .collection('messages')
+                  .document(current_user_uid)
+                  .collection('groups_chat')
+                  .document(widget.groupUID)
+                  .collection('Chats')
+                  .getDocuments()
+                  .then((snapshot) {
+                for (DocumentSnapshot ds in snapshot.documents) {
+                  Firestore.instance
+                      .collection('messages')
+                      .document(current_user_uid)
+                      .collection('groups_chat')
+                      .document(widget.groupUID)
+                      .collection('Chats')
+                      .document(ds.documentID)
+                      .delete();
+                }
+              });
+
+              await Firestore.instance
+                  .collection('groups')
+                  .document(widget.groupUID)
+                  .collection('group_members')
+                  .document(current_user_uid)
+                  .delete();
+              await Firestore.instance
+                  .collection('messages')
+                  .document(current_user_uid)
+                  .collection('groups_chat')
+                  .document(widget.groupUID)
+                  .delete();
+              await Firestore.instance
+                  .collection('groups')
+                  .document(widget.groupUID)
+                  .collection('group_info')
+                  .document(widget.groupUID)
+                  .collection('admins')
+                  .document(current_user_uid)
+                  .delete();
+              Navigator.pushNamed(context, '/groups');
+            },
+          )
+        ],
         title: Text(
           "Edit Group",
           style: Theme.of(context).textTheme.title,
@@ -250,31 +298,24 @@ class _MembersListState extends State<MembersList> {
                 friendUID: user,
               );
 
-                memListWidget.add(z);
-
+              memListWidget.add(z);
             }
             int memCount = memListWidget.length;
             return Scaffold(
               floatingActionButton: FloatingActionButton(
                 child: Text('$memCount'),
-                backgroundColor: Theme
-                    .of(context)
-                    .splashColor,
-
+                backgroundColor: Theme.of(context).splashColor,
               ),
               appBar: AppBar(
-                title: Text('Edit Group Members'), 
-
+                title: Text('Edit Group Members'),
               ),
-              body:
-              Column(
+              body: Column(
                 children: <Widget>[
                   Expanded(
                     child: ListView(
                       children: memListWidget,
                     ),
                   ),
-
                 ],
               ),
             );
