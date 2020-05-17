@@ -24,6 +24,7 @@ class DatabaseService {
     });
   }
 
+
   Future createGroup(friendsCollected, groupName) async {
     List friendsSort = friendsCollected.toSet().toList();
 //    print(groupName);
@@ -65,7 +66,9 @@ class DatabaseService {
           .document(i)
           .collection('groups_chat')
           .document(docref.documentID)
-          .setData({'guid': docref.documentID});
+          .setData({
+        'guid': docref.documentID
+      });
 
       _firestore
           .collection('messages')
@@ -149,7 +152,9 @@ class DatabaseService {
   }
 
   GroupData _groupDataFromSnapshot(DocumentSnapshot snapshot) {
-    return GroupData(uid: uid, name: snapshot.data['group_name']);
+    return GroupData(
+        uid: uid,
+        name: snapshot.data['group_name']);
   }
 
   Stream<DocumentSnapshot> getProfileData(String uid) {
@@ -157,11 +162,9 @@ class DatabaseService {
   }
 
   updateAdmin(List<String> selectedFriends, String guid) async {
-
     await Firestore.instance.collection('groups').document(guid).collection(
         'group_info').document(guid).collection('admins').getDocuments().then((
         snapshot) {
-
       for (DocumentSnapshot ds in snapshot.documents) {
         print('deleing ${ds.documentID}');
         ds.reference.delete();
@@ -175,7 +178,6 @@ class DatabaseService {
           .document(guid)
           .collection('group_info')
           .document(guid)
-
           .collection('admins').document(i).setData(
           {'date_created': DateTime.now()});
     }
@@ -188,7 +190,6 @@ class DatabaseService {
 
     await Firestore.instance.collection('groups').document(guid).collection(
         'group_members').getDocuments().then((snapshot) {
-
       for (DocumentSnapshot ds in snapshot.documents) {
         //print('deleing ${ds.documentID}');
         ds.reference.delete();
@@ -207,6 +208,8 @@ class DatabaseService {
 
 
     for (var i in removedFriends) {
+
+      Firestore.instance.collection('groups').document(guid).collection('group_info').document(guid).collection('admins').document(i).delete();
 
      // print("GOING TO REMOVE : $i");
       await Firestore.instance.collection('messages').document(i).collection(
