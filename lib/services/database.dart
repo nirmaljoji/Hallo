@@ -208,7 +208,6 @@ class DatabaseService {
 
     print('$selectedFriends is list after rmoving');
 
-    //remove groupchat from persons chatpage
 
     for (var i in removedFriends) {
 
