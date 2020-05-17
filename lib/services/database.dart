@@ -6,6 +6,7 @@ import 'package:hallo/models/user.dart';
 class DatabaseService {
   final String uid;
   static Firestore _firestore = Firestore.instance;
+
   DatabaseService({this.uid});
 
   final CollectionReference profileCollection =
@@ -23,10 +24,7 @@ class DatabaseService {
     });
   }
 
-
-
   Future createGroup(friendsCollected, groupName) async {
-
     List friendsSort = friendsCollected.toSet().toList();
 //    print(groupName);
     friendsSort.add(current_user_uid);
@@ -50,11 +48,11 @@ class DatabaseService {
         .document(current_user_uid)
         .setData({'check': true});
 
-         docref
+    docref
         .collection('group_info')
         .document(docref.documentID)
         .setData({'group_name': groupName});
-         docref
+    docref
         .collection('group_info')
         .document(docref.documentID)
         .collection('admins')
@@ -67,9 +65,7 @@ class DatabaseService {
           .document(i)
           .collection('groups_chat')
           .document(docref.documentID)
-          .setData({
-        'guid': docref.documentID
-      });
+          .setData({'guid': docref.documentID});
 
       _firestore
           .collection('messages')
@@ -153,9 +149,7 @@ class DatabaseService {
   }
 
   GroupData _groupDataFromSnapshot(DocumentSnapshot snapshot) {
-    return GroupData(
-        uid: uid,
-        name: snapshot.data['group_name']);
+    return GroupData(uid: uid, name: snapshot.data['group_name']);
   }
 
   Stream<DocumentSnapshot> getProfileData(String uid) {
@@ -163,9 +157,15 @@ class DatabaseService {
   }
 
   updateAdmin(List<String> selectedFriends, String guid) async {
-
-   await Firestore.instance.collection('groups').document(guid).collection('group_info').document(guid).collection('admins').getDocuments().then((snapshot) {
-      for (DocumentSnapshot ds in snapshot.documents){
+    await Firestore.instance
+        .collection('groups')
+        .document(guid)
+        .collection('group_info')
+        .document(guid)
+        .collection('admins')
+        .getDocuments()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
         print('deleing ${ds.documentID}');
         ds.reference.delete();
       }
@@ -173,25 +173,28 @@ class DatabaseService {
 
     print('DONTTTT REMOVE MEEE: ${selectedFriends}');
     for (var i in selectedFriends) {
-
-
       Firestore.instance
           .collection('groups')
           .document(guid)
           .collection('group_info')
           .document(guid)
-          .collection('admins').document(i).setData({'date_created': DateTime.now()});
-
+          .collection('admins')
+          .document(i)
+          .setData({'date_created': DateTime.now()});
+    }
   }
-    
-  }
 
-
-  updateMembers(List<String> selectedFriends, String guid,List<String> removedFriends) async  {
+  updateMembers(List<String> selectedFriends, String guid,
+      List<String> removedFriends) async {
     //print("GOIUSSSS : $guid");
 
-    await Firestore.instance.collection('groups').document(guid).collection('group_members').getDocuments().then((snapshot) {
-      for (DocumentSnapshot ds in snapshot.documents){
+    await Firestore.instance
+        .collection('groups')
+        .document(guid)
+        .collection('group_members')
+        .getDocuments()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
         //print('deleing ${ds.documentID}');
         ds.reference.delete();
       }
@@ -208,60 +211,61 @@ class DatabaseService {
     //remove groupchat from persons chatpage
 
     for (var i in removedFriends) {
-//       await _firestore.runTransaction((transaction) async  => {
-//         await transaction.delete()
-//       });
 
-//       await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).collection('chats').getDocuments().then((snapshot) {
-//         for (DocumentSnapshot ds in snapshot.documents) {
-//           //print('deleing ${ds.documentID}');
-//           ds.reference.delete();
-//         }
-//       });
+      /*
+       await _firestore.runTransaction((transaction) async  => {
+         await transaction.delete()
+       });
+
+       await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).collection('chats').getDocuments().then((snapshot) {
+         for (DocumentSnapshot ds in snapshot.documents) {
+           //print('deleing ${ds.documentID}');
+           ds.reference.delete();
+         }
+       });
+      */
 
       print("GOING TO REMOVE : $i");
-      await Firestore.instance.collection('messages').document(i).collection(
-          'groups_chat').document(guid).delete();
+      await Firestore.instance
+          .collection('messages')
+          .document(i)
+          .collection('groups_chat')
+          .document(guid)
+          .delete();
       print('doneee');
     }
-
 
     selectedFriends.add(current_user_uid);
 
     for (var i in selectedFriends) {
-
       Firestore.instance
           .collection('groups')
           .document(guid)
           .collection('group_members')
-          .document(i).setData({'check': true});
+          .document(i)
+          .setData({'check': true});
     }
 
-    for ( var i in selectedFriends){
+    for (var i in selectedFriends) {
       _firestore
-            .collection('messages')
-            .document(i)
-            .collection('groups_chat')
-            .document(guid)
-            .setData({
-          'guid': guid
-        });
-    _firestore
-        .collection('messages')
-        .document(i)
-        .collection('groups_chat')
-        .document(guid)
-        .collection('Chats')
-        .document()
-        .setData({
-      //'to': docref.documentID.toString(),
-      'from': current_user_uid,
-      'text': 'New member added',
-      'time': FieldValue.serverTimestamp(),
-    });
+          .collection('messages')
+          .document(i)
+          .collection('groups_chat')
+          .document(guid)
+          .setData({'guid': guid});
+      _firestore
+          .collection('messages')
+          .document(i)
+          .collection('groups_chat')
+          .document(guid)
+          .collection('Chats')
+          .document()
+          .setData({
+        //'to': docref.documentID.toString(),
+        'from': current_user_uid,
+        'text': 'New member added',
+        'time': FieldValue.serverTimestamp(),
+      });
     }
-
   }
-
-
 }

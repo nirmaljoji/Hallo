@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
+import 'package:hallo/models/user.dart';
+import 'package:hallo/services/database.dart';
 
 class GroupMessages extends StatelessWidget {
 
@@ -74,8 +76,24 @@ class MessageBubble extends StatelessWidget {
     return '0';
   }
 
+
   @override
   Widget build(BuildContext context) {
+    Widget _getName(String from) {
+      return StreamBuilder(
+          stream: DatabaseService(uid: from).userData,
+          builder: (context, ss) {
+            if (!ss.hasData) {
+              return Text('x');
+            }
+            UserData userData = ss.data;
+            return Text(
+                '${userData.name}'
+            );
+          }
+      );
+    }
+
     c = isMe ? Colors.blue : Colors.black12;
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -93,6 +111,7 @@ class MessageBubble extends StatelessWidget {
             ),
           ),
           */
+          _getName(from),
           Text(
             gettime(),
             style: TextStyle(

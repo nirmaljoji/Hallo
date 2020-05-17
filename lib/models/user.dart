@@ -19,8 +19,5 @@ class UserData{
 
   UserData(
       {this.uid, this.name, this.status, this.email, this.phone, this.imageUrl, this.dob, this.address});
-
-
-
 }
 
