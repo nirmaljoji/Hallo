@@ -10,6 +10,7 @@ import 'package:hallo/shared/admins_list.dart';
 class AdminsDetails extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
   String userUID;
+
   AdminsDetails({this.userUID});
 
   @override
@@ -44,6 +45,7 @@ class EditGroup extends StatefulWidget {
 
 class _EditGroupState extends State<EditGroup> {
   _EditGroupState({this.groupName, this.groupUID});
+
   bool checkCurrent;
   String groupName;
   String groupUID;
@@ -59,7 +61,7 @@ class _EditGroupState extends State<EditGroup> {
             .document(groupUID)
             .collection('admins')
             .snapshots(),
-        builder: (context,snapshot) {
+        builder: (context, snapshot) {
           bool check = false;
           if (!snapshot.hasData) {
             return Text('');
@@ -77,8 +79,9 @@ class _EditGroupState extends State<EditGroup> {
                     onPressed: () {
                       Navigator.push(context,
                         MaterialPageRoute(builder: (context) =>
-                        EditAdmins(guid: groupUID, gname: groupName) //sharons page
-                        //EditAdmin(guid: groupUID,) //raks screen
+                            EditAdmins(
+                                guid: groupUID, gname: groupName) //sharons page
+                          //EditAdmin(guid: groupUID,) //raks screen
                         ),);
                     },
                     child: Text('Edit Admins'),
@@ -89,7 +92,8 @@ class _EditGroupState extends State<EditGroup> {
                   RaisedButton(
                     onPressed: () {
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EditMembers(guid: groupUID,gname: groupName)
+                        MaterialPageRoute(builder: (context) =>
+                            EditMembers(guid: groupUID, gname: groupName)
                         ),);
                     },
                     child: Text('Edit Members'),
@@ -110,17 +114,30 @@ class _EditGroupState extends State<EditGroup> {
       appBar: AppBar(
         title: Text(
           "Edit Group",
-          style: Theme.of(context).textTheme.title,
+          style: Theme
+              .of(context)
+              .textTheme
+              .title,
         ),
         centerTitle: true,
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme
+            .of(context)
+            .accentColor,
         elevation: 4,
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme
+              .of(context)
+              .backgroundColor,
         ),
         child: Column(
           children: <Widget>[
@@ -153,7 +170,7 @@ class _EditGroupState extends State<EditGroup> {
             Expanded(flex: 15, child: AdminsList(guid: groupUID)),
             Expanded(
               flex: 3,
-              child:  _buttonsGroup(groupUID),
+              child: _buttonsGroup(groupUID),
             ),
             Expanded(
               flex: 1,
