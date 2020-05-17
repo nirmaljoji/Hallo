@@ -37,6 +37,12 @@ class AdminsDetails extends StatelessWidget {
   }
 }
 
+ class AdminCheck{
+
+  static bool checkAdmin=false;
+
+}
+
 class EditGroup extends StatefulWidget {
   String groupName;
   String groupUID;
@@ -73,6 +79,7 @@ class _EditGroupState extends State<EditGroup> {
             for (var i in snapshot.data.documents) {
               if (i.documentID == current_user_uid) {
                 check = true;
+                AdminCheck.checkAdmin=true;
                 break;
               }
             }
@@ -166,58 +173,68 @@ class _EditGroupState extends State<EditGroup> {
         });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    HalloThemeData data = new HalloThemeData();
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () async {
+
+  Widget adminCheck(){
+    print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
+    if(AdminCheck.checkAdmin)
+       return Text('');
+    else{
+      return IconButton(
+        icon: Icon(Icons.exit_to_app),
+        onPressed: () async {
+          Firestore.instance
+              .collection('messages')
+              .document(current_user_uid)
+              .collection('groups_chat')
+              .document(widget.groupUID)
+              .collection('Chats')
+              .getDocuments()
+              .then((snapshot) {
+            for (DocumentSnapshot ds in snapshot.documents) {
               Firestore.instance
                   .collection('messages')
                   .document(current_user_uid)
                   .collection('groups_chat')
                   .document(widget.groupUID)
                   .collection('Chats')
-                  .getDocuments()
-                  .then((snapshot) {
-                for (DocumentSnapshot ds in snapshot.documents) {
-                  Firestore.instance
-                      .collection('messages')
-                      .document(current_user_uid)
-                      .collection('groups_chat')
-                      .document(widget.groupUID)
-                      .collection('Chats')
-                      .document(ds.documentID)
-                      .delete();
-                }
-              });
+                  .document(ds.documentID)
+                  .delete();
+            }
+          });
 
-              await Firestore.instance
-                  .collection('groups')
-                  .document(widget.groupUID)
-                  .collection('group_members')
-                  .document(current_user_uid)
-                  .delete();
-              await Firestore.instance
-                  .collection('messages')
-                  .document(current_user_uid)
-                  .collection('groups_chat')
-                  .document(widget.groupUID)
-                  .delete();
-              await Firestore.instance
-                  .collection('groups')
-                  .document(widget.groupUID)
-                  .collection('group_info')
-                  .document(widget.groupUID)
-                  .collection('admins')
-                  .document(current_user_uid)
-                  .delete();
-              Navigator.pushNamed(context, '/groups');
-            },
-          )
+          await Firestore.instance
+              .collection('groups')
+              .document(widget.groupUID)
+              .collection('group_members')
+              .document(current_user_uid)
+              .delete();
+          await Firestore.instance
+              .collection('messages')
+              .document(current_user_uid)
+              .collection('groups_chat')
+              .document(widget.groupUID)
+              .delete();
+          await Firestore.instance
+              .collection('groups')
+              .document(widget.groupUID)
+              .collection('group_info')
+              .document(widget.groupUID)
+              .collection('admins')
+              .document(current_user_uid)
+              .delete();
+          Navigator.pushNamed(context, '/groups');
+        },
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    HalloThemeData data = new HalloThemeData();
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          adminCheck(),
         ],
         title: Text(
           "Edit Group",
