@@ -81,6 +81,8 @@ class _EditGroupState extends State<EditGroup> {
                 check = true;
                 AdminCheck.checkAdmin=true;
                 break;
+              }else{
+                AdminCheck.checkAdmin=false;
               }
             }
             HalloThemeData data = new HalloThemeData();
