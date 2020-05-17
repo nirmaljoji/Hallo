@@ -40,8 +40,8 @@ class _EditMembersState extends State<EditMembers> {
                   child: Text('naaa nothinggg'),
                 );
               } else {
-                GroupInfo.selectedFriends.clear();
-                print("WOOOOO : " + GroupInfo.selectedFriends.length.toString());
+              GroupInfo.selectedFriends.clear();
+            //print("WOOOOO : " + GroupInfo.selectedFriends.length.toString());
                 final listOfMembers = snapshot2.data.documents;
                 List<String> groupMembers = [];
                 for (var i in listOfMembers) {
@@ -54,12 +54,17 @@ class _EditMembersState extends State<EditMembers> {
                 for (var user in listOfFriends) {
                   final String uid = user.documentID;
                   var z;
+                  print("THESE ARE THE GROUP MEMMBERSS:"+groupMembers.length.toString());
                   if (groupMembers.contains(uid)) {
+                    print("CONTAINNSSS :::"+ uid);
                     z = UserDeets2(
                       friendUID: uid,
                       bday: 2,
                     );
                   } else {
+
+
+                    print("NOT CONTAINNSSS :::"+ uid);
                     z = UserDeets2(
                       friendUID: uid,
                     );
@@ -86,7 +91,7 @@ class _EditMembersState extends State<EditMembers> {
                         color2: data.cardColor,
                         text: 'submit',
                         onPressedBtn: () async {
-                          print("DSODIOIOI +" +widget.guid);
+                          //print("DSODIOIOI +" +widget.guid);
                           List<String> removedFriends = [];
                           for (var i in groupMembers){
                             if(GroupInfo.selectedFriends.contains(i)){
@@ -96,6 +101,7 @@ class _EditMembersState extends State<EditMembers> {
                             }
 
                           }
+                          print("SOMETHIEN IS NOT WORKING : ${GroupInfo.selectedFriends}");
                           final guid = await DatabaseService(
                               uid: current_user_uid).updateMembers(
                               GroupInfo.selectedFriends, widget.guid,removedFriends);

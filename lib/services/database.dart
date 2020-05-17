@@ -157,14 +157,11 @@ class DatabaseService {
   }
 
   updateAdmin(List<String> selectedFriends, String guid) async {
-    await Firestore.instance
-        .collection('groups')
-        .document(guid)
-        .collection('group_info')
-        .document(guid)
-        .collection('admins')
-        .getDocuments()
-        .then((snapshot) {
+
+    await Firestore.instance.collection('groups').document(guid).collection(
+        'group_info').document(guid).collection('admins').getDocuments().then((
+        snapshot) {
+
       for (DocumentSnapshot ds in snapshot.documents) {
         print('deleing ${ds.documentID}');
         ds.reference.delete();
@@ -178,93 +175,71 @@ class DatabaseService {
           .document(guid)
           .collection('group_info')
           .document(guid)
-          .collection('admins')
-          .document(i)
-          .setData({'date_created': DateTime.now()});
+
+          .collection('admins').document(i).setData(
+          {'date_created': DateTime.now()});
     }
   }
+
 
   updateMembers(List<String> selectedFriends, String guid,
       List<String> removedFriends) async {
     //print("GOIUSSSS : $guid");
 
-    await Firestore.instance
-        .collection('groups')
-        .document(guid)
-        .collection('group_members')
-        .getDocuments()
-        .then((snapshot) {
+    await Firestore.instance.collection('groups').document(guid).collection(
+        'group_members').getDocuments().then((snapshot) {
+
       for (DocumentSnapshot ds in snapshot.documents) {
         //print('deleing ${ds.documentID}');
         ds.reference.delete();
       }
     });
 
-    for (var i in selectedFriends) {
-      if (removedFriends.contains(i)) {
-        selectedFriends.remove(i);
-      }
-    }
 
-    print('$selectedFriends is list after rmoving');
-
-
-    for (var i in removedFriends) {
-
-      /*
-       await _firestore.runTransaction((transaction) async  => {
-         await transaction.delete()
-       });
-
-       await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).collection('chats').getDocuments().then((snapshot) {
-         for (DocumentSnapshot ds in snapshot.documents) {
-           //print('deleing ${ds.documentID}');
-           ds.reference.delete();
-         }
-       });
-      */
-
-      print("GOING TO REMOVE : $i");
-      await Firestore.instance
-          .collection('messages')
-          .document(i)
-          .collection('groups_chat')
-          .document(guid)
-          .delete();
-      print('doneee');
-    }
-
-    selectedFriends.add(current_user_uid);
-
-    for (var i in selectedFriends) {
+    for (var i in selectedFriends)  {
+      //print("BIGGEST CHECK OF MY LIFE : $i");
       Firestore.instance
           .collection('groups')
           .document(guid)
           .collection('group_members')
-          .document(i)
-          .setData({'check': true});
+          .document(i).setData({'check': true});
     }
 
-    for (var i in selectedFriends) {
-      _firestore
-          .collection('messages')
-          .document(i)
-          .collection('groups_chat')
-          .document(guid)
-          .setData({'guid': guid});
-      _firestore
-          .collection('messages')
-          .document(i)
-          .collection('groups_chat')
-          .document(guid)
-          .collection('Chats')
-          .document()
-          .setData({
-        //'to': docref.documentID.toString(),
-        'from': current_user_uid,
-        'text': 'New member added',
-        'time': FieldValue.serverTimestamp(),
-      });
+
+    for (var i in removedFriends) {
+
+     // print("GOING TO REMOVE : $i");
+      await Firestore.instance.collection('messages').document(i).collection(
+          'groups_chat').document(guid).delete();
+      print('doneee');
+      }
+//
+
+
+      for (var i in selectedFriends) {
+        _firestore
+            .collection('messages')
+            .document(i)
+            .collection('groups_chat')
+            .document(guid)
+            .setData({
+          'guid': guid
+        });
+        _firestore
+            .collection('messages')
+            .document(i)
+            .collection('groups_chat')
+            .document(guid)
+            .collection('Chats')
+            .document()
+            .setData({
+          //'to': docref.documentID.toString(),
+          'from': current_user_uid,
+          'text': 'New member added',
+          'time': FieldValue.serverTimestamp(),
+        });
+      }
     }
-  }
-}
+    }
+
+
