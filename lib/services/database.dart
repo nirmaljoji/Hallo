@@ -27,7 +27,7 @@ class DatabaseService {
 
   Future createGroup(friendsCollected, groupName) async {
     List friendsSort = friendsCollected.toSet().toList();
-//    print(groupName);
+
     friendsSort.add(current_user_uid);
 
     DocumentReference docref =
@@ -84,7 +84,6 @@ class DatabaseService {
         'time': FieldValue.serverTimestamp(),
       });
     }
-    //returning docref so we can get th edoc id to redirect user to newly formed group's chatpage
     return Future.value(docref.documentID);
   }
 
@@ -171,7 +170,7 @@ class DatabaseService {
       }
     });
 
-    print('DONTTTT REMOVE MEEE: ${selectedFriends}');
+
     for (var i in selectedFriends) {
       Firestore.instance
           .collection('groups')
@@ -186,19 +185,19 @@ class DatabaseService {
 
   updateMembers(List<String> selectedFriends, String guid,
       List<String> removedFriends) async {
-    //print("GOIUSSSS : $guid");
+
 
     await Firestore.instance.collection('groups').document(guid).collection(
         'group_members').getDocuments().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.documents) {
-        //print('deleing ${ds.documentID}');
+
         ds.reference.delete();
       }
     });
 
 
     for (var i in selectedFriends)  {
-      //print("BIGGEST CHECK OF MY LIFE : $i");
+
       Firestore.instance
           .collection('groups')
           .document(guid)
@@ -211,12 +210,12 @@ class DatabaseService {
 
       Firestore.instance.collection('groups').document(guid).collection('group_info').document(guid).collection('admins').document(i).delete();
 
-     // print("GOING TO REMOVE : $i");
+
       await Firestore.instance.collection('messages').document(i).collection(
           'groups_chat').document(guid).delete();
       print('doneee');
       }
-//
+
 
 
       for (var i in selectedFriends) {
@@ -236,7 +235,7 @@ class DatabaseService {
             .collection('Chats')
             .document()
             .setData({
-          //'to': docref.documentID.toString(),
+
           'from': current_user_uid,
           'text': 'New member added',
           'time': FieldValue.serverTimestamp(),

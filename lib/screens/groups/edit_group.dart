@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hallo/components/chat_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
+import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
+import 'package:hallo/services/database.dart';
 import 'package:hallo/shared/admins_list.dart';
 
 class AdminsDetails extends StatelessWidget {
@@ -51,7 +54,6 @@ class _EditGroupState extends State<EditGroup> {
   String groupUID;
   Firestore _firestore = Firestore.instance;
 
-
   Widget _buttonsGroup(String guid) {
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore
@@ -77,12 +79,27 @@ class _EditGroupState extends State<EditGroup> {
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>
-                            EditAdmins(
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MembersList(
                                 guid: groupUID, gname: groupName) //sharons page
                           //EditAdmin(guid: groupUID,) //raks screen
-                        ),);
+                        ),
+                      );
+                    },
+                    child: Text('Members'),
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditAdmins(
+                                guid: groupUID, gname: groupName) //sharons page
+                            //EditAdmin(guid: groupUID,) //raks screen
+                            ),
+                      );
                     },
                     child: Text('Edit Admins'),
                   ),
@@ -91,18 +108,35 @@ class _EditGroupState extends State<EditGroup> {
                   ),
                   RaisedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>
-                            EditMembers(guid: groupUID, gname: groupName)
-                        ),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                EditMembers(guid: groupUID, gname: groupName)),
+                      );
                     },
                     child: Text('Edit Members'),
                   ),
                 ],
               );
-            }
-            else {
-              return Text('');
+            } else {
+              return Row(
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MembersList(
+                                guid: groupUID, gname: groupName) //sharons page
+                            //EditAdmin(guid: groupUID,) //raks screen
+                            ),
+                      );
+                    },
+                    child: Text('Edit Admins'),
+                  ),
+                ],
+              );
             }
           }
         });
@@ -114,30 +148,17 @@ class _EditGroupState extends State<EditGroup> {
       appBar: AppBar(
         title: Text(
           "Edit Group",
-          style: Theme
-              .of(context)
-              .textTheme
-              .title,
+          style: Theme.of(context).textTheme.title,
         ),
         centerTitle: true,
-        backgroundColor: Theme
-            .of(context)
-            .accentColor,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 4,
       ),
       body: Container(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Theme
-              .of(context)
-              .backgroundColor,
+          color: Theme.of(context).backgroundColor,
         ),
         child: Column(
           children: <Widget>[
@@ -176,11 +197,12 @@ class _EditGroupState extends State<EditGroup> {
               flex: 1,
               child: RaisedButton(
                 onPressed: () async {
-                  Firestore.instance.collection('groups').document(groupUID)
-                      .collection('group_info').document(groupUID)
-                      .updateData({
-                    'group_name': groupName
-                  });
+                  Firestore.instance
+                      .collection('groups')
+                      .document(groupUID)
+                      .collection('group_info')
+                      .document(groupUID)
+                      .updateData({'group_name': groupName});
                 },
                 child: Text('Submit'),
               ),
@@ -190,5 +212,99 @@ class _EditGroupState extends State<EditGroup> {
         //Text('New message to: '),
       ),
     );
+  }
+}
+
+class MembersList extends StatefulWidget {
+  String guid;
+  String gname;
+
+  MembersList({this.guid, this.gname});
+
+  @override
+  _MembersListState createState() => _MembersListState();
+}
+
+class _MembersListState extends State<MembersList> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance
+            .collection('groups')
+            .document(widget.guid)
+            .collection('group_members')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Text('');
+          } else {
+            List<String> memList = [];
+            for (var i in snapshot.data.documents) {
+              memList.add(i.documentID);
+            }
+            List<UserDeets3> memListWidget = [];
+            for (var user in memList) {
+              var z;
+
+              z = UserDeets3(
+                friendUID: user,
+              );
+
+                memListWidget.add(z);
+
+            }
+            int memCount = memListWidget.length;
+            return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                child: Text('$memCount'),
+                backgroundColor: Theme
+                    .of(context)
+                    .splashColor,
+
+              ),
+              appBar: AppBar(
+                title: Text('Edit Group Members'),
+              ),
+              body:
+              Column(
+                children: <Widget>[
+                  Expanded(
+                    child: ListView(
+                      children: memListWidget,
+                    ),
+                  ),
+
+                ],
+              ),
+            );
+          }
+        });
+  }
+}
+
+class UserDeets3 extends StatefulWidget {
+  String friendUID;
+  UserDeets3({this.friendUID});
+
+  @override
+  _UserDeets3State createState() => _UserDeets3State();
+}
+
+class _UserDeets3State extends State<UserDeets3> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<UserData>(
+        stream: DatabaseService(uid: widget.friendUID).userData,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Text('');
+          } else {
+            UserData userData = snapshot.data;
+            return ChatButton(
+                friendName: userData.name,
+                imageURL: userData.imageUrl,
+                onPressed: () {});
+          }
+        });
   }
 }

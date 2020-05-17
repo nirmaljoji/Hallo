@@ -54,9 +54,9 @@ class _EditMembersState extends State<EditMembers> {
                 for (var user in listOfFriends) {
                   final String uid = user.documentID;
                   var z;
-                  print("THESE ARE THE GROUP MEMMBERSS:"+groupMembers.length.toString());
+                  //print("THESE ARE THE GROUP MEMMBERSS:"+groupMembers.length.toString());
                   if (groupMembers.contains(uid)) {
-                    print("CONTAINNSSS :::"+ uid);
+                    //print("CONTAINNSSS :::"+ uid);
                     z = UserDeets2(
                       friendUID: uid,
                       bday: 2,
