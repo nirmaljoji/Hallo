@@ -163,9 +163,18 @@ class DatabaseService {
   }
 
   updateAdmin(List<String> selectedFriends, String guid) async {
-    
+
+   await Firestore.instance.collection('groups').document(guid).collection('group_info').document(guid).collection('admins').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents){
+        print('deleing ${ds.documentID}');
+        ds.reference.delete();
+      }
+    });
+
+    print('DONTTTT REMOVE MEEE: ${selectedFriends}');
     for (var i in selectedFriends) {
-          
+
+
       Firestore.instance
           .collection('groups')
           .document(guid)

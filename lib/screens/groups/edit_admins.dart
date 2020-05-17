@@ -87,9 +87,11 @@ class _EditAdminsState extends State<EditAdmins> {
                         color2: data.cardColor,
                         text: 'submit',
                         onPressedBtn: () async {
+                          print("PLSSSSS SHOWWW : ${GroupInfo.selectedFriends}");
                           final guid = await DatabaseService(
                               uid: current_user_uid).updateAdmin(
                               GroupInfo.selectedFriends, widget.guid);
+                          GroupInfo.selectedFriends.clear();
                         },
                       )
                     ],
@@ -103,7 +105,7 @@ class _EditAdminsState extends State<EditAdmins> {
 }
 
 class UserDeets2 extends StatefulWidget {
-  int bday;
+  int bday=0;
   String friendUID;
 
   UserDeets2({this.friendUID, this.bday});
@@ -138,6 +140,7 @@ class _UserDeets2State extends State<UserDeets2> {
               });
             },
             child: ChatButton(
+                icon: this.widget.bday,
                 friendName: userData.name,
                 imageURL: userData.imageUrl,
                 onPressed: () {

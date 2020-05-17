@@ -48,6 +48,7 @@ class _EditMembersState extends State<EditMembers> {
                   groupMembers.add(i.documentID);
                   GroupInfo(i.documentID);
                 }
+
                 final listOfFriends = snapshot.data.documents;
                 List<UserDeets2> friendList = [];
                 for (var user in listOfFriends) {
@@ -137,6 +138,7 @@ class _UserDeets2State extends State<UserDeets2> {
               });
             },
             child: ChatButton(
+                icon: this.widget.bday,
                 friendName: userData.name,
                 imageURL: userData.imageUrl,
                 onPressed: () {
