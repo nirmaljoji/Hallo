@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/components/chat_button.dart';
+import 'package:hallo/components/hallo_button.dart';
 import 'package:hallo/components/hallo_text_field.dart';
 import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
@@ -9,6 +10,7 @@ import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
 import 'package:hallo/services/database.dart';
 import 'package:hallo/shared/admins_list.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 
 class AdminsDetails extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
@@ -74,11 +76,16 @@ class _EditGroupState extends State<EditGroup> {
                 break;
               }
             }
+            HalloThemeData data = new HalloThemeData();
             if (check) {
-              return Row(
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
+                  HalloButton(
+                    color1: data.btnColor,
+                    color2: data.cardColor,
+                    text: 'Members',
+                    onPressedBtn: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -88,52 +95,69 @@ class _EditGroupState extends State<EditGroup> {
                             ),
                       );
                     },
-                    child: Text('Members'),
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditAdmins(
-                                guid: groupUID, gname: groupName) //sharons page
-                            //EditAdmin(guid: groupUID,) //raks screen
-                            ),
-                      );
-                    },
-                    child: Text('Edit Admins'),
                   ),
                   SizedBox(
-                    width: 100,
+                    height: 20,
                   ),
-                  RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                EditMembers(guid: groupUID, gname: groupName)),
-                      );
-                    },
-                    child: Text('Edit Members'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      HalloButton(
+                        color1: data.primaryColorDark,
+                        color2: data.primaryColorLight,
+                        text: 'Edit Admins',
+                        onPressedBtn: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditAdmins(
+                                        guid: groupUID,
+                                        gname: groupName) //sharons page
+                              //EditAdmin(guid: groupUID,) //raks screen
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      HalloButton(
+                        color1: data.primaryColorDark,
+                        color2: data.primaryColorLight,
+                        text: 'Edit Members',
+                        onPressedBtn: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditMembers(
+                                        guid: groupUID, gname: groupName)),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               );
             } else {
               return Row(
                 children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
+                  HalloButton(
+                    color1: data.btnColor,
+                    color2: data.cardColor,
+                    text: 'Members',
+                    onPressedBtn: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => MembersList(
                                 guid: groupUID, gname: groupName) //sharons page
-                            //EditAdmin(guid: groupUID,) //raks screen
-                            ),
+                          //EditAdmin(guid: groupUID,) //raks screen
+                        ),
                       );
                     },
-                    child: Text('Members'),
                   ),
                 ],
               );
@@ -144,6 +168,7 @@ class _EditGroupState extends State<EditGroup> {
 
   @override
   Widget build(BuildContext context) {
+    HalloThemeData data = new HalloThemeData();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -208,54 +233,56 @@ class _EditGroupState extends State<EditGroup> {
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
         ),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Group Name',
-              style: TextStyle(fontSize: 25),
-            ),
-            Expanded(
-                flex: 4,
-                child: HalloTextField(
-                  text: 'Do not leave blank',
-                  hint: '$groupName',
-                  isPassword: false,
-                  onChangedText: (val) {
-                    setState(() {
-                      groupName = val;
-                    });
-                  },
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Admins',
-              style: TextStyle(fontSize: 25),
-            ),
-            Expanded(flex: 15, child: AdminsList(guid: groupUID)),
-            Expanded(
-              flex: 3,
-              child: _buttonsGroup(groupUID),
-            ),
-            Expanded(
-              flex: 1,
-              child: RaisedButton(
-                onPressed: () async {
-                  Firestore.instance
-                      .collection('groups')
-                      .document(groupUID)
-                      .collection('group_info')
-                      .document(groupUID)
-                      .updateData({'group_name': groupName});
-                },
-                child: Text('Submit'),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Group Name',
+                style: TextStyle(fontSize: 25),
               ),
-            )
-          ],
+              Expanded(
+                  flex: 4,
+                  child: HalloTextField(
+                    text: 'Do not leave blank',
+                    hint: '$groupName',
+                    isPassword: false,
+                    onChangedText: (val) {
+                      setState(() {
+                        groupName = val;
+                      });
+                    },
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Admins',
+                style: TextStyle(fontSize: 25),
+              ),
+              Expanded(flex: 10, child: AdminsList(guid: groupUID)),
+              Expanded(
+                flex: 5,
+                child: Center(child: _buttonsGroup(groupUID)),
+              ),
+              Container(
+                width: 400,
+                child: HalloButton(
+                  color1: data.btnColor,
+                  color2: data.cardColor,
+                  text: 'Done',
+                  onPressedBtn: () async {
+                    Firestore.instance
+                        .collection('groups')
+                        .document(groupUID)
+                        .collection('group_info')
+                        .document(groupUID)
+                        .updateData({'group_name': groupName});
+                  },
+                ),
+              )
+            ],
+          ),
         ),
         //Text('New message to: '),
       ),
@@ -307,7 +334,7 @@ class _MembersListState extends State<MembersList> {
                 backgroundColor: Theme.of(context).splashColor,
               ),
               appBar: AppBar(
-                title: Text('Edit Group Members'),
+                title: Text('Group Members'),
               ),
               body: Column(
                 children: <Widget>[
@@ -326,6 +353,7 @@ class _MembersListState extends State<MembersList> {
 
 class UserDeets3 extends StatefulWidget {
   String friendUID;
+
   UserDeets3({this.friendUID});
 
   @override
