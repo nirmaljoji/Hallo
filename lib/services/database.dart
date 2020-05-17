@@ -23,10 +23,14 @@ class DatabaseService {
     });
   }
 
+
+
   Future createGroup(friendsCollected, groupName) async {
+
     List friendsSort = friendsCollected.toSet().toList();
 //    print(groupName);
     friendsSort.add(current_user_uid);
+
     DocumentReference docref =
     Firestore.instance.collection('groups').document();
 
@@ -46,11 +50,11 @@ class DatabaseService {
         .document(current_user_uid)
         .setData({'check': true});
 
-    docref
+         docref
         .collection('group_info')
         .document(docref.documentID)
         .setData({'group_name': groupName});
-    docref
+         docref
         .collection('group_info')
         .document(docref.documentID)
         .collection('admins')
@@ -171,6 +175,35 @@ class DatabaseService {
 
   }
     
+  }
+
+  updateMembers(List<String> selectedFriends, String guid) {
+    //print("GOIUSSSS : $guid");
+    for (var i in selectedFriends) {
+
+      Firestore.instance
+          .collection('groups')
+          .document(guid)
+          .collection('group_members')
+          .document(i).setData({'check': true});
+
+    }
+    for ( var i in selectedFriends){
+    _firestore
+        .collection('messages')
+        .document(i)
+        .collection('groups_chat')
+        .document(guid)
+        .collection('Chats')
+        .document()
+        .setData({
+      //'to': docref.documentID.toString(),
+      'from': current_user_uid,
+      'text': 'Group Created',
+      'time': FieldValue.serverTimestamp(),
+    });
+    }
+
   }
 
 

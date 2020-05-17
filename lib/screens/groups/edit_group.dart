@@ -90,7 +90,7 @@ class _EditGroupState extends State<EditGroup> {
                   RaisedButton(
                     onPressed: () {
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EditMembers()
+                        MaterialPageRoute(builder: (context) => EditMembers(guid: groupUID,gname: groupName)
                         ),);
                     },
                     child: Text('Edit Members'),
