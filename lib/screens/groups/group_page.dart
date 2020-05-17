@@ -51,6 +51,15 @@ class _GroupPageState extends State<GroupPage> {
                   IconButton(
                     icon: Icon(Icons.exit_to_app),
                     onPressed: ()  async {
+
+                      await Firestore.instance.collection('messages').document(current_user_uid).collection(
+                          'group_chats').document(widget.groupUID).collection('Chats').getDocuments().then((snapshot) {
+                        for (DocumentSnapshot ds in snapshot.documents) {
+                          ds.reference.delete();
+                        }
+                      });
+
+
                        await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_members').document(current_user_uid).delete();
                        await Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).delete();
                        await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_info').document(widget.groupUID).collection('admins').document(current_user_uid).delete();
