@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hallo/screens/chats/chats.dart';
+import 'package:hallo/screens/add_friend/show_friends.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 
 import 'page1.dart';
@@ -17,7 +17,6 @@ class _Add_friendState extends State<Add_friend> {
   @override
   bool get wantKeepAlive => true;
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -34,9 +33,7 @@ class _Add_friendState extends State<Add_friend> {
               onPressed: () {
                 showSearch(
                   context: context,
-                  delegate: ChatSearch(
-                    false
-                  )
+                  delegate: FriendSearch(),
                 );
               },
             )
@@ -78,4 +75,45 @@ class _Add_friendState extends State<Add_friend> {
       ),
     );
   }
+}
+
+
+
+class FriendSearch extends SearchDelegate<UserDeets>{
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return new Friend_list_page2(
+      query: query,
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return new Friend_list_page2(
+      query: query,
+    );
+  }
+
 }

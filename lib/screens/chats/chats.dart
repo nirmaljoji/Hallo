@@ -182,7 +182,7 @@ class ChattedPeople extends StatelessWidget {
           );
         } else{
           UserData userData = snapshot.data;
-          if(userData.name.contains(query)){
+          if(userData.name.toLowerCase().contains(query.toLowerCase())){
             return ChatButton(
                 friendName: userData.name,
                 onPressed: () {
