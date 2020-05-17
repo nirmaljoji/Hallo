@@ -23,9 +23,9 @@ class _EditAdminsState extends State<EditAdmins> {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
-            .collection('user_profiles')
-            .document(current_user_uid)
-            .collection('friends')
+            .collection('groups')
+            .document(widget.guid)
+            .collection('group_members')
             .snapshots(),
         builder: (context, snapshot) {
           return StreamBuilder<QuerySnapshot>(
