@@ -205,20 +205,29 @@ class DatabaseService {
 
     print('$selectedFriends is list after rmoving');
 
-//    for (var i in selectedFriends){
-//       print("GOING TO REMOVE : $i");
-//
+    //remove groupchat from persons chatpage
+
+    for (var i in removedFriends) {
+//       await _firestore.runTransaction((transaction) async  => {
+//         await transaction.delete()
+//       });
+
 //       await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).collection('chats').getDocuments().then((snapshot) {
 //         for (DocumentSnapshot ds in snapshot.documents) {
 //           //print('deleing ${ds.documentID}');
 //           ds.reference.delete();
 //         }
 //       });
-//        await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).delete();
-//    }
+
+      print("GOING TO REMOVE : $i");
+      await Firestore.instance.collection('messages').document(i).collection(
+          'groups_chat').document(guid).delete();
+      print('doneee');
+    }
 
 
-//    selectedFriends.add(current_user_uid);
+    selectedFriends.add(current_user_uid);
+
     for (var i in selectedFriends) {
 
       Firestore.instance
@@ -228,9 +237,8 @@ class DatabaseService {
           .document(i).setData({'check': true});
 
     }
+
     for ( var i in selectedFriends){
-
-
       _firestore
             .collection('messages')
             .document(i)
