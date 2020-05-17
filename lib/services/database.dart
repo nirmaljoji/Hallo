@@ -191,7 +191,10 @@ class DatabaseService {
         'group_members').getDocuments().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.documents) {
 
-        ds.reference.delete();
+
+        Firestore.instance.collection('groups').document(guid).collection(
+            'group_members').document(ds.documentID).delete();
+
       }
     });
 

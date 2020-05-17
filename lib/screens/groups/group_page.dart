@@ -52,13 +52,14 @@ class _GroupPageState extends State<GroupPage> {
                     icon: Icon(Icons.exit_to_app),
                     onPressed: ()  async {
 
-                      await Firestore.instance.collection('messages').document(current_user_uid).collection(
-                          'group_chats').document(widget.groupUID).collection('Chats').getDocuments().then((snapshot) {
+                      Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).collection(
+                          'Chats').getDocuments().then((snapshot) {
                         for (DocumentSnapshot ds in snapshot.documents) {
-                          ds.reference.delete();
+
+                          Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).collection(
+                              'Chats').document(ds.documentID).delete();
                         }
                       });
-
 
                        await Firestore.instance.collection('groups').document(widget.groupUID).collection('group_members').document(current_user_uid).delete();
                        await Firestore.instance.collection('messages').document(current_user_uid).collection('groups_chat').document(widget.groupUID).delete();
