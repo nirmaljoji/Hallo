@@ -8,7 +8,6 @@ import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
-import 'package:hallo/screens/groups/group_page.dart';
 import 'package:hallo/services/database.dart';
 import 'package:hallo/shared/admins_list.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
@@ -279,12 +278,7 @@ class _EditGroupState extends State<EditGroup> {
                         .collection('group_info')
                         .document(groupUID)
                         .updateData({'group_name': groupName});
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (context) =>
-                        GroupPage(
-                          groupUID: groupUID,
-                          fname: groupName,
-                        )));
+                    Navigator.pushNamed(context, '/groups');
                   },
                 ),
               )
