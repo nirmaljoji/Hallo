@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
+import 'package:hallo/models/user.dart';
+import 'package:hallo/services/database.dart';
 
 class GroupMessages extends StatelessWidget {
 
@@ -66,7 +68,7 @@ class MessageBubble extends StatelessWidget {
 
   String gettime() {
     try {
-      return time.toDate().toIso8601String();
+      return time.toDate().toIso8601String().substring(11, 16);
     }
     catch (e) {
       print(e);
@@ -74,8 +76,28 @@ class MessageBubble extends StatelessWidget {
     return '0';
   }
 
+
   @override
   Widget build(BuildContext context) {
+    Widget _getName(String from) {
+      return StreamBuilder(
+          stream: DatabaseService(uid: from).userData,
+          builder: (context, ss) {
+            if (!ss.hasData) {
+              return Text('x');
+            }
+            UserData userData = ss.data;
+            return Text(
+              '${userData.name}',
+              style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black
+              ),
+            );
+          }
+      );
+    }
+
     c = isMe ? Colors.blue : Colors.black12;
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -83,23 +105,9 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment:
         isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
-          //ADD FOR GROUPS NOT NECESSARY HERE
-          /*
-          Text(
-            from,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.black54,
-            ),
-          ),
-          */
-          Text(
-            gettime(),
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.black54,
-            ),
-          ),
+
+          _getName(from),
+
           Material(
             color: c,
             elevation: 5.0,
@@ -123,6 +131,16 @@ class MessageBubble extends StatelessWidget {
                   fontSize: 18.0, //18.0
                 ),
               ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            gettime(),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
             ),
           ),
         ],
