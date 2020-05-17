@@ -105,6 +105,7 @@ class _EditMembersState extends State<EditMembers> {
                           final guid = await DatabaseService(
                               uid: current_user_uid).updateMembers(
                               GroupInfo.selectedFriends, widget.guid,removedFriends);
+                          Navigator.pop(context);
                         },
                       )
                     ],

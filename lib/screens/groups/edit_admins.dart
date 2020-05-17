@@ -96,6 +96,7 @@ class _EditAdminsState extends State<EditAdmins> {
                               uid: current_user_uid).updateAdmin(
                               GroupInfo.selectedFriends, widget.guid);
                           GroupInfo.selectedFriends.clear();
+                          Navigator.pop(context);
                         },
                       )
                     ],
