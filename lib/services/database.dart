@@ -186,8 +186,21 @@ class DatabaseService {
     
   }
 
-  updateMembers(List<String> selectedFriends, String guid) {
+
+  updateMembers(List<String> selectedFriends, String guid,List<String> removedFriends) async  {
     //print("GOIUSSSS : $guid");
+
+    await Firestore.instance.collection('groups').document(guid).collection('group_members').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents){
+        //print('deleing ${ds.documentID}');
+        ds.reference.delete();
+      }
+    });
+
+    for (var i in removedFriends){
+       Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).delete();
+    }
+
     for (var i in selectedFriends) {
 
       Firestore.instance

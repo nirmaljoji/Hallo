@@ -87,9 +87,18 @@ class _EditMembersState extends State<EditMembers> {
                         text: 'submit',
                         onPressedBtn: () async {
                           print("DSODIOIOI +" +widget.guid);
+                          List<String> removedFriends = [];
+                          for (var i in groupMembers){
+                            if(GroupInfo.selectedFriends.contains(i)){
+                              continue;
+                            }else{
+                              removedFriends.add(i);
+                            }
+
+                          }
                           final guid = await DatabaseService(
                               uid: current_user_uid).updateMembers(
-                              GroupInfo.selectedFriends, widget.guid,);
+                              GroupInfo.selectedFriends, widget.guid,removedFriends);
                         },
                       )
                     ],
