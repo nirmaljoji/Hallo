@@ -133,7 +133,7 @@ class _EditGroupState extends State<EditGroup> {
                             ),
                       );
                     },
-                    child: Text('Edit Admins'),
+                    child: Text('Members'),
                   ),
                 ],
               );
