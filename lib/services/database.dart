@@ -235,7 +235,6 @@ class DatabaseService {
           .document(guid)
           .collection('group_members')
           .document(i).setData({'check': true});
-
     }
 
     for ( var i in selectedFriends){
