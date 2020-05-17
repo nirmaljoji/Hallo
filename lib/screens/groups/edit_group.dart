@@ -295,6 +295,7 @@ class _EditGroupState extends State<EditGroup> {
                         .collection('group_info')
                         .document(groupUID)
                         .updateData({'group_name': groupName});
+                    Navigator.pushNamed(context, '/groups');
                   },
                 ),
               )
@@ -390,7 +391,7 @@ class _UserDeets3State extends State<UserDeets3> {
             return ChatButton(
                 friendName: userData.name,
                 imageURL: userData.imageUrl,
-                onPressed: () {});
+                onPressed: null);
           }
         });
   }
