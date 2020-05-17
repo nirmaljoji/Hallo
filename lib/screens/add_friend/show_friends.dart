@@ -362,7 +362,7 @@ class _UserDeetsState extends State<UserDeets> {
                   }),
             );
           } else {
-            return Text('');
+            return Container();
           }
         }
       },

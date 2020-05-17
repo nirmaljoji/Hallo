@@ -65,7 +65,10 @@ class _GroupsState extends State<Groups> {
             .of(context)
             .splashColor,
         onPressed: () {
-          setState(() {});
+          showSearch(
+              context: context,
+              delegate: GroupSearch(),
+          );
         },
       ),
       backgroundColor: Theme
@@ -89,8 +92,8 @@ class _GroupsState extends State<Groups> {
 
 class ChattedGroup extends StatelessWidget {
   final String groupUID;
-
-  ChattedGroup({this.groupUID});
+  final String query;
+  ChattedGroup({this.groupUID, this.query});
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +102,7 @@ class ChattedGroup extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(child: Text('no'));
-        } else {
+        } else if(query == '' || query == null){
           GroupData groupData = snapshot.data;
           return ChatButton(
               friendName: groupData.name,
@@ -112,10 +115,131 @@ class ChattedGroup extends StatelessWidget {
                           fname: groupData.name,)));
 
               },
+          );
+        } else {
+          GroupData groupData = snapshot.data;
+          if(groupData.name.toLowerCase().contains(query.toLowerCase())){
+            return ChatButton(
+              friendName: groupData.name,
+              onPressed: () {
 
+                Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) =>
+                        GroupPage(groupUID: groupData.uid,
+                          fname: groupData.name,)));
+
+              },
+            );
+          }
+          else{
+            return Container();
+          }
+        }
+      },
+    );
+  }
+}
+
+
+class GroupSearch extends SearchDelegate<ChattedGroup>{
+
+  Firestore _firestore = Firestore.instance;
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore
+          .collection('messages')
+          .document('$current_user_uid')
+          .collection('groups_chat')
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            child: Text('nothing here ra dumma'),
+          );
+        } else {
+          //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
+          //for a doc to be valid it MUST have atleast one key value pairrrrr
+          final listOfGroups = snapshot.data.documents;
+          List<ChattedGroup> chattedPeopleList = [];
+          for (var group in listOfGroups) {
+            final String guid = group.documentID;
+//              print('a group you are part of is $guid');
+
+            final box = ChattedGroup(
+              groupUID: guid,
+              query: query,
+            );
+
+            chattedPeopleList.add(box);
+          }
+          return ListView(
+            children: chattedPeopleList,
           );
         }
       },
     );
   }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore
+          .collection('messages')
+          .document('$current_user_uid')
+          .collection('groups_chat')
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            child: Text('nothing here ra dumma'),
+          );
+        } else {
+          //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
+          //for a doc to be valid it MUST have atleast one key value pairrrrr
+          final listOfGroups = snapshot.data.documents;
+          List<ChattedGroup> chattedPeopleList = [];
+          for (var group in listOfGroups) {
+            final String guid = group.documentID;
+//              print('a group you are part of is $guid');
+
+            final box = ChattedGroup(
+              groupUID: guid,
+              query: query,
+            );
+
+            chattedPeopleList.add(box);
+          }
+          return ListView(
+            children: chattedPeopleList,
+          );
+        }
+      },
+    );
+  }
+
 }

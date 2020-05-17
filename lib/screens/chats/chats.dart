@@ -195,7 +195,7 @@ class ChattedPeople extends StatelessWidget {
                 imageURL: userData.imageUrl
             );
           } else {
-            return Text('');
+            return Container();
           }
         }
       },
