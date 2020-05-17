@@ -81,7 +81,7 @@ class DatabaseService {
           .setData({
         //'to': docref.documentID.toString(),
         'from': current_user_uid,
-        'text': 'Group Created',
+        'text': 'new member added',
         'time': FieldValue.serverTimestamp(),
       });
     }
@@ -198,9 +198,20 @@ class DatabaseService {
     });
 
     for (var i in removedFriends){
-       Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).delete();
+       print("GOING TO REMOVE : $i");
+
+       await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).collection('chats').getDocuments().then((snapshot) {
+         for (DocumentSnapshot ds in snapshot.documents) {
+           //print('deleing ${ds.documentID}');
+           ds.reference.delete();
+         }
+       });
+        await Firestore.instance.collection('messages').document(i).collection('groups_chat').document(guid).delete();
     }
 
+
+
+    selectedFriends.add(current_user_uid);
     for (var i in selectedFriends) {
 
       Firestore.instance
@@ -231,7 +242,7 @@ class DatabaseService {
         .setData({
       //'to': docref.documentID.toString(),
       'from': current_user_uid,
-      'text': 'Group Created',
+      'text': 'New member added',
       'time': FieldValue.serverTimestamp(),
     });
     }
