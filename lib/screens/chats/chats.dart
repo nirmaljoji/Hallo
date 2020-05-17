@@ -7,6 +7,7 @@ import 'package:hallo/models/uid.dart';
 import 'package:hallo/models/user.dart';
 import 'package:hallo/screens/chats/chat_page.dart';
 import 'package:hallo/screens/chats/select_friend.dart';
+import 'package:hallo/screens/groups/create_group.dart';
 import 'package:hallo/screens/nav_menu/nav_menu.dart';
 import 'package:hallo/services/database.dart';
 
@@ -66,7 +67,6 @@ class _ChatsState extends State<Chats> {
         },
       );
     }
-
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -100,7 +100,10 @@ class _ChatsState extends State<Chats> {
                       Icons.group_add
                   ),
                   onPressed: () {
-                    print('Pressed!');
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateGroup()));
+
                   }),
 
               IconButton(
@@ -137,7 +140,7 @@ class _ChatsState extends State<Chats> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: ChatSearch(),
+                delegate: ChatSearch(true),
               );
             },
           )
@@ -203,6 +206,9 @@ class ChattedPeople extends StatelessWidget {
 class ChatSearch extends SearchDelegate<ChattedPeople>{
 
   Firestore _firestore = Firestore.instance;
+  final bool chatChk;
+
+  ChatSearch(this.chatChk);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -253,6 +259,9 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
             if (flag) {
               chattedPeopleList.add(box);
             }
+            else if(!chatChk){
+              chattedPeopleList.add(box);
+            }
           }
           return ListView(
             children: chattedPeopleList,
@@ -289,6 +298,9 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
             if (flag) {
               chattedPeopleList.add(box);
             }
+            else if(!chatChk){
+              chattedPeopleList.add(box);
+            }
           }
           return ListView(
             children: chattedPeopleList,
@@ -298,38 +310,3 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

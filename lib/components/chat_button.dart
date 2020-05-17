@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class ChatButton extends StatelessWidget {
   final String friendName;
   final String imageURL;
-  final int bDay;
-  var onPressed;
 
-  ChatButton({this.friendName, this.onPressed, this.imageURL, this.bDay});
+  // icon =0 (normal) =1(birthday) =2(selecteD)
+  final int icon;
+  var onPressed;
+  Color selected = Colors.lightBlue.withOpacity(.6);
+  Color notSelected = Colors.white70;
+
+  ChatButton({this.friendName, this.onPressed, this.imageURL, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class ChatButton extends StatelessWidget {
 
     return Material(
       elevation: 2.0,
-      color: Colors.white70,
+      color: icon == 2 ? selected : notSelected,
       child: MaterialButton(
         onPressed: onPressed,
         height: screenHeight / 10,
@@ -80,19 +84,18 @@ class ChatButton extends StatelessWidget {
               ),
               Text(
                 recentText(),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .body2,
               ),
             ],
           ),
-          trailing: bDay == 1 ? Icon(
+          trailing: icon == 1 ? Icon(
             Icons.cake,
             color: Theme
                 .of(context)
                 .splashColor,
-          ) : Icon(
+          ) : icon == 2 ? Icon(
+            Icons.check,
+          )
+              : Icon(
             Icons.remove_circle_outline,
           ),
         ),

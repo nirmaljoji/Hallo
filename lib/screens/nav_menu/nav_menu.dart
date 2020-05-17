@@ -83,7 +83,6 @@ class _Nav_menuState extends State<Nav_menu> {
                           padding: EdgeInsets.all(10.0),
                           itemCount: _Nav_menuState._listViewData.length,
                           itemBuilder: (context, index) {
-                            print(ch.currentSelected);
                             return Container(
                               color: ch.currentSelected == index
                                   ? Theme
@@ -95,7 +94,6 @@ class _Nav_menuState extends State<Nav_menu> {
                                 title: Text(_listViewData[index]),
                                 onTap: () async {
                                   setState(() {
-                                    print("index  $index");
                                     ch.currentSelected = index;
                                     Navigator.pushReplacementNamed(
                                         context,
@@ -190,7 +188,6 @@ class _Nav_menuState extends State<Nav_menu> {
                           padding: EdgeInsets.all(10.0),
                           itemCount: _Nav_menuState._listViewData.length,
                           itemBuilder: (context, index) {
-                            print(ch.currentSelected);
                             return Container(
                               color: ch.currentSelected == index
                                   ? Theme

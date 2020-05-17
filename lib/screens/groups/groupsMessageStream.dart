@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
 
-class MessagesStream extends StatelessWidget {
-  final String friendUID;
+class GroupMessages extends StatelessWidget {
 
-  MessagesStream({this.friendUID});
-
+  String groupUID;
   Firestore _firestore = Firestore.instance;
+  GroupMessages({this.groupUID});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,9 @@ class MessagesStream extends StatelessWidget {
         stream: _firestore
             .collection('messages')
             .document(current_user_uid)
-            .collection(friendUID)
+            .collection('groups_chat')
+            .document(groupUID)
+            .collection('Chats')
             .orderBy('time', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
@@ -24,7 +25,7 @@ class MessagesStream extends StatelessWidget {
             List<MessageBubble> messages = [];
             for (var msg in chat) {
               final msgText = msg.data['text'];
-              final msgTo = msg.data['to'];
+              //final msgTo = msg.data['to'];
               final msgFrom = msg.data['from'];
               final msgtime = msg.data['time'];
 
@@ -32,7 +33,7 @@ class MessagesStream extends StatelessWidget {
                 text: msgText,
                 time: msgtime,
                 isMe: msgFrom == current_user_uid,
-                to: msgTo,
+                //to: msgTo,
                 from: msgFrom,
               );
               messages.add(bub);
@@ -46,26 +47,28 @@ class MessagesStream extends StatelessWidget {
                   .height) / 1.3,
               child: ListView(
                   reverse: true,
-                  children: messages != null ? messages : defaultText),
+                  children: messages != null ? messages : defaultText
+              ),
             );
           }
           return Text('no messages haha');
-        });
+        }
+    );
   }
 }
 
 class MessageBubble extends StatelessWidget {
-  final String text, to, from;
+  final String text, from;
   final bool isMe;
   final Timestamp time;
   Color c;
-
-  MessageBubble({this.text, this.isMe, this.time, this.to, this.from});
+  MessageBubble({this.text, this.isMe, this.time, this.from});
 
   String gettime() {
     try {
       return time.toDate().toIso8601String();
-    } catch (e) {
+    }
+    catch (e) {
       print(e);
     }
     return '0';
@@ -127,3 +130,4 @@ class MessageBubble extends StatelessWidget {
     );
   }
 }
+

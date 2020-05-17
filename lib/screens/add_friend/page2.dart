@@ -11,6 +11,6 @@ class _Friend_list_page2State extends State<Friend_list_page2> {
   Firestore _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
-    return ListStream();
+    return ListStream(check: false);
   }
 }

@@ -56,7 +56,7 @@ class FriendDetails extends StatelessWidget {
             return ChatButton(
               friendName: userData.name,
               imageURL: userData.imageUrl,
-              bDay: 0,
+              icon: 0,
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) =>
