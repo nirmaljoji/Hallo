@@ -13,6 +13,7 @@ class ListStream extends StatelessWidget {
   Firestore _firestore = Firestore.instance;
   bool loading = false;
   String query;
+
   //to check if group/friend
   bool check;
 
@@ -60,6 +61,7 @@ class UserDeets extends StatefulWidget {
   int bday;
   bool check;
   String query;
+
   UserDeets({this.friendUID, this.bday, this.check, this.query});
 
   @override
@@ -68,8 +70,6 @@ class UserDeets extends StatefulWidget {
 
 class _UserDeetsState extends State<UserDeets> {
   Firestore _firestore = Firestore.instance;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class _UserDeetsState extends State<UserDeets> {
           if (date == user_date && mnth == user_mnth && widget.check != true)
             widget.bday = 1;
 
-          if(widget.query == '' || widget.query == null){
+          if (widget.query == '' || widget.query == null) {
             return GestureDetector(
               onLongPress: () {
                 setState(() {
@@ -107,8 +107,9 @@ class _UserDeetsState extends State<UserDeets> {
                   while (GroupInfo.selectedFriends.contains(widget.friendUID)) {
                     GroupInfo.selectedFriends.remove(widget.friendUID);
                   }
-                  print('latest list after removal is ${GroupInfo
-                      .selectedFriends})');
+                  print(
+                      'latest list after removal is ${GroupInfo
+                          .selectedFriends})');
                 });
               },
               child: ChatButton(
@@ -120,14 +121,13 @@ class _UserDeetsState extends State<UserDeets> {
                   onPressed: () {
                     if (widget.check) {
                       GroupInfo(widget.friendUID);
-                      if (GroupInfo.selectedFriends.contains(
-                          widget.friendUID)) {
+                      if (GroupInfo.selectedFriends
+                          .contains(widget.friendUID)) {
                         setState(() {
                           widget.bday = 2;
                         });
                       }
-                    }
-                    else {
+                    } else {
                       showDialog(
                           context: context,
                           builder: (_) =>
@@ -150,8 +150,8 @@ class _UserDeetsState extends State<UserDeets> {
                                           //color: Theme.of(context).backgroundColor,
                                           decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                image:
-                                                AssetImage('images/user.png'),
+                                                image: AssetImage(
+                                                    'images/user.png'),
                                               )),
                                         )),
                                   ),
@@ -231,8 +231,9 @@ class _UserDeetsState extends State<UserDeets> {
                     }
                   }),
             );
-
-          } else if(userData.name.toLowerCase().contains(widget.query.toLowerCase())) {
+          } else if (userData.name
+              .toLowerCase()
+              .contains(widget.query.toLowerCase())) {
             return GestureDetector(
               onLongPress: () {
                 setState(() {
@@ -240,25 +241,27 @@ class _UserDeetsState extends State<UserDeets> {
                   while (GroupInfo.selectedFriends.contains(widget.friendUID)) {
                     GroupInfo.selectedFriends.remove(widget.friendUID);
                   }
-                  print('latest list after removal is ${GroupInfo
-                      .selectedFriends})');
+                  print(
+                      'latest list after removal is ${GroupInfo
+                          .selectedFriends})');
                 });
               },
               child: ChatButton(
+                  group: true,
+                  guid: null,
                   friendName: userData.name,
                   imageURL: userData.imageUrl,
                   icon: this.widget.bday,
                   onPressed: () {
                     if (widget.check) {
                       GroupInfo(widget.friendUID);
-                      if (GroupInfo.selectedFriends.contains(
-                          widget.friendUID)) {
+                      if (GroupInfo.selectedFriends
+                          .contains(widget.friendUID)) {
                         setState(() {
                           widget.bday = 2;
                         });
                       }
-                    }
-                    else {
+                    } else {
                       showDialog(
                           context: context,
                           builder: (_) =>
@@ -281,8 +284,8 @@ class _UserDeetsState extends State<UserDeets> {
                                           //color: Theme.of(context).backgroundColor,
                                           decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                image:
-                                                AssetImage('images/user.png'),
+                                                image: AssetImage(
+                                                    'images/user.png'),
                                               )),
                                         )),
                                   ),
