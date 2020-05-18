@@ -75,7 +75,7 @@ class _GroupPageState extends State<GroupPage> {
                       groupUID: widget.groupUID,
                     ),
                     Container(
-                      //margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
+                      margin: EdgeInsets.fromLTRB(7.0, 0, 5.0, 5.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
@@ -118,13 +118,14 @@ class _GroupPageState extends State<GroupPage> {
                             width: MediaQuery
                                 .of(context)
                                 .size
-                                .width / 10,
-//                      height: MediaQuery
-//                          .of(context)
-//                          .size
-//                          .height/10,
+                                .width / 7,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height / 14,
 
-                            //padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 5),
                             child: RaisedButton(
                               child: Icon(
                                 Icons.send,

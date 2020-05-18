@@ -77,11 +77,16 @@ class _EditAdminsState extends State<EditAdmins> {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text('Edit Admins'),
+                    centerTitle: true,
+                    backgroundColor: Theme
+                        .of(context)
+                        .accentColor,
                   ),
                   body:
                   Column(
                     children: <Widget>[
                       Expanded(
+                        flex: 4,
                         child: ListView(
                           children: friendList,
                         ),
@@ -89,16 +94,19 @@ class _EditAdminsState extends State<EditAdmins> {
                       HalloButton(
                         color1: data.btnColor,
                         color2: data.cardColor,
-                        text: 'submit',
+                        text: 'Submit',
                         onPressedBtn: () async {
-                          print("PLSSSSS SHOWWW : ${GroupInfo.selectedFriends}");
+                          //print("PLSSSSS SHOWWW : ${GroupInfo.selectedFriends}");
                           final guid = await DatabaseService(
                               uid: current_user_uid).updateAdmin(
                               GroupInfo.selectedFriends, widget.guid);
                           GroupInfo.selectedFriends.clear();
                           Navigator.pop(context);
                         },
-                      )
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
                     ],
                   ),
                 );

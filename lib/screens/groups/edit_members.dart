@@ -77,6 +77,10 @@ class _EditMembersState extends State<EditMembers> {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text('Edit Group Members'),
+                    centerTitle: true,
+                    backgroundColor: Theme
+                        .of(context)
+                        .accentColor,
                   ),
                   body:
                   Column(
@@ -89,7 +93,7 @@ class _EditMembersState extends State<EditMembers> {
                       HalloButton(
                         color1: data.btnColor,
                         color2: data.cardColor,
-                        text: 'submit',
+                        text: 'Submit',
                         onPressedBtn: () async {
                           //print("DSODIOIOI +" +widget.guid);
                           List<String> removedFriends = [];
@@ -101,13 +105,16 @@ class _EditMembersState extends State<EditMembers> {
                             }
 
                           }
-                          print("SOMETHIEN IS NOT WORKING : ${GroupInfo.selectedFriends}");
+                          //print("SOMETHIEN IS NOT WORKING : ${GroupInfo.selectedFriends}");
                           final guid = await DatabaseService(
                               uid: current_user_uid).updateMembers(
                               GroupInfo.selectedFriends, widget.guid,removedFriends);
                           Navigator.pop(context);
                         },
-                      )
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
                     ],
                   ),
                 );

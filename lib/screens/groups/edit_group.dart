@@ -9,7 +9,6 @@ import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
 import 'package:hallo/services/database.dart';
-import 'package:hallo/services/group_info.dart';
 import 'package:hallo/shared/admins_list.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 
@@ -229,7 +228,7 @@ class _EditGroupState extends State<EditGroup> {
 
 
   Widget adminCheck1(){
-    print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
+    //print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
 
        return Text('');
 
@@ -240,12 +239,13 @@ class _EditGroupState extends State<EditGroup> {
     HalloThemeData data = new HalloThemeData();
     return Scaffold(
       appBar: AppBar(
+
         actions: [
           AdminCheck.checkAdmin ? adminCheck1():adminCheck2()
         ],
         title: Text(
           "Edit Group",
-          style: Theme.of(context).textTheme.title,
+          //style: Theme.of(context).textTheme.title,
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).accentColor,
@@ -360,6 +360,10 @@ class _MembersListState extends State<MembersList> {
               ),
               appBar: AppBar(
                 title: Text('Group Members'),
+                centerTitle: true,
+                backgroundColor: Theme
+                    .of(context)
+                    .accentColor,
               ),
               body: Column(
                 children: <Widget>[
