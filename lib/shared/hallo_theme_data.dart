@@ -79,7 +79,8 @@ const DARK_PURPLE_COLOR = Color.fromRGBO(28, 34, 87, 1);
 
   String headlineFont = 'Pacifico';
 
-  String titleFont = 'Nanum Brush Script';
+  //spelling mistake on purpose
+  String titleFont = 'Lacqmuer';
 
   String subheadFont = 'Lacquer';
 
