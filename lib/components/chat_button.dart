@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
-import 'package:hallo/shared/hallo_theme_data.dart';
 
 class ChatButton extends StatefulWidget {
   final String friendName;
@@ -14,14 +15,30 @@ class ChatButton extends StatefulWidget {
   final int icon;
   var onPressed;
 
-  ChatButton(
-      {this.friendName, this.onPressed, this.imageURL, this.icon, this.fuid, this.group, this.guid});
+  ChatButton({this.friendName, this.onPressed, this.imageURL, this.icon, this.fuid, this.group, this.guid});
 
   @override
   _ChatButtonState createState() => _ChatButtonState();
 }
 
 class _ChatButtonState extends State<ChatButton> {
+
+  List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.yellow,
+    Colors.pinkAccent,
+    Colors.blue,
+    Colors.orange
+  ];
+  Random random = new Random();
+  int index = 0;
+
+  void changeIndex() {
+    setState(() => index = random.nextInt(3));
+  }
+
+
   Color selected = Colors.lightBlue.withOpacity(.6);
 
   Color notSelected = Colors.white70;
@@ -135,12 +152,12 @@ class _ChatButtonState extends State<ChatButton> {
           )
               : CircleAvatar(
             //backgroundImage: AssetImage('images/user1.png'),
-            backgroundColor: Colors.black12,
+            backgroundColor: colors[index].withOpacity(0.5),
             radius: 32.0,
             child: ClipOval(
-              child: Icon(
-                Icons.account_circle,
-                color: HalloThemeData().splashColor.withOpacity(0.5),
+              child: new SizedBox(
+                width: 180,
+                height: 180,
               ),
             ),
           ),
