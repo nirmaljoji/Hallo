@@ -249,7 +249,7 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            child: Text('nothing here ra dumma'),
+            child: Text('                GROUPS                 '),
           );
         }
         else {
@@ -288,7 +288,7 @@ class ChatSearch extends SearchDelegate<ChattedPeople>{
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            child: Text('nothing here ra dumma'),
+            child: Center(child: Text('Loading..')),
           );
         }
         else {

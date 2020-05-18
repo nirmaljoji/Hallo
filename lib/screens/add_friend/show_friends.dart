@@ -96,9 +96,8 @@ class _UserDeetsState extends State<UserDeets> {
                 .toDate()
                 .month;
           }
-          if (date == user_date && mnth == user_mnth) widget.bday = 1;
-
-
+          if (date == user_date && mnth == user_mnth && widget.check != true)
+            widget.bday = 1;
 
           if(widget.query == '' || widget.query == null){
             return GestureDetector(

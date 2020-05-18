@@ -176,7 +176,7 @@ class _EditGroupState extends State<EditGroup> {
   }
 
   Widget adminCheck2(){
-    print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
+    //print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
     return IconButton(
       icon: Icon(Icons.exit_to_app),
       onPressed: () async {
@@ -229,9 +229,7 @@ class _EditGroupState extends State<EditGroup> {
 
   Widget adminCheck1(){
     //print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
-
        return Text('');
-
   }
 
   @override
@@ -263,13 +261,16 @@ class _EditGroupState extends State<EditGroup> {
             children: <Widget>[
               Text(
                 'Group Name',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Expanded(
                   flex: 4,
                   child: HalloTextField(
                     text: 'Do not leave blank',
-                    hint: '$groupName',
+                    hint: '                                                     $groupName',
                     isPassword: false,
                     onChangedText: (val) {
                       setState(() {

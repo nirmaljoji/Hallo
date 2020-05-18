@@ -34,10 +34,9 @@ class _HalloTextFieldState extends State<HalloTextField> {
           else
             return null;
         },
-        style: Theme
-            .of(context)
-            .textTheme
-            .body2,
+        style: TextStyle(
+            fontSize: 20
+        ),
         decoration: InputDecoration(
           fillColor: Theme
               .of(context)

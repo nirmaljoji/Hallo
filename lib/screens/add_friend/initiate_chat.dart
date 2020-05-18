@@ -47,6 +47,7 @@ class FriendDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Firestore _firestore = Firestore.instance;
 
     return StreamBuilder(
         stream: DatabaseService(uid: friendUID).userData,
@@ -60,6 +61,19 @@ class FriendDetails extends StatelessWidget {
               imageURL: userData.imageUrl,
               icon: 0,
               onPressed: () {
+                _firestore
+                    .collection('user_profiles')
+                    .document('$current_user_uid')
+                    .collection('friends')
+                    .document('${friendUID}')
+                    .updateData({'chat': true});
+                _firestore
+                    .collection('user_profiles')
+                    .document('${friendUID}')
+                    .collection('friends')
+                    .document('$current_user_uid')
+                    .updateData({'chat': true});
+
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) =>
                         ChatPage(
