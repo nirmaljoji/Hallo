@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hallo/models/uid.dart';
+import 'package:hallo/shared/hallo_theme_data.dart';
 
 class ChatButton extends StatefulWidget {
   final String friendName;
@@ -134,12 +135,12 @@ class _ChatButtonState extends State<ChatButton> {
           )
               : CircleAvatar(
             //backgroundImage: AssetImage('images/user1.png'),
-            backgroundColor: Colors.white70,
+            backgroundColor: Colors.black12,
             radius: 32.0,
             child: ClipOval(
-              child: new SizedBox(
-                width: 180,
-                height: 180,
+              child: Icon(
+                Icons.account_circle,
+                color: HalloThemeData().splashColor.withOpacity(0.5),
               ),
             ),
           ),
