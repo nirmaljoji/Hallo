@@ -9,6 +9,7 @@ import 'package:hallo/screens/add_friend/initiate_chat.dart';
 import 'package:hallo/screens/groups/edit_admins.dart';
 import 'package:hallo/screens/groups/edit_members.dart';
 import 'package:hallo/services/database.dart';
+import 'package:hallo/services/group_info.dart';
 import 'package:hallo/shared/admins_list.dart';
 import 'package:hallo/shared/hallo_theme_data.dart';
 
@@ -175,59 +176,63 @@ class _EditGroupState extends State<EditGroup> {
         });
   }
 
-
-  Widget adminCheck(){
+  Widget adminCheck2(){
     print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
-    if(AdminCheck.checkAdmin)
-       return Text('');
-    else{
-      return IconButton(
-        icon: Icon(Icons.exit_to_app),
-        onPressed: () async {
-          Firestore.instance
-              .collection('messages')
-              .document(current_user_uid)
-              .collection('groups_chat')
-              .document(widget.groupUID)
-              .collection('Chats')
-              .getDocuments()
-              .then((snapshot) {
-            for (DocumentSnapshot ds in snapshot.documents) {
-              Firestore.instance
-                  .collection('messages')
-                  .document(current_user_uid)
-                  .collection('groups_chat')
-                  .document(widget.groupUID)
-                  .collection('Chats')
-                  .document(ds.documentID)
-                  .delete();
-            }
-          });
+    return IconButton(
+      icon: Icon(Icons.exit_to_app),
+      onPressed: () async {
+        Firestore.instance
+            .collection('messages')
+            .document(current_user_uid)
+            .collection('groups_chat')
+            .document(widget.groupUID)
+            .collection('Chats')
+            .getDocuments()
+            .then((snapshot) {
+          for (DocumentSnapshot ds in snapshot.documents) {
+            Firestore.instance
+                .collection('messages')
+                .document(current_user_uid)
+                .collection('groups_chat')
+                .document(widget.groupUID)
+                .collection('Chats')
+                .document(ds.documentID)
+                .delete();
+          }
+        });
 
-          await Firestore.instance
-              .collection('groups')
-              .document(widget.groupUID)
-              .collection('group_members')
-              .document(current_user_uid)
-              .delete();
-          await Firestore.instance
-              .collection('messages')
-              .document(current_user_uid)
-              .collection('groups_chat')
-              .document(widget.groupUID)
-              .delete();
-          await Firestore.instance
-              .collection('groups')
-              .document(widget.groupUID)
-              .collection('group_info')
-              .document(widget.groupUID)
-              .collection('admins')
-              .document(current_user_uid)
-              .delete();
-          Navigator.pushNamed(context, '/groups');
-        },
-      );
-    }
+        await Firestore.instance
+            .collection('groups')
+            .document(widget.groupUID)
+            .collection('group_members')
+            .document(current_user_uid)
+            .delete();
+        await Firestore.instance
+            .collection('messages')
+            .document(current_user_uid)
+            .collection('groups_chat')
+            .document(widget.groupUID)
+            .delete();
+        await Firestore.instance
+            .collection('groups')
+            .document(widget.groupUID)
+            .collection('group_info')
+            .document(widget.groupUID)
+            .collection('admins')
+            .document(current_user_uid)
+            .delete();
+        Navigator.pushNamed(context, '/groups');
+      },
+    );
+
+  }
+
+
+  Widget adminCheck1(){
+    print("BROOOOOOOO  ${AdminCheck.checkAdmin}");
+
+       return Text('');
+
   }
 
   @override
@@ -236,7 +241,7 @@ class _EditGroupState extends State<EditGroup> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          adminCheck(),
+          AdminCheck.checkAdmin ? adminCheck1():adminCheck2()
         ],
         title: Text(
           "Edit Group",
