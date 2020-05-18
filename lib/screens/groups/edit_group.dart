@@ -260,17 +260,17 @@ class _EditGroupState extends State<EditGroup> {
           child: Column(
             children: <Widget>[
               Text(
-                'Group Name',
+                'Group Name : ',
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(
                 height: 10,
               ),
               Expanded(
-                  flex: 4,
+                  flex: 1,
                   child: HalloTextField(
                     text: 'Do not leave blank',
-                    hint: '                                                     $groupName',
+                    hint: ' $groupName',
                     isPassword: false,
                     onChangedText: (val) {
                       setState(() {
@@ -281,11 +281,17 @@ class _EditGroupState extends State<EditGroup> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'Admins',
-                style: TextStyle(fontSize: 25),
+              Expanded(
+                flex: 1,
+                child: Text(
+                  'Admins : ',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              Expanded(flex: 10, child: AdminsList(guid: groupUID)),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(flex: 5, child: AdminsList(guid: groupUID)),
               Expanded(
                 flex: 5,
                 child: Center(child: _buttonsGroup(groupUID)),

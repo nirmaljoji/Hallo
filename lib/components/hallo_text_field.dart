@@ -56,10 +56,9 @@ class _HalloTextFieldState extends State<HalloTextField> {
 
           hintText: widget.hint,
           //hint
-          hintStyle: Theme
-              .of(context)
-              .textTheme
-              .body2,
+          hintStyle: TextStyle(
+              fontSize: 20
+          ),
         ),
 
         obscureText: this.widget.isPassword,
