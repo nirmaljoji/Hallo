@@ -26,13 +26,22 @@ class _ChatButtonState extends State<ChatButton> {
   List<Color> colors = [
     Colors.red,
     Colors.green,
-    Colors.yellow,
+    Colors.yellow.withOpacity(0.8),
+    Colors.brown,
+    Colors.deepPurple,
     Colors.pinkAccent,
     Colors.blue,
     Colors.orange
   ];
   Random random = new Random();
   int index = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    changeIndex();
+  }
 
   void changeIndex() {
     setState(() => index = random.nextInt(3));
@@ -53,6 +62,7 @@ class _ChatButtonState extends State<ChatButton> {
         .of(context)
         .size
         .height;
+
 
     Widget recentText(String fuid) {
       String msgText, msgFrom;
@@ -112,6 +122,7 @@ class _ChatButtonState extends State<ChatButton> {
             }
           });
     }
+
 
     return Material(
       elevation: 2.0,

@@ -31,7 +31,7 @@ class _GroupsState extends State<Groups> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Container(
-              child: Text('nothing here ra dumma'),
+              child: Text('Loading...'),
             );
           } else {
             //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
@@ -101,7 +101,7 @@ class ChattedGroup extends StatelessWidget {
       stream: DatabaseService(uid: groupUID).groupData,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Center(child: Text('no'));
+          return Center(child: Text('Loading...'));
         } else if(query == '' || query == null){
           GroupData groupData = snapshot.data;
           return ChatButton(
@@ -178,7 +178,7 @@ class GroupSearch extends SearchDelegate<ChattedGroup>{
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            child: Text('nothing here ra dumma'),
+            child: Text('Loading...'),
           );
         } else {
           //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!
@@ -215,7 +215,7 @@ class GroupSearch extends SearchDelegate<ChattedGroup>{
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            child: Text('nothing here ra dumma'),
+            child: Text('Loading...'),
           );
         } else {
           //snapshot.data.documents gets added as a list only if it has atleast ONE field!!!!!

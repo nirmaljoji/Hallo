@@ -44,7 +44,7 @@ class _ChatsState extends State<Chats> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Container(
-              child: Text('nothing here ra dumma'),
+              child: Text('Loading...'),
             );
           }
           else {
